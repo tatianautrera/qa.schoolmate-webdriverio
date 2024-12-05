@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">School Mate</string>
+    <string name="empty" />
+    <string name="access_account">Acessar conta</string>
+    <string name="fill_your_email_here">Digite seu email</string>
+    <string name="fill_your_password">Digite sua senha</string>
+    <string name="enter">Entrar</string>
+    <string name="create_account">Criar conta</string>
+</resources>
