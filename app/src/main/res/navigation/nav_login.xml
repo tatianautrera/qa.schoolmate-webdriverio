@@ -10,6 +10,28 @@
         android:name="com.fsacchi.schoolmate.core.features.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/go_to_forgot_password"
+            app:destination="@id/forgotPassword" />
+
+        <action
+            android:id="@+id/go_to_register_user"
+            app:destination="@id/registerUser" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.fsacchi.schoolmate.core.features.login.ForgotPasswordFragment"
+        android:label="forgotPassword"
+        tools:layout="@layout/fragment_forgot_password"/>
+
+    <fragment
+        android:id="@+id/registerUser"
+        android:name="com.fsacchi.schoolmate.core.features.login.RegisterUserFragment"
+        android:label="registerUser"
+        tools:layout="@layout/fragment_register_user">
+
     </fragment>
 
 </navigation>

@@ -8,4 +8,12 @@
     <string name="create_account">Criar conta</string>
     <string name="save_login">Salvar login</string>
     <string name="forgot_my_password">Esqueci minha senha</string>
+    <string name="recovery_login">Recuperar senha</string>
+    <string name="info_link_send_forgot">Um link de recuperação de senha será enviado para o e-mail cadastrado:</string>
+    <string name="send_link">Enviar link</string>
+    <string name="cancel">Cancelar</string>
+    <string name="create_your_account">Crie sua conta</string>
+    <string name="complete_name">Nome completo</string>
+    <string name="email">Email</string>
+    <string name="create_an_password">Crie uma senha</string>
 </resources>
