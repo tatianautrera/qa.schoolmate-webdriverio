@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="140dp" />
+            app:layout_constraintGuide_begin="100dp" />
 
         <ImageView
             android:id="@+id/ic_logo"
@@ -104,6 +104,30 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_save_login"
+                    android:layout_width="0dp"
+                    app:useMaterialThemeColors="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/save_login"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+                <TextView
+                    android:id="@+id/tv_forgot_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorLink"
+                    android:text="@string/forgot_my_password"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cb_save_login"
+                    app:layout_constraintTop_toTopOf="@id/cb_save_login"
+                    app:layout_constraintBottom_toBottomOf="@id/cb_save_login"/>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_enter"
                     style="@style/Theme.SchoolMate.Button"
@@ -114,7 +138,7 @@
                     android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_password"
+                    app:layout_constraintTop_toBottomOf="@id/cb_save_login"
                     app:layout_constraintVertical_bias="1" />
 
                 <com.google.android.material.button.MaterialButton

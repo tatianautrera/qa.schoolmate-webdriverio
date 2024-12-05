@@ -6,4 +6,6 @@
     <string name="fill_your_password">Digite sua senha</string>
     <string name="enter">Entrar</string>
     <string name="create_account">Criar conta</string>
+    <string name="save_login">Salvar login</string>
+    <string name="forgot_my_password">Esqueci minha senha</string>
 </resources>
