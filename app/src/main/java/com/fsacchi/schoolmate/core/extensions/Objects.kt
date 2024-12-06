@@ -1,5 +1,8 @@
 package com.fsacchi.schoolmate.core.extensions
 
+import com.google.firebase.auth.FirebaseAuthEmailException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -134,3 +137,13 @@ inline fun <reified T : Enum<T>> String.toEnum(): T = enumValueOf(this)
 //endregion
 
 fun emptyString(): String = ""
+
+fun Exception.handleFirebaseErrors(): String = run {
+    val errorMessage = when (this) {
+        is FirebaseAuthInvalidCredentialsException -> "Credenciais inválidas"
+        is FirebaseAuthUserCollisionException -> "Este e-mail já está cadastrado. Tente outro e-mail."
+        is FirebaseAuthEmailException -> "Erro ao enviar o e-mail. Tente novamente mais tarde."
+        else -> "Erro desconhecido. Tente novamente."
+    }
+    return errorMessage
+}

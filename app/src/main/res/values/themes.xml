@@ -4,7 +4,7 @@
     <style name="Theme.SchoolMate" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="fontFamily">@font/helvetica_neue_medium</item>
         <item name="materialButtonStyle">@style/Theme.SchoolMate.Button</item>

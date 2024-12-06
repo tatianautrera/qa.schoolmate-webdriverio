@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.navigation)
     implementation(libs.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.koin)
+    implementation(libs.androidx.security)
     implementation(libs.navigation.fragment)
     implementation(libs.picasso)
     implementation(libs.firebase.auth)

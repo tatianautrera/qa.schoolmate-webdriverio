@@ -1,4 +1,4 @@
-package com.fsacchi.schoolmate.model.login
+package com.fsacchi.schoolmate.data.model.login
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

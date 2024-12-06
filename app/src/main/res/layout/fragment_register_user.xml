@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.fsacchi.schoolmate.model.login.RegisterUserModel" />
+            type="com.fsacchi.schoolmate.data.model.login.RegisterUserModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textColorHint="@color/hint_color_input"
-                    android:hint="@string/create_an_password"
+                    android:hint="@string/confirm_an_password"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_create_password"

@@ -1,24 +1,70 @@
 package com.fsacchi.schoolmate.core.features.login
 
+import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.clickListener
+import com.fsacchi.schoolmate.core.extensions.createProgressDialog
 import com.fsacchi.schoolmate.core.extensions.enable
+import com.fsacchi.schoolmate.core.extensions.navTo
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.databinding.FragmentRegisterUserBinding
-import com.fsacchi.schoolmate.model.login.RegisterUserModel
+import com.fsacchi.schoolmate.data.model.login.RegisterUserModel
+import com.fsacchi.schoolmate.presentation.features.LoginViewModel
+import com.fsacchi.schoolmate.presentation.states.LoginUiState
 import com.fsacchi.schoolmate.validator.Validator
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
 
     private lateinit var validator: Validator
+    private val viewModel: LoginViewModel by viewModel()
+    private val dialog by lazy { createProgressDialog() }
+
     override val layoutRes: Int
         get() = R.layout.fragment_register_user
 
     override fun start() {
-        binding.item = RegisterUserModel()
+        binding.item = viewModel.registerUserModel
+        lifecycle.addObserver(viewModel)
 
         insertListeners()
         setupValidation()
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+            viewModel.uiState.login.collect { loginUiState ->
+                loginUiState?.let {
+                    when(it.screenType) {
+                        is LoginUiState.ScreenType.Error -> {
+                            dialog.dismiss()
+                            (activity as LoginActivity).showAlertMessage(
+                                isError = true,
+                                title = it.screenType.errorTitle ?: "Erro no cadastro",
+                                message = it.screenType.errorMessage.orEmpty()
+                            )
+                        }
+                        LoginUiState.ScreenType.Loading -> {
+                            dialog.show()
+                        }
+                        LoginUiState.ScreenType.Success -> {
+                            dialog.dismiss()
+                            (activity as LoginActivity).showAlertMessage(
+                                isError = false,
+                                title = "Usuário criado",
+                                message = "Valide seu email para acessar o Schoolmate"
+                            )
+                            popBackStack()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupValidation() {
@@ -42,13 +88,7 @@ class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
         }
         btnCreateAccount.clickListener{
             binding.item?.let {
-                if(it.password != it.confirmPassword) {
-                    (activity as LoginActivity).showAlertMessage(
-                        isError = true,
-                        title = "Erro de validação",
-                        message = "As senhas não coincidem"
-                    )
-                }
+               viewModel.registerUser()
             }
         }
     }

@@ -6,11 +6,15 @@ import com.fsacchi.schoolmate.core.extensions.enable
 import com.fsacchi.schoolmate.core.extensions.navTo
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.databinding.FragmentLoginBinding
+import com.fsacchi.schoolmate.presentation.features.LoginViewModel
 import com.fsacchi.schoolmate.validator.Validator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private lateinit var validator: Validator
+    private val viewModel: LoginViewModel by viewModel()
+
     override val layoutRes: Int
         get() = R.layout.fragment_login
 
