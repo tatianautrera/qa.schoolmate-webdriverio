@@ -1,8 +1,5 @@
-package com.s3bank.mobile.data.extensions
+package com.fsacchi.schoolmate.core.extensions
 
-import com.fsacchi.schoolmate.core.extensions.DateMasks
-import com.fsacchi.schoolmate.core.extensions.emptyString
-import com.fsacchi.schoolmate.core.extensions.locale
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar

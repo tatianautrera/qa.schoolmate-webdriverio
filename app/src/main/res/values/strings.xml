@@ -1,4 +1,23 @@
 <resources>
+    <string name="msg_error_field_mandatory">Campo obrigatório</string>
+    <string name="msg_invalid_cpf">CPF inválido</string>
+    <string name="msg_invalid_cnpj">CNPJ inválido</string>
+    <string name="msg_invalid_cellphone">Celular inválido</string>
+    <string name="msg_invalid_phone">Telefone inválido</string>
+    <string name="msg_invalid_zipcode">CEP inválido</string>
+    <string name="msg_min_length">O campo deve conter %d digitos</string>
+    <string name="msg_range_length">O campo deve conter entre %d e %d caracteres</string>
+    <string name="msg_range_length_digit">O campo deve conter entre %d e %d digitos</string>
+    <string name="msg_invalid_date">Data inválida</string>
+    <string name="msg_complete_name">Inserir nome completo</string>
+    <string name="msg_name_invalid">O nome não pode conter caracter especial ou numeral</string>
+    <string name="msg_name_ignore_number_invalid">O nome não pode conter caracter especial</string>
+    <string name="msg_invalid_date_big_today">Data maior que a data atual</string>
+    <string name="msg_invalid_date_majority">É necessário que seja maior de idade</string>
+    <string name="msg_invalid_email">E-mail inválido</string>
+    <string name="msg_invalid_value">Valor inferior ao mínimo permitido</string>
+    <string name="msg_invalid_url">Não é uma url válida</string>
+
     <string name="app_name">School Mate</string>
     <string name="empty" />
     <string name="access_account">Acessar conta</string>

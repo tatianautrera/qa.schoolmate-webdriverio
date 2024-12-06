@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.navigationArgs)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {

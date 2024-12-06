@@ -4,5 +4,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.kotlinKapt) apply false
     alias(libs.plugins.navigationArgs) apply false
-
+    alias(libs.plugins.kotlin.parcelize) apply false
 }

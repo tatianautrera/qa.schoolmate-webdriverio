@@ -8,16 +8,16 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
+import com.fsacchi.schoolmate.core.extensions.DateMasks
 import com.fsacchi.schoolmate.core.extensions.disable
 import com.fsacchi.schoolmate.core.extensions.drawable
 import com.fsacchi.schoolmate.core.extensions.enable
+import com.fsacchi.schoolmate.core.extensions.format
+import com.fsacchi.schoolmate.core.extensions.formatWithUTC
 import com.fsacchi.schoolmate.core.extensions.htmlText
 import com.fsacchi.schoolmate.core.extensions.loadImage
-import com.fsacchi.schoolmate.core.extensions.visible
-import com.fsacchi.schoolmate.core.extensions.DateMasks
-import com.s3bank.mobile.data.extensions.format
-import com.s3bank.mobile.data.extensions.formatWithUTC
 import com.fsacchi.schoolmate.core.extensions.toUpper
+import com.fsacchi.schoolmate.core.extensions.visible
 import java.util.Date
 
 object BindingAdapter {

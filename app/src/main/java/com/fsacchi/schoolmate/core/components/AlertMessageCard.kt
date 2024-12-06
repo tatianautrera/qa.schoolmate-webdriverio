@@ -7,8 +7,6 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.fsacchi.schoolmate.R
-import com.fsacchi.schoolmate.core.extensions.clickListener
-import com.fsacchi.schoolmate.core.extensions.visible
 import com.fsacchi.schoolmate.databinding.AlertMessageCardBinding
 
 class AlertMessageCard @JvmOverloads constructor(
