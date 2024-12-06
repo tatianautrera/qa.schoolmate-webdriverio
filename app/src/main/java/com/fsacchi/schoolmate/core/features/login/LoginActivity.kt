@@ -9,4 +9,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override val layoutRes: Int get() = R.layout.activity_login
 
     override fun init() {}
+
+    fun showAlertMessage(title: String, message: String? = "", isError: Boolean) {
+        binding.alertCard.showAlert(title, message, isError)
+    }
 }

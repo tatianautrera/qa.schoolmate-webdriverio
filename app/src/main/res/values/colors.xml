@@ -10,6 +10,7 @@
     <color name="secondText">#994a4a4a</color>
     <color name="defaultToolbar">#ffffff</color>
     <color name="red">#e70000</color>
+    <color name="warning">#E55858</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>

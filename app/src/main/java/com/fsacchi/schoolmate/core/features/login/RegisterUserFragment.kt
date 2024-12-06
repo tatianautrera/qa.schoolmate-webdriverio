@@ -20,5 +20,10 @@ class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
         btnCancel.clickListener {
             popBackStack()
         }
+        btnCreateAccount.clickListener{
+            activity?.let {
+                (it as LoginActivity).showAlertMessage(title = "Sucesso", message = "Deu tudo certo em seu cadastro",  isError = false)
+            }
+        }
     }
 }

@@ -138,7 +138,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_send_link"
+                    android:id="@+id/btn_create_account"
                     style="@style/Theme.SchoolMate.Button"
                     android:text="@string/create_account"
                     android:layout_marginStart="16dp"
@@ -162,7 +162,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_send_link"
+                    app:layout_constraintTop_toBottomOf="@id/btn_create_account"
                     app:layout_constraintVertical_bias="1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

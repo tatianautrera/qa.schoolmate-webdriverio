@@ -16,10 +16,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun insertListeners() = with(binding) {
+        btnEnter.clickListener {
+            activity?.let {
+                (it as LoginActivity).showAlertMessage(title = "Algo deu errado", message = "Verifique sua internet",  isError = true)
+            }
+        }
         tvForgotPassword.clickListener {
             navTo(LoginFragmentDirections.goToForgotPassword())
         }
-
         btnRegister.clickListener {
             navTo(LoginFragmentDirections.goToRegisterUser())
         }
