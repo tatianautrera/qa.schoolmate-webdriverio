@@ -5,4 +5,6 @@ plugins {
     alias(libs.plugins.kotlinKapt) apply false
     alias(libs.plugins.navigationArgs) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.firebase) apply false
+
 }
