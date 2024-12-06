@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.fsacchi.schoolmate.data.model.login.RegisterUserModel" />
+            type="com.fsacchi.schoolmate.data.model.login.UserModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

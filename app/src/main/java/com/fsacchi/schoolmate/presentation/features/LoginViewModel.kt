@@ -3,25 +3,33 @@ package com.fsacchi.schoolmate.presentation.features
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fsacchi.schoolmate.data.model.login.RegisterUserModel
+import com.fsacchi.schoolmate.data.model.login.UserModel
+import com.fsacchi.schoolmate.domain.login.ForgotPasswordUseCase
 import com.fsacchi.schoolmate.domain.login.RegisterUserUseCase
 import com.fsacchi.schoolmate.presentation.states.LoginUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val registerUserUseCase: RegisterUserUseCase
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val forgotPasswordUseCase: ForgotPasswordUseCase
 ) : ViewModel(), LifecycleObserver {
 
-    val registerUserModel = RegisterUserModel()
+    var userModel: UserModel = UserModel()
+
     var uiState = UiState()
 
     fun registerUser() {
         viewModelScope.launch {
-            registerUserUseCase(registerUserModel).collect {
+            registerUserUseCase(userModel).collect {
+                uiState.login.emit(it)
+            }
+        }
+    }
+
+    fun forgotPassword() {
+        viewModelScope.launch {
+            forgotPasswordUseCase(userModel).collect {
                 uiState.login.emit(it)
             }
         }

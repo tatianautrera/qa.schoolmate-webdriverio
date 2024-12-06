@@ -1,20 +1,15 @@
 package com.fsacchi.schoolmate.core.features.login
 
-import androidx.compose.runtime.collectAsState
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
 import com.fsacchi.schoolmate.core.extensions.enable
-import com.fsacchi.schoolmate.core.extensions.navTo
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.databinding.FragmentRegisterUserBinding
-import com.fsacchi.schoolmate.data.model.login.RegisterUserModel
 import com.fsacchi.schoolmate.presentation.features.LoginViewModel
 import com.fsacchi.schoolmate.presentation.states.LoginUiState
 import com.fsacchi.schoolmate.validator.Validator
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +23,7 @@ class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
         get() = R.layout.fragment_register_user
 
     override fun start() {
-        binding.item = viewModel.registerUserModel
+        binding.item = viewModel.userModel
         lifecycle.addObserver(viewModel)
 
         insertListeners()

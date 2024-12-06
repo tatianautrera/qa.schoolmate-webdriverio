@@ -1,11 +1,10 @@
 package com.fsacchi.schoolmate.domain.login
 
 import com.fsacchi.schoolmate.core.extensions.handleFirebaseErrors
-import com.fsacchi.schoolmate.data.model.login.RegisterUserModel
+import com.fsacchi.schoolmate.data.model.login.UserModel
 import com.fsacchi.schoolmate.domain.UseCase
 import com.fsacchi.schoolmate.presentation.states.LoginUiState
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,9 +13,9 @@ import kotlin.coroutines.resume
 
 class RegisterUserUseCase(
     private val auth: FirebaseAuth
-) : UseCase<RegisterUserModel, LoginUiState>() {
+) : UseCase<UserModel, LoginUiState>() {
 
-    override suspend fun execute(param: RegisterUserModel): Flow<LoginUiState> = flow {
+    override suspend fun execute(param: UserModel): Flow<LoginUiState> = flow {
         emit(LoginUiState(LoginUiState.ScreenType.Loading))
 
         if(param.password != param.confirmPassword) {
@@ -73,10 +72,5 @@ class RegisterUserUseCase(
                     }
                 }
         }
-    }
-
-
-    private fun sendVerificationEmail(user: FirebaseUser?) {
-
     }
 }

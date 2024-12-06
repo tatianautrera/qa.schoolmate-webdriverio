@@ -40,7 +40,7 @@ class AlertMessageCard @JvmOverloads constructor(
         binding.icIcon.setImageDrawable(context.getDrawable(iconCard))
         animateVisibility(show = true)
 
-        postDelayed({ hideAlert() }, 2500)
+        postDelayed({ hideAlert() }, 3000)
     }
 
     private fun hideAlert() {
