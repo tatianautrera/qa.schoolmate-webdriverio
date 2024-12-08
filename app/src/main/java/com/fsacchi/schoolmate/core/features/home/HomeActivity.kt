@@ -14,7 +14,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     override val layoutRes: Int get() = R.layout.activity_home
     lateinit var user: UserEntity
 
-    override fun init() {}
+    override fun init() {
+        insertListeners()
+    }
+
+    private fun insertListeners() {
+        binding.bottomBar.setListener {
+            val menuSelected = it
+        }
+    }
 
     fun showAlertMessage(title: String, message: String? = "", isError: Boolean) {
         binding.alertCard.showAlert(title, message, isError)
@@ -25,5 +33,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             user = userEntity
         }
     }
+
+
 
 }
