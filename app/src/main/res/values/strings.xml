@@ -36,5 +36,6 @@
     <string name="email">Email</string>
     <string name="create_an_password">Crie uma senha</string>
     <string name="confirm_an_password">Confirme sua senha</string>
+    <string name="logoff">Finalizar sessão</string>
 
 </resources>

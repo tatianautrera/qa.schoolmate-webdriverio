@@ -3,7 +3,7 @@ package com.fsacchi.schoolmate.domain.login
 import com.fsacchi.schoolmate.core.extensions.handleFirebaseErrors
 import com.fsacchi.schoolmate.data.model.login.UserModel
 import com.fsacchi.schoolmate.domain.UseCase
-import com.fsacchi.schoolmate.presentation.states.LoginUiState
+import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
@@ -13,15 +13,15 @@ import kotlin.coroutines.resume
 
 class RegisterUserUseCase(
     private val auth: FirebaseAuth
-) : UseCase<UserModel, LoginUiState>() {
+) : UseCase<UserModel, DefaultUiState>() {
 
-    override suspend fun execute(param: UserModel): Flow<LoginUiState> = flow {
-        emit(LoginUiState(LoginUiState.ScreenType.Loading))
+    override suspend fun execute(param: UserModel): Flow<DefaultUiState> = flow {
+        emit(DefaultUiState(DefaultUiState.ScreenType.Loading))
 
         if(param.password != param.confirmPassword) {
             emit(
-                LoginUiState(
-                    screenType = LoginUiState.ScreenType.Error(
+                DefaultUiState(
+                    screenType = DefaultUiState.ScreenType.Error(
                         errorTitle = "Erro de validação",
                         errorMessage = "As senhas não coincidem"
                     )
@@ -33,7 +33,7 @@ class RegisterUserUseCase(
         }
     }
 
-    private suspend fun createUserWithEmail(email: String, password: String, name: String): LoginUiState {
+    private suspend fun createUserWithEmail(email: String, password: String, name: String): DefaultUiState {
         return suspendCancellableCoroutine { continuation ->
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -49,11 +49,11 @@ class RegisterUserUseCase(
                             ?.addOnCompleteListener { taskEmail ->
                                 if (taskEmail.isSuccessful) {
                                     continuation.resume(
-                                        LoginUiState(screenType = LoginUiState.ScreenType.Success)
+                                        DefaultUiState(screenType = DefaultUiState.ScreenType.Success)
                                     )
                                 } else {
-                                    LoginUiState(
-                                        screenType = LoginUiState.ScreenType.Error(
+                                    DefaultUiState(
+                                        screenType = DefaultUiState.ScreenType.Error(
                                             errorTitle = "Erro ao criar usuário",
                                             errorMessage = taskEmail.exception?.handleFirebaseErrors()
                                         ),
@@ -62,8 +62,8 @@ class RegisterUserUseCase(
                             }
                     } else {
                         continuation.resume(
-                            LoginUiState(
-                                screenType = LoginUiState.ScreenType.Error(
+                            DefaultUiState(
+                                screenType = DefaultUiState.ScreenType.Error(
                                     errorTitle = "Erro ao criar usuário",
                                     errorMessage = task.exception?.handleFirebaseErrors()
                                 ),

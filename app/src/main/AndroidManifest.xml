@@ -28,6 +28,12 @@
             android:label="@string/empty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".core.features.home.HomeActivity"
+            android:exported="false"
+            android:label="@string/empty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

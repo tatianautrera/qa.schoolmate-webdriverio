@@ -1,10 +1,9 @@
 package com.fsacchi.schoolmate.presentation.states
 
-import android.graphics.Bitmap
 import androidx.compose.runtime.Stable
 
 @Stable
-data class LoginUiState(
+data class DefaultUiState(
     val screenType: ScreenType = ScreenType.Loading
 ) {
     sealed interface ScreenType {

@@ -6,6 +6,10 @@
 
     <data>
         <import type="com.fsacchi.schoolmate.validator.InputType" />
+
+        <variable
+            name="item"
+            type="com.fsacchi.schoolmate.data.model.login.UserModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:text="@={item.email}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +112,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:imeOptions="actionDone"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:text="@={item.password}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,6 +125,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
                     android:text="@string/save_login"
+                    android:checked="@={item.saveCredentials}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_password" />
 

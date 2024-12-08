@@ -8,7 +8,7 @@ import com.fsacchi.schoolmate.core.extensions.enable
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.databinding.FragmentRegisterUserBinding
 import com.fsacchi.schoolmate.presentation.features.LoginViewModel
-import com.fsacchi.schoolmate.presentation.states.LoginUiState
+import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.fsacchi.schoolmate.validator.Validator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,7 +36,7 @@ class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
             viewModel.uiState.login.collect { loginUiState ->
                 loginUiState?.let {
                     when(it.screenType) {
-                        is LoginUiState.ScreenType.Error -> {
+                        is DefaultUiState.ScreenType.Error -> {
                             dialog.dismiss()
                             (activity as LoginActivity).showAlertMessage(
                                 isError = true,
@@ -44,10 +44,10 @@ class RegisterUserFragment : BaseFragment<FragmentRegisterUserBinding>() {
                                 message = it.screenType.errorMessage.orEmpty()
                             )
                         }
-                        LoginUiState.ScreenType.Loading -> {
+                        DefaultUiState.ScreenType.Loading -> {
                             dialog.show()
                         }
-                        LoginUiState.ScreenType.Success -> {
+                        DefaultUiState.ScreenType.Success -> {
                             dialog.dismiss()
                             (activity as LoginActivity).showAlertMessage(
                                 isError = false,
