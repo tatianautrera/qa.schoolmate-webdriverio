@@ -8,6 +8,7 @@
     <color name="brownText">#4D2D1B</color>
     <color name="defaultText">#000000</color>
     <color name="backgroundWhite">#66FFFFFF</color>
+    <color name="textGray">#AFAFAF</color>
     <color name="secondText">#994a4a4a</color>
     <color name="defaultToolbar">#ffffff</color>
     <color name="red">#e70000</color>

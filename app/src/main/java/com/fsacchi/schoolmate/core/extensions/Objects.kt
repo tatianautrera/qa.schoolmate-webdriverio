@@ -149,3 +149,19 @@ fun Exception.handleFirebaseErrors(): String = run {
     }
     return errorMessage
 }
+
+fun Int.isEmoji(): Boolean {
+    val codePoint = this
+    return (codePoint in 0x1F600..0x1F64F ||
+            codePoint in 0x1F300..0x1F5FF ||
+            codePoint in 0x1F680..0x1F6FF ||
+            codePoint in 0x1F700..0x1F77F ||
+            codePoint in 0x2600..0x26FF ||
+            codePoint in 0x2700..0x27BF ||
+            codePoint in 0xFE00..0xFE0F ||
+            codePoint in 0x1F900..0x1F9FF ||
+            codePoint in 0x1FA70..0x1FAFF)
+}
+
+fun Int.toEmoji(): String = String(Character.toChars(this))
+fun String.fromInt(): Int? = this.codePoints().toArray().firstOrNull()

@@ -15,11 +15,19 @@ abstract class BaseDialog<T : ViewDataBinding> : BottomSheetDialogFragment() {
     protected abstract val layoutRes: Int
 
     protected abstract fun init()
+    protected abstract fun created()
 
     override fun onCreateView(inflater: LayoutInflater, group: ViewGroup?, saved: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutRes, group, false)
         init()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.executePendingBindings()
+
+        created()
     }
 
     fun show(fragmentManager: FragmentManager) =

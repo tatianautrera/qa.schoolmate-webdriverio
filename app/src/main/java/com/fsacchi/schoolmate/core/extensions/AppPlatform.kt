@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.fsacchi.schoolmate.core.platform.BaseActivity
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.nio.charset.StandardCharsets
 
 val FragmentManager.currentNavigationFragment: Fragment?
@@ -30,6 +31,10 @@ inline fun <reified T : BaseActivity<*>> Context.startActivity(
 
 inline fun <reified T : BaseActivity<*>> Fragment.startActivity(finishPrevious: Boolean = false) {
     requireContext().startActivity<T>(finishPrevious)
+}
+
+inline fun <reified T : Parcelable> BottomSheetDialogFragment.getParcelable(extra: String) = lazy {
+    arguments?.getParcelable<T>(extra)!!
 }
 
 inline fun <reified T : BaseActivity<*>> Fragment.startActivity(

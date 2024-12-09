@@ -10,9 +10,11 @@ import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
 import com.fsacchi.schoolmate.core.extensions.navTo
 import com.fsacchi.schoolmate.core.extensions.startActivity
+import com.fsacchi.schoolmate.core.features.home.sheets.DisciplineBottomSheet
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.features.splash.SplashActivity
 import com.fsacchi.schoolmate.core.platform.BaseFragment
+import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
 import com.fsacchi.schoolmate.databinding.FragmentDisciplineBinding
 import com.fsacchi.schoolmate.databinding.FragmentHomeBinding
 import com.fsacchi.schoolmate.databinding.FragmentLoginBinding
@@ -42,6 +44,12 @@ class DisciplineFragment : BaseFragment<FragmentDisciplineBinding>() {
                     navTo(DisciplineFragmentDirections.goToFile())
                 }
             }
+        }
+
+        binding.btnCreateDiscipline.clickListener {
+            DisciplineBottomSheet.newInstance(DisciplineModel()) {
+                val disciplineModel = it
+            }.show(childFragmentManager)
         }
     }
 }

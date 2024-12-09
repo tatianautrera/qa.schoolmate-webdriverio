@@ -42,5 +42,11 @@
     <string name="files">Arquivos</string>
     <string name="menu">menu</string>
     <string name="view_calendar">Visualizar calendário</string>
+    <string name="add_discipline">Adicionar disciplina</string>
+    <string name="message_no_discipline">Você ainda não cadastrou suas disciplinas</string>
+    <string name="discipline_name">Nome da disciplina</string>
+    <string name="teacher_name">Nome do professor</string>
+    <string name="discipline_icon">Defina um emoji para a disciplina</string>
+    <string name="save_discipline">Salvar disciplina</string>
 
 </resources>
