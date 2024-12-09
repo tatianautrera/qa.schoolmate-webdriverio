@@ -1,5 +1,6 @@
 package com.fsacchi.schoolmate.core.extensions
 
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -143,6 +144,7 @@ fun Exception.handleFirebaseErrors(): String = run {
         is FirebaseAuthInvalidCredentialsException -> "Credenciais inválidas"
         is FirebaseAuthUserCollisionException -> "Este e-mail já está cadastrado. Tente outro e-mail."
         is FirebaseAuthEmailException -> "Erro ao enviar o e-mail. Tente novamente mais tarde."
+        is FirebaseNetworkException -> "Erro de conexão, verifique sua internet."
         else -> "Erro desconhecido. Tente novamente."
     }
     return errorMessage

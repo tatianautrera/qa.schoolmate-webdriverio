@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.fsacchi.schoolmate.R
+import com.fsacchi.schoolmate.core.components.CustomToolbar
 import com.fsacchi.schoolmate.core.extensions.finish
 import com.fsacchi.schoolmate.core.extensions.hideSoftKeyboard
 

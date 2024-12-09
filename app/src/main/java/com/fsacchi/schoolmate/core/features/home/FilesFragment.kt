@@ -13,6 +13,8 @@ import com.fsacchi.schoolmate.core.extensions.startActivity
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.features.splash.SplashActivity
 import com.fsacchi.schoolmate.core.platform.BaseFragment
+import com.fsacchi.schoolmate.databinding.FragmentDisciplineBinding
+import com.fsacchi.schoolmate.databinding.FragmentFileBinding
 import com.fsacchi.schoolmate.databinding.FragmentHomeBinding
 import com.fsacchi.schoolmate.databinding.FragmentLoginBinding
 import com.fsacchi.schoolmate.presentation.features.HomeViewModel
@@ -21,43 +23,25 @@ import com.fsacchi.schoolmate.presentation.states.UserUiState
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class FilesFragment : BaseFragment<FragmentFileBinding>() {
 
-    private val homeViewModel: HomeViewModel by inject()
     override val layoutRes: Int
-        get() = R.layout.fragment_home
+        get() = R.layout.fragment_file
 
     override fun start() {
-        homeViewModel.getUser()
-        observe()
         insertListeners()
-    }
-
-    private fun observe() {
-        lifecycleScope.launch {
-            homeViewModel.uiState.user.collect { userUiState ->
-                userUiState?.let {
-                    when(it.screenType) {
-                        UserUiState.ScreenType.Await -> {}
-                        is UserUiState.ScreenType.Loaded -> {
-                            (activity as HomeActivity).setLoggedUser(it.screenType.userEntity)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun insertListeners() {
         (activity as HomeActivity).menuSelected {
             when(it) {
                 BottomBar.MenuBottom.DISCIPLINE -> {
-                    navTo(HomeFragmentDirections.goToDiscipline())
+                    navTo(FilesFragmentDirections.goToDiscipline())
                 }
-                BottomBar.MenuBottom.AGENDA -> {}
-                BottomBar.MenuBottom.FILE -> {
-                    navTo(HomeFragmentDirections.goToFile())
+                BottomBar.MenuBottom.AGENDA -> {
+                    navTo(FilesFragmentDirections.goToHome())
                 }
+                BottomBar.MenuBottom.FILE -> {}
             }
         }
     }

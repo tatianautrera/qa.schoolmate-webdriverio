@@ -11,4 +11,12 @@
         <item name="cornerSizeBottomRight">12dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
+
+    <style name="CustomToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="actionOverflowButtonStyle">@style/CustomOverflowButtonStyle</item>
+    </style>
+
+    <style name="CustomOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu</item>
+    </style>
 </resources>

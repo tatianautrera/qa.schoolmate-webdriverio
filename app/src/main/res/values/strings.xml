@@ -40,5 +40,7 @@
     <string name="discipline">Disciplinas</string>
     <string name="agenda">Agenda</string>
     <string name="files">Arquivos</string>
+    <string name="menu">menu</string>
+    <string name="view_calendar">Visualizar calendário</string>
 
 </resources>

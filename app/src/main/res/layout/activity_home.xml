@@ -8,6 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.fsacchi.schoolmate.core.components.CustomToolbar
+                android:id="@+id/custom_toolbar"
+                android:theme="@style/CustomToolbarTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title_toolbar="@string/agenda"
+                tools:layout_height="60dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.fsacchi.schoolmate.core.components.AlertMessageCard
             android:id="@+id/alert_card"
             android:layout_width="0dp"
@@ -24,7 +42,7 @@
             android:layout_height="0dp"
             android:background="@color/white"
             android:fillViewport="true"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_toolbar"
             app:layout_constraintBottom_toTopOf="@id/bottom_bar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
