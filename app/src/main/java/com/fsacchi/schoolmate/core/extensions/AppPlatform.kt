@@ -37,6 +37,10 @@ inline fun <reified T : Parcelable> BottomSheetDialogFragment.getParcelable(extr
     arguments?.getParcelable<T>(extra)!!
 }
 
+fun BottomSheetDialogFragment.string(key: String) = lazy {
+    arguments?.getString(key) ?: ""
+}
+
 inline fun <reified T : BaseActivity<*>> Fragment.startActivity(
     finishPrevious: Boolean = false,
     bundle: Bundle? = null

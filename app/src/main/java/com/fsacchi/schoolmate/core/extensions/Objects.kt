@@ -4,8 +4,11 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.text.Normalizer
 import java.text.NumberFormat
 import java.util.Locale
 import java.util.UUID
@@ -85,6 +88,13 @@ fun String.unmask(): String {
     return this.replace("[ /.()-]".toRegex(), "")
 }
 
+private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+
+fun CharSequence.unaccent(): String {
+    val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+    return REGEX_UNACCENT.replace(temp, "")
+}
+
 fun String.isDigit() = this.all { it.isDigit() }
 
 fun String.isValidName(allowNumber: Boolean = false): Boolean {
@@ -117,6 +127,14 @@ fun String.formatAccount() = """${slice(0..length - 2)}-${last()}"""
 
 fun String.capitalize() = capitalize(locale)
 
+fun String.capitalizeFirstLetter(): String {
+    return if (this.isNotEmpty()) {
+        this.substring(0, 1).uppercase() + this.substring(1)
+    } else {
+        this
+    }
+}
+
 fun String.execIfEmpty(exec: () -> Unit) {
     if (this.isBlank()) exec()
 }
@@ -145,6 +163,7 @@ fun Exception.handleFirebaseErrors(): String = run {
         is FirebaseAuthUserCollisionException -> "Este e-mail já está cadastrado. Tente outro e-mail."
         is FirebaseAuthEmailException -> "Erro ao enviar o e-mail. Tente novamente mais tarde."
         is FirebaseNetworkException -> "Erro de conexão, verifique sua internet."
+        is FirebaseFirestoreException -> "Erro ao gravar informação"
         else -> "Erro desconhecido. Tente novamente."
     }
     return errorMessage

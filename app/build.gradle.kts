@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.picasso)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)

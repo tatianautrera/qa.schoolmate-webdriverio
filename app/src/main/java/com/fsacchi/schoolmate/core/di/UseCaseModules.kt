@@ -1,5 +1,7 @@
 package com.fsacchi.schoolmate.core.di
 
+import com.fsacchi.schoolmate.domain.discipline.GetDisciplinesUseCase
+import com.fsacchi.schoolmate.domain.discipline.SaveDisciplineUseCase
 import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
 import com.fsacchi.schoolmate.domain.login.ForgotPasswordUseCase
@@ -15,6 +17,12 @@ private val loginUseCases = module {
     factory { GetUserUseCase(get()) }
 }
 
+private val disciplineUseCases = module {
+    factory { SaveDisciplineUseCase(get()) }
+    factory { GetDisciplinesUseCase(get()) }
+}
+
 internal val useCaseModules = listOf(
     loginUseCases,
+    disciplineUseCases
 )

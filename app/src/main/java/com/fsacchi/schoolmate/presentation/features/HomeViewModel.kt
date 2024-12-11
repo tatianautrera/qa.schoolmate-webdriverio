@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getUserUseCase: GetUserUseCase,
-    private val logoffUseCase: LogoffUseCase
+    private val logoffUseCase: LogoffUseCase,
 ) : ViewModel(), LifecycleObserver {
 
     private var user: UserEntity? = null
