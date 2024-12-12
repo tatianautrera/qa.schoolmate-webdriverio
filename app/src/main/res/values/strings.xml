@@ -43,6 +43,8 @@
     <string name="menu">menu</string>
     <string name="view_calendar">Visualizar calendário</string>
     <string name="add_discipline">Adicionar disciplina</string>
+    <string name="add_job">Adicionar atividade</string>
+    <string name="add_file">Adicionar arquivo</string>
     <string name="message_no_discipline">Você ainda não cadastrou suas disciplinas</string>
     <string name="discipline_name">Nome da disciplina</string>
     <string name="teacher_name">Nome do professor</string>
@@ -55,4 +57,7 @@
     <string name="confirm_delete_discipline">Realmente deseja excluir a disciplina %s?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="jobs">Entregas</string>
+    <string name="message_no_jobs_for_discipline">Nenhuma atividade para essa disciplina</string>
+    <string name="message_no_files">Você ainda não tem arquivos</string>
 </resources>

@@ -1,24 +1,12 @@
 package com.fsacchi.schoolmate.core.features.home
 
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.fsacchi.schoolmate.R
-import com.fsacchi.schoolmate.core.components.BottomBar
-import com.fsacchi.schoolmate.core.extensions.addVerticalDivider
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
-import com.fsacchi.schoolmate.core.extensions.clickListener
-import com.fsacchi.schoolmate.core.extensions.createProgressDialog
-import com.fsacchi.schoolmate.core.extensions.navTo
-import com.fsacchi.schoolmate.core.features.home.adapter.DisciplineListAdapter
-import com.fsacchi.schoolmate.core.features.home.sheets.DisciplineBottomSheet
-import com.fsacchi.schoolmate.core.features.home.sheets.OptionsBottomSheet
 import com.fsacchi.schoolmate.core.platform.BaseFragment
-import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
-import com.fsacchi.schoolmate.databinding.FragmentDisciplineBinding
+import com.fsacchi.schoolmate.core.platform.PagerAdapter
 import com.fsacchi.schoolmate.databinding.FragmentDisciplineDetailBinding
 import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
-import com.fsacchi.schoolmate.presentation.states.DisciplineUiState
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>() {
@@ -36,6 +24,18 @@ class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>()
         homeActivity.setCustomTitle(args.disciplineModel.name.capitalizeFirstLetter())
         homeActivity.showBackIcon(true)
         insertListeners()
+        startTabAdapter()
+    }
+
+    private fun startTabAdapter() {
+        val adapter = PagerAdapter(childFragmentManager)
+
+        adapter.addTitle(listOf(getString(R.string.jobs), getString(R.string.files)))
+        adapter.addFragment(DisciplineJobsFragment())
+        adapter.addFragment(DisciplineFilesFragment())
+
+        binding.viewPager.adapter = adapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
     private fun insertListeners() {
