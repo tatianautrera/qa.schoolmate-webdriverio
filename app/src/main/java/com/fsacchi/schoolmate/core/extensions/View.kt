@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.PorterDuff.Mode.SRC_IN
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputFilter.AllCaps
 import android.text.SpannableStringBuilder
@@ -289,7 +290,6 @@ fun ViewPager.pageSelectedListener(onSelected: (Int) -> Unit) {
 fun Drawable.changeColor(color: Int) = apply {
     colorFilter = PorterDuffColorFilter(color, SRC_IN)
 }
-
 //endregion
 
 //region ViewPager

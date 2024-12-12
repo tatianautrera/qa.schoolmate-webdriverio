@@ -25,15 +25,18 @@ import org.koin.android.ext.android.inject
 
 class FilesFragment : BaseFragment<FragmentFileBinding>() {
 
+    private lateinit var homeActivity: HomeActivity
+
     override val layoutRes: Int
         get() = R.layout.fragment_file
 
     override fun start() {
+        homeActivity = (activity as HomeActivity)
         insertListeners()
     }
 
     private fun insertListeners() {
-        (activity as HomeActivity).menuSelected {
+        homeActivity.menuSelected {
             when(it) {
                 BottomBar.MenuBottom.DISCIPLINE -> {
                     navTo(FilesFragmentDirections.goToDiscipline())

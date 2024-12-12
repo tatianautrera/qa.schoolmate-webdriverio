@@ -1,7 +1,9 @@
 package com.fsacchi.schoolmate.core.di
 
+import com.fsacchi.schoolmate.domain.discipline.DeleteDisciplineUseCase
 import com.fsacchi.schoolmate.domain.discipline.GetDisciplinesUseCase
 import com.fsacchi.schoolmate.domain.discipline.SaveDisciplineUseCase
+import com.fsacchi.schoolmate.domain.discipline.UpdateDisciplineUseCase
 import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
 import com.fsacchi.schoolmate.domain.login.ForgotPasswordUseCase
@@ -19,6 +21,8 @@ private val loginUseCases = module {
 
 private val disciplineUseCases = module {
     factory { SaveDisciplineUseCase(get()) }
+    factory { DeleteDisciplineUseCase(get()) }
+    factory { UpdateDisciplineUseCase(get()) }
     factory { GetDisciplinesUseCase(get()) }
 }
 

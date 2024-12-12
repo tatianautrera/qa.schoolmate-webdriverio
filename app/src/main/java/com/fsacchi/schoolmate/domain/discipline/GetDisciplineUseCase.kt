@@ -30,6 +30,7 @@ class GetDisciplinesUseCase(
                     val disciplines = querySnapshot.documents.mapNotNull { doc ->
                         try {
                             DisciplineModel(
+                                id = doc.id,
                                 name = doc.getString("nameDiscipline").orEmpty(),
                                 teacher = doc.getString("teacherDiscipline").orEmpty(),
                                 emoji = doc.getString("emoji").orEmpty()

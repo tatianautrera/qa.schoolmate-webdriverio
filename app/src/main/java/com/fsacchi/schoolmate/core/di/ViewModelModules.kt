@@ -12,7 +12,7 @@ private val loginModules = module {
 }
 
 private val disciplineModules = module {
-    viewModel { DisciplineViewModel(get(), get()) }
+    viewModel { DisciplineViewModel(get(), get(), get(), get()) }
 }
 
 internal val viewModelModules = listOf(

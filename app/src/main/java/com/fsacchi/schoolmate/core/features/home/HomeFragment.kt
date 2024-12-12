@@ -23,11 +23,13 @@ import org.koin.android.ext.android.inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
+    private lateinit var homeActivity: HomeActivity
     private val homeViewModel: HomeViewModel by inject()
     override val layoutRes: Int
         get() = R.layout.fragment_home
 
     override fun start() {
+        homeActivity = (activity as HomeActivity)
         homeViewModel.getUser()
         observe()
         insertListeners()
@@ -49,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun insertListeners() {
-        (activity as HomeActivity).menuSelected {
+        homeActivity.menuSelected {
             when(it) {
                 BottomBar.MenuBottom.DISCIPLINE -> {
                     navTo(HomeFragmentDirections.goToDiscipline())

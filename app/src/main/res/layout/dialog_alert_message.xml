@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="message"
+            type="String" />
+
+        <variable
+            name="negativeText"
+            type="String" />
+
+        <variable
+            name="positiveText"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:padding="16dp"
+        tools:context=".core.platform.AlertMessageDialog">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:srcCompat="@drawable/ic_close" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Theme.SchoolMate.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/tv_message"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:text_html="@{title}"
+            app:visible_by_text="@{title}"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/defaultText"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@id/btn_positive"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintVertical_bias="1"
+            app:text_html="@{message}"
+            app:visible="@{message!=null}"
+            tools:text="@tools:sample/lorem" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_negative"
+            style="@style/Theme.SchoolMate.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{negativeText != null ? negativeText : @string/no}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_positive"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:strokeColor="@color/colorPrimary"
+            tools:text="Negative"
+            tools:textColor="@color/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_positive"
+            style="@style/Theme.SchoolMate.Button"
+            android:layout_width="0dp"
+            android:text="@{positiveText != null ? positiveText : @string/yes}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_negative"
+            tools:text="Positive" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

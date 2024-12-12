@@ -11,6 +11,7 @@ import com.fsacchi.schoolmate.core.extensions.startActivity
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.platform.BaseActivity
 import com.fsacchi.schoolmate.data.local.entity.UserEntity
+import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
 import com.fsacchi.schoolmate.databinding.ActivityHomeBinding
 import com.fsacchi.schoolmate.presentation.features.HomeViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
@@ -22,12 +23,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val homeViewModel: HomeViewModel by inject()
     private val dialog by lazy { createProgressDialog() }
     private var menuSelected: ((BottomBar.MenuBottom) -> Unit)? = null
+    var listenerBack: () -> Unit = {}
 
     override val layoutRes: Int get() = R.layout.activity_home
     lateinit var user: UserEntity
 
+
     override fun init() {
-        binding.customToolbar.showBackIcon(false)
+        showBackIcon(false)
         observe()
         insertListeners()
     }
@@ -45,10 +48,22 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.customToolbar.setTitle(menu)
     }
 
+    fun setCustomTitle(title: String) {
+        binding.customToolbar.setTitle(title)
+    }
+
+    fun showBackIcon(show: Boolean) {
+        binding.customToolbar.showBackIcon(show)
+    }
+
     private fun insertListeners() {
         binding.bottomBar.setListener {
             updateTitleMenu(it)
             menuSelected?.invoke(it)
+        }
+
+        binding.customToolbar.toolbar.setNavigationOnClickListener{
+            listenerBack.invoke()
         }
     }
 

@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.Base64
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.fsacchi.schoolmate.core.components.AlertMessageDialog
 import com.fsacchi.schoolmate.core.platform.BaseActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.nio.charset.StandardCharsets
@@ -28,7 +30,12 @@ inline fun <reified T : BaseActivity<*>> Context.startActivity(
         bundle?.let { putExtras(it) }
     })
 }
-
+fun AppCompatActivity.showMessage(builder: AlertMessageDialog.Builder.() -> Unit) {
+    AlertMessageDialog.Builder(this).apply { builder(this) }.build().show(supportFragmentManager)
+}
+fun Fragment.showMessage(builder: AlertMessageDialog.Builder.() -> Unit) {
+    (requireActivity() as AppCompatActivity).showMessage(builder)
+}
 inline fun <reified T : BaseActivity<*>> Fragment.startActivity(finishPrevious: Boolean = false) {
     requireContext().startActivity<T>(finishPrevious)
 }

@@ -48,5 +48,11 @@
     <string name="teacher_name">Nome do professor</string>
     <string name="discipline_icon">Defina um emoji para a disciplina</string>
     <string name="save_discipline">Salvar disciplina</string>
-
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
+    <string name="see_details">Ver detalhes</string>
+    <string name="warning">Atenção</string>
+    <string name="confirm_delete_discipline">Realmente deseja excluir a disciplina %s?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

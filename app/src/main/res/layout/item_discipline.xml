@@ -60,12 +60,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_discipline_name"
-            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toTopOf="@id/tv_teacher"
-            app:srcCompat="@drawable/ic_arrow"
+            app:srcCompat="@drawable/ic_options"
             tools:tint="@color/colorPrimary"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

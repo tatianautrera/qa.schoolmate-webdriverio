@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.TextDrawable
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
+import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.toEmoji
 import com.fsacchi.schoolmate.core.platform.adapter.BaseAdapter
 import com.fsacchi.schoolmate.core.platform.adapter.BaseDiffCallback
@@ -14,6 +15,8 @@ class DisciplineListAdapter(
     override val layoutRes: Int = R.layout.item_discipline
 ) : BaseAdapter<DisciplineModel, ItemDisciplineBinding>(BaseDiffCallback()) {
 
+    var listenerOptions: (DisciplineModel) -> Unit = {}
+
     @SuppressLint("SetTextI18n")
     override fun ItemDisciplineBinding.bind(item: DisciplineModel) {
         tvDisciplineName.text = item.name.capitalizeFirstLetter()
@@ -22,5 +25,7 @@ class DisciplineListAdapter(
         val emojiDrawable = TextDrawable(emojiString, root.context)
         ivEmoji.setImageDrawable(emojiDrawable)
         tvTeacher.text = "Prof. ${item.teacher.capitalizeFirstLetter()}"
+
+        ivArrow.clickListener { listenerOptions.invoke(item) }
     }
 }

@@ -59,7 +59,7 @@ firebase-firestore = { group = "com.google.firebase", name="firebase-firestore-k
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-navigationArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+navigationArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlin"  }
 firebase = { id = "com.google.gms.google-services",  version.ref = "firebase"  }
 
