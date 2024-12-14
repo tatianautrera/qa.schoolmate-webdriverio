@@ -43,4 +43,12 @@
     <color name="subtitle_gray_color">#4A4A4A</color>
     <color name="defaultTextOpacity">#B3000000</color>
     <color name="background_card_label">#D8D8D8</color>
+
+    <color name="text_test">#F70A8D</color>
+    <color name="back_test">#FFEEF7</color>
+    <color name="text_homework">#330150</color>
+    <color name="back_homework">#EDEEFF</color>
+    <color name="text_job">#48CFCF</color>
+    <color name="back_job">#E0F8F5</color>
+
 </resources>

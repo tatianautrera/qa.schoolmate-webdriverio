@@ -3,6 +3,7 @@ package com.fsacchi.schoolmate.core.extensions
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
@@ -43,6 +44,8 @@ inline fun <reified T : BaseActivity<*>> Fragment.startActivity(finishPrevious: 
 inline fun <reified T : Parcelable> BottomSheetDialogFragment.getParcelable(extra: String) = lazy {
     arguments?.getParcelable<T>(extra)!!
 }
+
+fun BottomSheetDialogFragment.getScreenHeight() = Resources.getSystem().displayMetrics.heightPixels
 
 fun BottomSheetDialogFragment.string(key: String) = lazy {
     arguments?.getString(key) ?: ""

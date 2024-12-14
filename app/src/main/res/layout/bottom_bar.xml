@@ -63,7 +63,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/color_bottom_bar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/discipline"/>
+                android:text="@string/disciplines"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

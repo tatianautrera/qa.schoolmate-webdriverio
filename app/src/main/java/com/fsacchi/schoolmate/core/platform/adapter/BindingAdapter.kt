@@ -54,6 +54,7 @@ object BindingAdapter {
         view.background = view drawable resource
     }
 
+
     @JvmStatic
     @BindingAdapter("app:disable")
     fun enableView(view: View, disable: Boolean) {

@@ -30,8 +30,14 @@ class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>()
     private fun startTabAdapter() {
         val adapter = PagerAdapter(childFragmentManager)
 
+        val jobFragment = DisciplineJobsFragment()
+        jobFragment.setDisciplineSelected(args.disciplineModel)
+        val filesFragment = DisciplineFilesFragment()
+        filesFragment.setDisciplineSelected(args.disciplineModel)
+
+
         adapter.addTitle(listOf(getString(R.string.jobs), getString(R.string.files)))
-        adapter.addFragment(DisciplineJobsFragment())
+        adapter.addFragment(jobFragment)
         adapter.addFragment(DisciplineFilesFragment())
 
         binding.viewPager.adapter = adapter

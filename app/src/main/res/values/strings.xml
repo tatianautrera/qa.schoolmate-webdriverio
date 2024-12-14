@@ -37,7 +37,9 @@
     <string name="create_an_password">Crie uma senha</string>
     <string name="confirm_an_password">Confirme sua senha</string>
     <string name="logoff">Finalizar sessão</string>
-    <string name="discipline">Disciplinas</string>
+    <string name="disciplines">Disciplinas</string>
+    <string name="discipline">Disciplina</string>
+    <string name="job_type">Tipo de atividade</string>
     <string name="agenda">Agenda</string>
     <string name="files">Arquivos</string>
     <string name="menu">menu</string>
@@ -50,6 +52,7 @@
     <string name="teacher_name">Nome do professor</string>
     <string name="discipline_icon">Defina um emoji para a disciplina</string>
     <string name="save_discipline">Salvar disciplina</string>
+    <string name="save_job">Salvar atividade</string>
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
     <string name="see_details">Ver detalhes</string>
@@ -60,4 +63,12 @@
     <string name="jobs">Entregas</string>
     <string name="message_no_jobs_for_discipline">Nenhuma atividade para essa disciplina</string>
     <string name="message_no_files">Você ainda não tem arquivos</string>
+    <string name="job_delivery_date">Data de entrega</string>
+    <string name="describe_more_detalhes_from_job">Descreva mais detalhes da atividade</string>
+    <string name="observation">Observações</string>
+    <string name="search">Pesquisar</string>
+    <string name="test">Avaliação</string>
+    <string name="home_work">Tarefa</string>
+    <string name="job">Trabalho</string>
+    <string name="choose_your_type_job">Escolha o tipo de atividade</string>
 </resources>

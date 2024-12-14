@@ -50,9 +50,11 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
 
     private fun setEmojiInDisciplineUpdated() {
         if (discipline.id.isNotEmpty()) {
-            val emojiString = discipline.emoji.toInt().toEmoji()
-            val emojiDrawable = TextDrawable(emojiString, requireContext())
-            binding.ivEmoji.setImageDrawable(emojiDrawable)
+            discipline.let {
+                val emojiString = it.emoji.toInt().toEmoji()
+                val emojiDrawable = TextDrawable(emojiString, requireContext())
+                binding.ivEmoji.setImageDrawable(emojiDrawable)
+            }
         }
     }
 
@@ -136,11 +138,11 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
         }
     }
 
-    private fun setSuccessCalback(callback: ((DisciplineModel) -> Unit)?) {
+    private fun setSuccessCallback(callback: ((DisciplineModel) -> Unit)?) {
         saveAction = callback
     }
 
-    private fun setErrorCalback(callback: ((String) -> Unit)?) {
+    private fun setErrorCallback(callback: ((String) -> Unit)?) {
         errorAction = callback
     }
 
@@ -166,8 +168,8 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
                 putParcelable(MODEL, disciplineModel)
                 putString(USER_ID, userUid)
             }
-            setSuccessCalback(successListener)
-            setErrorCalback(errorListener)
+            setSuccessCallback(successListener)
+            setErrorCallback(errorListener)
         }
     }
 }
