@@ -1,6 +1,5 @@
 package com.fsacchi.schoolmate.core.features.home
 
-import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope

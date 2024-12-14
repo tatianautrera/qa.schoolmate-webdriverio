@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.android.material)
     implementation(libs.navigation)
+    implementation(libs.calendar)
     implementation(libs.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.koin)

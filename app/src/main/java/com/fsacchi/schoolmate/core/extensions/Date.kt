@@ -25,7 +25,7 @@ fun String.formatDateMask(
     toPattern: String = DateMasks.serverFormat
 ): String {
     return try {
-        this.toDate(fromPattern).format(toPattern)
+        this.toDate(fromPattern)?.format(toPattern).orEmpty()
     } catch (e: Throwable) {
         emptyString()
     }

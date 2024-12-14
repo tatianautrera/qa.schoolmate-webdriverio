@@ -71,4 +71,5 @@
     <string name="home_work">Tarefa</string>
     <string name="job">Trabalho</string>
     <string name="choose_your_type_job">Escolha o tipo de atividade</string>
+    <string name="apply">Aplicar</string>
 </resources>

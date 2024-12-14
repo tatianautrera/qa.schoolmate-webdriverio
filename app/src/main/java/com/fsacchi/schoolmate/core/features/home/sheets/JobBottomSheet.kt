@@ -6,16 +6,21 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.fsacchi.schoolmate.R
+import com.fsacchi.schoolmate.core.components.CalendarDialog
+import com.fsacchi.schoolmate.core.extensions.DateMasks.appFormat
 import com.fsacchi.schoolmate.core.extensions.TextDrawable
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
 import com.fsacchi.schoolmate.core.extensions.enable
+import com.fsacchi.schoolmate.core.extensions.format
 import com.fsacchi.schoolmate.core.extensions.getParcelable
 import com.fsacchi.schoolmate.core.extensions.hideSoftKeyboard
 import com.fsacchi.schoolmate.core.extensions.isEmoji
+import com.fsacchi.schoolmate.core.extensions.now
 import com.fsacchi.schoolmate.core.extensions.setupFullScreen
 import com.fsacchi.schoolmate.core.extensions.string
+import com.fsacchi.schoolmate.core.extensions.toDate
 import com.fsacchi.schoolmate.core.extensions.toEmoji
 import com.fsacchi.schoolmate.core.extensions.toast
 import com.fsacchi.schoolmate.core.platform.BaseDialog
@@ -26,9 +31,11 @@ import com.fsacchi.schoolmate.databinding.BottomSheetJobBinding
 import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.fsacchi.schoolmate.validator.Validator
+import com.fsacchi.schoolmate.validator.extension.text
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.util.Date
 
 class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
@@ -95,9 +102,26 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
             }.show(childFragmentManager)
         }
 
+        binding.etDateDelivery.clickListener {
+            val selectedDate = if (binding.tilDateDelivery.text.isNotEmpty()) {
+                binding.tilDateDelivery.text.toDate()
+            } else {
+                now()
+            }
+            CalendarDialog
+                .newInstance(selectedDate = selectedDate)
+                .listener(::setDtDelivery)
+                .show(childFragmentManager)
+        }
+
         binding.btnSaveJob.clickListener {
 
         }
+    }
+
+    private fun setDtDelivery(it: Date) {
+        job.dtJob = it
+        binding.tilDateDelivery.text = it.format(appFormat)
     }
 
     private fun setSuccessCallback(callback: ((JobModel) -> Unit)?) {

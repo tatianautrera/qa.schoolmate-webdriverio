@@ -22,6 +22,7 @@ koinVersion = "3.1.2"
 security = "1.1.0-alpha03"
 roomVersion = "2.6.1"
 firebaseVersion = "24.9.0"
+calendarView = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,8 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion"}
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion"}
 firebase-firestore = { group = "com.google.firebase", name="firebase-firestore-ktx", version.ref="firebaseVersion"}
+calendar = { group = "com.kizitonwose.calendar", name="view", version.ref="calendarView"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
