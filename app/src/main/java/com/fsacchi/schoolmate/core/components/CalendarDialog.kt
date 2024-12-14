@@ -9,9 +9,12 @@ import com.fsacchi.schoolmate.core.extensions.getMonth
 import com.fsacchi.schoolmate.core.extensions.getYear
 import com.fsacchi.schoolmate.core.extensions.now
 import com.fsacchi.schoolmate.core.extensions.setupFullScreen
+import com.fsacchi.schoolmate.core.extensions.toDate
+import com.fsacchi.schoolmate.core.features.home.calendar.CustomSelectorDecorator
 import com.fsacchi.schoolmate.core.platform.BaseDialog
 import com.fsacchi.schoolmate.databinding.DialogCalendarBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
@@ -26,25 +29,27 @@ class CalendarDialog : BaseDialog<DialogCalendarBinding>() {
 
     override fun init() {
         selectedDate()?.let {
-//            if (it > 0) {
-//                val calendarDay = Calendar.getInstance().apply {
-//                    timeInMillis = it
-//                }
-//                binding.calendarView.scrollToDate(LocalDate.of(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay()))
-//                calendar[calendarDay.getYear(), calendarDay.getMonth() - 1] = calendarDay.getDay()
-//            } else {
-//                val calendarDay = Calendar.getInstance().apply {
-//                    timeInMillis = now().time
-//                }
-//
-//                binding.calendarView.scrollToDate(LocalDate.of(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay()))
-//                calendar[calendarDay.getYear(), calendarDay.getMonth() - 1] = calendarDay.getDay()
-//            }
+            if (it > 0) {
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = it
+                }
+                val calendarDay = CalendarDay.from(calendar.getYear(), calendar.getMonth(), calendar.getDay())
+
+                binding.calendarView.selectedDate = calendarDay
+                calendar[calendarDay.year, calendarDay.month - 1] = calendarDay.day
+            } else {
+                binding.calendarView.selectedDate = CalendarDay.today()
+            }
         }
 
-        binding.tvTitle.text = now().format(extensiveFormat)
-            .replace("-feira", "").capitalize()
-
+        minDate()?.let {
+            val calendarDay = Calendar.getInstance().apply {
+                timeInMillis = it
+            }
+            binding.calendarView.state().edit()
+                .setMinimumDate(CalendarDay.from(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay()))
+                .commit()
+        }
     }
 
     override fun onResume() {
@@ -63,6 +68,10 @@ class CalendarDialog : BaseDialog<DialogCalendarBinding>() {
     }
 
     private fun insertListeners() {
+        binding.calendarView.setOnDateChangedListener { _, calendarDay, _ ->
+            calendar[calendarDay.year, calendarDay.month - 1] = calendarDay.day
+        }
+
         binding.btnApply.setOnClickListener {
             listener?.invoke(calendar.time)
             dismiss()

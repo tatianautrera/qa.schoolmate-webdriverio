@@ -63,6 +63,12 @@ fun Calendar.getLastDayOfMonth(month: Int, year: Int): Date {
     return this.time
 }
 
+fun Calendar.toDate(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.set(getYear(), getMonth() - 1, getDay())
+    return calendar.time
+}
+
 fun Calendar.getFirstDayOfMonth(month: Int, year: Int): Date {
     this.apply {
         set(MONTH, month - 1)

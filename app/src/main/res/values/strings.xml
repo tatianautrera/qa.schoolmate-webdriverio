@@ -72,4 +72,5 @@
     <string name="job">Trabalho</string>
     <string name="choose_your_type_job">Escolha o tipo de atividade</string>
     <string name="apply">Aplicar</string>
+    <string name="choose_dt_delivery">Defina a data de entrega</string>
 </resources>

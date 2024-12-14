@@ -68,7 +68,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.android.material)
     implementation(libs.navigation)
-    implementation(libs.calendar)
+    implementation(libs.calendar) {
+        exclude(group = "com.android.support", module = "support-compat")
+    }
     implementation(libs.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.koin)

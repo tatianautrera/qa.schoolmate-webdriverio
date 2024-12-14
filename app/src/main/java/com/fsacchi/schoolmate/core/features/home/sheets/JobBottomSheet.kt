@@ -80,7 +80,7 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
         validator = Validator(binding)
 
         listOf(
-            binding.tilDiscipline, binding.tilJobType, binding.tilDateDelivery, binding.tilJobType
+            binding.tilDiscipline, binding.tilJobType, binding.tilDateDelivery, binding.tilObservation
         ).forEach {
             validator.observe(it)
         }
