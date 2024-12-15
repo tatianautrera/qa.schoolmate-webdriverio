@@ -12,7 +12,7 @@ data class FileUserModel(
     val id: String = "",
     var urlFirebase: String = "",
     var disciplineId: String = "",
-    var titleFile: String,
+    var titleFile: String = "",
     var observation: String = "",
     var nameDiscipline: String = ""
 ): Parcelable

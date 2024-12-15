@@ -38,7 +38,7 @@ class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>()
 
         adapter.addTitle(listOf(getString(R.string.jobs), getString(R.string.files)))
         adapter.addFragment(jobFragment)
-        adapter.addFragment(DisciplineFilesFragment())
+        adapter.addFragment(filesFragment)
 
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
