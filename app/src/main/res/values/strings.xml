@@ -45,7 +45,10 @@
     <string name="menu">menu</string>
     <string name="view_calendar">Visualizar calendário</string>
     <string name="add_discipline">Adicionar disciplina</string>
+    <string name="edit_discipline">Editar disciplina</string>
     <string name="add_job">Adicionar atividade</string>
+    <string name="edit_job">Editar atividade</string>
+    <string name="edit_job_complete">Atividade realizada</string>
     <string name="add_file">Adicionar arquivo</string>
     <string name="message_no_discipline">Você ainda não cadastrou suas disciplinas</string>
     <string name="discipline_name">Nome da disciplina</string>
@@ -58,9 +61,10 @@
     <string name="see_details">Ver detalhes</string>
     <string name="warning">Atenção</string>
     <string name="confirm_delete_discipline">Realmente deseja excluir a disciplina %s?</string>
+    <string name="confirm_delete_job">Realmente deseja excluir a atividade %s?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="jobs">Entregas</string>
+    <string name="jobs">Atividades</string>
     <string name="message_no_jobs_for_discipline">Nenhuma atividade para essa disciplina</string>
     <string name="message_no_files">Você ainda não tem arquivos</string>
     <string name="job_delivery_date">Data de entrega</string>

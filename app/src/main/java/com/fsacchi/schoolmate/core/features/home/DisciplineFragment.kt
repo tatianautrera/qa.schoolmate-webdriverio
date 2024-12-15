@@ -66,21 +66,7 @@ class DisciplineFragment : BaseFragment<FragmentDisciplineBinding>() {
                 handleAdapter(disciplineSelected)
             }
             R.string.edit -> {
-                DisciplineBottomSheet.newInstance(
-                    disciplineSelected,
-                    homeActivity.user.uid,
-                    successListener = {
-                        disciplineViewModel.getDisciplines(homeActivity.user.uid)
-                    },
-                    errorListener = { errorMessage ->
-                        homeActivity.showAlertMessage(
-                            isError = true,
-                            title = "Erro ao atualizar disciplina",
-                            message = errorMessage
-
-                        )
-                    }
-                ).show(childFragmentManager)
+                showDisciplineBottomSheet(disciplineSelected)
             }
             R.string.delete -> {
                 showMessage {
@@ -167,21 +153,25 @@ class DisciplineFragment : BaseFragment<FragmentDisciplineBinding>() {
         }
 
         binding.btnCreateDiscipline.clickListener {
-            DisciplineBottomSheet.newInstance(
-                DisciplineModel(),
-                homeActivity.user.uid,
-                successListener = {
-                    disciplineViewModel.getDisciplines(homeActivity.user.uid)
-                },
-                errorListener = { errorMessage ->
-                    homeActivity.showAlertMessage(
-                        isError = true,
-                        title = "Erro ao gravar disciplina",
-                        message = errorMessage
-
-                    )
-                }
-            ).show(childFragmentManager)
+            showDisciplineBottomSheet(DisciplineModel())
         }
+    }
+
+    private fun showDisciplineBottomSheet(disciplineModel: DisciplineModel) {
+        DisciplineBottomSheet.newInstance(
+            disciplineModel,
+            homeActivity.user.uid,
+            successListener = {
+                disciplineViewModel.getDisciplines(homeActivity.user.uid)
+            },
+            errorListener = { errorMessage ->
+                homeActivity.showAlertMessage(
+                    isError = true,
+                    title = "Erro ao gravar disciplina",
+                    message = errorMessage
+
+                )
+            }
+        ).show(childFragmentManager)
     }
 }

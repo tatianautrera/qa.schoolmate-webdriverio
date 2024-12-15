@@ -14,3 +14,8 @@ val disciplineMenuItems = listOf(
     OptionItem(R.string.edit, R.drawable.ic_edit),
     OptionItem(R.string.delete, R.drawable.ic_delete)
 )
+
+val jobMenuItems = listOf(
+    OptionItem(R.string.edit, R.drawable.ic_edit),
+    OptionItem(R.string.delete, R.drawable.ic_delete)
+)

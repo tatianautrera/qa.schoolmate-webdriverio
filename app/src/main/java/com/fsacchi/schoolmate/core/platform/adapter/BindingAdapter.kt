@@ -8,16 +8,22 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
+import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.DateMasks
+import com.fsacchi.schoolmate.core.extensions.color
 import com.fsacchi.schoolmate.core.extensions.disable
 import com.fsacchi.schoolmate.core.extensions.drawable
 import com.fsacchi.schoolmate.core.extensions.enable
 import com.fsacchi.schoolmate.core.extensions.format
 import com.fsacchi.schoolmate.core.extensions.formatWithUTC
+import com.fsacchi.schoolmate.core.extensions.gone
 import com.fsacchi.schoolmate.core.extensions.htmlText
 import com.fsacchi.schoolmate.core.extensions.loadImage
 import com.fsacchi.schoolmate.core.extensions.toUpper
 import com.fsacchi.schoolmate.core.extensions.visible
+import com.fsacchi.schoolmate.data.model.job.JobModel
+import com.fsacchi.schoolmate.data.model.job.TypeJob
+import com.google.android.material.chip.Chip
 import java.util.Date
 
 object BindingAdapter {
@@ -130,10 +136,42 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("app:strikethrough")
+    fun strikethroughTextView(view: TextView, enable: Boolean) {
+        view.paintFlags = if (enable) view.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        else view.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["app:value", "app:concat_text"], requireAll = true)
     fun labelValueFormat(view: TextView, value: Long?, concatText: String) {
         value?.let {
             view.text = it.toString().plus(concatText)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:chip_type_job")
+    fun setChipTypeJob(view: Chip, job: JobModel?) {
+        if (job == null) return
+        view.visible()
+        when (job.typeJob) {
+            TypeJob.Test -> {
+                view.setText(R.string.test)
+                view.setTextColor(view.color(R.color.text_test))
+                view.setChipBackgroundColorResource(R.color.back_test)
+            }
+            TypeJob.HomeWork -> {
+                view.setText(R.string.home_work)
+                view.setTextColor(view.color(R.color.text_homework))
+                view.setChipBackgroundColorResource(R.color.back_homework)
+            }
+            TypeJob.Job -> {
+                view.setText(R.string.job)
+                view.setTextColor(view.color(R.color.text_job))
+                view.setChipBackgroundColorResource(R.color.back_job)
+            }
+            null -> view.gone()
         }
     }
 }

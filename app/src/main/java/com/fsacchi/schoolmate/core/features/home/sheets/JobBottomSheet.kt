@@ -29,6 +29,7 @@ import com.fsacchi.schoolmate.data.model.job.JobModel
 import com.fsacchi.schoolmate.databinding.BottomSheetDisciplineBinding
 import com.fsacchi.schoolmate.databinding.BottomSheetJobBinding
 import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
+import com.fsacchi.schoolmate.presentation.features.JobViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.fsacchi.schoolmate.validator.Validator
 import com.fsacchi.schoolmate.validator.extension.text
@@ -42,7 +43,7 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
     private lateinit var validator: Validator
     private val dialog by lazy { createProgressDialog() }
 
-    private val disciplineViewModel: DisciplineViewModel by inject()
+    private val jobViewModel: JobViewModel by inject()
     private val job by getParcelable<JobModel>(MODEL)
     private val disciplineModel by getParcelable<DisciplineModel>(DISCIPLINE_MODEL)
 
@@ -56,8 +57,16 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
     override fun init() {
         binding.item = job
+        if (job.id.isNotEmpty()) {
+            if (job.status == "S") {
+                binding.tvTitle.text = getString(R.string.edit_job_complete)
+            } else {
+                binding.tvTitle.text = getString(R.string.edit_job)
+            }
+        }
         disciplineModel.let {
             if (it.name.isNotEmpty()) {
+                job.disciplineId = it.id
                 job.nameDiscipline = it.name.capitalizeFirstLetter()
                 binding.tilDiscipline.isEnabled = false
             }
@@ -72,7 +81,26 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
     private fun observe() {
         lifecycleScope.launch {
-
+            lifecycleScope.launch {
+                jobViewModel.uiState.saveJob.collect { saveUiState ->
+                    saveUiState?.let {
+                        when(it.screenType) {
+                            is DefaultUiState.ScreenType.Error -> {
+                                dialog.dismiss()
+                                errorAction?.invoke(it.screenType.errorMessage.orEmpty())
+                            }
+                            DefaultUiState.ScreenType.Loading -> {
+                                dialog.show()
+                            }
+                            DefaultUiState.ScreenType.Success -> {
+                                dialog.dismiss()
+                                dismiss()
+                                saveAction?.invoke(job)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -95,27 +123,35 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
     private fun insertListeners() {
         binding.ivClose.clickListener(action = ::dismiss)
         binding.tilJobType.editText?.clickListener {
-            TypeJobBottomSheet.newInstance().setListener {
-                job.typeJob = it
-                job.descrTypeJob = it.message
-                binding.item = job
-            }.show(childFragmentManager)
+            if (!job.isFinish()) {
+                TypeJobBottomSheet.newInstance().setListener {
+                    job.typeJob = it
+                    job.descrTypeJob = it.message
+                    binding.item = job
+                }.show(childFragmentManager)
+            }
         }
 
         binding.etDateDelivery.clickListener {
-            val selectedDate = if (binding.tilDateDelivery.text.isNotEmpty()) {
-                binding.tilDateDelivery.text.toDate()
-            } else {
-                now()
+            if (!job.isFinish()) {
+                val selectedDate = if (binding.tilDateDelivery.text.isNotEmpty()) {
+                    binding.tilDateDelivery.text.toDate()
+                } else {
+                    now()
+                }
+                CalendarDialog
+                    .newInstance(selectedDate = selectedDate)
+                    .listener(::setDtDelivery)
+                    .show(childFragmentManager)
             }
-            CalendarDialog
-                .newInstance(selectedDate = selectedDate)
-                .listener(::setDtDelivery)
-                .show(childFragmentManager)
         }
 
         binding.btnSaveJob.clickListener {
-
+            if (job.id.isNotEmpty()) {
+                jobViewModel.updateJobModel(job, userUid)
+            } else {
+                jobViewModel.saveJobModel(job, userUid)
+            }
         }
     }
 

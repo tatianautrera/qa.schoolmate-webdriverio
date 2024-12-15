@@ -15,9 +15,19 @@ data class JobModel(
     var typeJob: TypeJob? = null,
     var descrTypeJob: String = "",
     var dtJob: Date? = null,
-    var observation: String = ""
+    var observation: String = "",
+    var status: String = ""
 ): Parcelable {
     fun date() = dtJob?.format(appFormat)
+    fun dateToDelivery() = "Para ${date()}"
+    fun titleJob() = when(typeJob) {
+        TypeJob.Test -> "Avaliação de $nameDiscipline"
+        TypeJob.HomeWork -> "Tarefa de $nameDiscipline"
+        TypeJob.Job -> "Trabalho de $nameDiscipline"
+        null -> ""
+    }
+
+    fun isFinish() = status == "S"
 }
 
 enum class TypeJob(var message: String) {

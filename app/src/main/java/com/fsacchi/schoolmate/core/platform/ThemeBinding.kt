@@ -248,7 +248,7 @@ object ThemeBinding {
         if (hexColor == null) return
 
         val context = view.context
-        val color = hexColor.toColorInt()
+        val color = "#42DB5E".toColorInt()
 
         val colors = IntArray(states.size)
         val colorSurface = R.color.oto_grey

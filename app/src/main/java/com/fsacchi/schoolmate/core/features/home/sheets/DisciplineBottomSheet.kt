@@ -50,6 +50,8 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
 
     private fun setEmojiInDisciplineUpdated() {
         if (discipline.id.isNotEmpty()) {
+            binding.tvTitle.text = getString(R.string.edit_discipline)
+
             discipline.let {
                 val emojiString = it.emoji.toInt().toEmoji()
                 val emojiDrawable = TextDrawable(emojiString, requireContext())
