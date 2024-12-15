@@ -26,6 +26,7 @@ class DisciplineFilesFragment : BaseFragment<FragmentDisciplineFilesBinding>() {
 
     override fun start() {
         homeActivity = (activity as HomeActivity)
+        binding.showEmptyState = true
         insertListeners()
     }
 
