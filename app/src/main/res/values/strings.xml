@@ -77,4 +77,14 @@
     <string name="choose_your_type_job">Escolha o tipo de atividade</string>
     <string name="apply">Aplicar</string>
     <string name="choose_dt_delivery">Defina a data de entrega</string>
+    <string name="select_your_file">Selecione seu arquivo</string>
+    <string name="extensions_allowed">Extensões permitidas: PDF, JPG, PNG, DOC, XLS, PPT e TXT</string>
+    <string name="max_size_file">Tamanho máximo 10 MB</string>
+    <string name="uploading_file">Subindo arquivo</string>
+    <string name="error_to_upload_file">Não foi possível subir o arquivo</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="title">Título</string>
+    <string name="filled_a_title_for_file">Informe um título ao arquivo</string>
+    <string name="describe_more_details_about_file">Descreva mais detalhes sobre o arquivo</string>
+    <string name="save_file">Salvar arquivo</string>
 </resources>

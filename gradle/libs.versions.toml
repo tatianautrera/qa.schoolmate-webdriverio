@@ -22,6 +22,7 @@ koinVersion = "3.1.2"
 security = "1.1.0-alpha03"
 roomVersion = "2.6.1"
 firebaseVersion = "24.9.0"
+firebaseStorage = "20.2.1"
 calendarView = "2.0.0"
 
 [libraries]
@@ -55,6 +56,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion"}
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion"}
 firebase-firestore = { group = "com.google.firebase", name="firebase-firestore-ktx", version.ref="firebaseVersion"}
+firebase-storage = { group = "com.google.firebase", name="firebase-storage-ktx", version.ref="firebaseStorage"}
 calendar = { group = "com.github.prolificinteractive", name="material-calendarview", version.ref="calendarView"}
 
 [plugins]
