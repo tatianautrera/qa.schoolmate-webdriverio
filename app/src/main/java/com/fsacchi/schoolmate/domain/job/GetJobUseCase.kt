@@ -97,7 +97,7 @@ class GetJobUseCase(
     private fun getJobQuery(userUid: String, disciplineSelected: DisciplineModel?, showOnlyJobsToDelivery: Boolean): Query {
         var query: Query = db.collection("users")
             .document(userUid)
-            .collection("jobs") // Inicializando como Query
+            .collection("jobs")
 
         if (disciplineSelected != null) {
             query = query.whereEqualTo("disciplineId", disciplineSelected.id)

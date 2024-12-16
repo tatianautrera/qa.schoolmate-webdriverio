@@ -4,6 +4,10 @@ import com.fsacchi.schoolmate.domain.discipline.DeleteDisciplineUseCase
 import com.fsacchi.schoolmate.domain.discipline.GetDisciplinesUseCase
 import com.fsacchi.schoolmate.domain.discipline.SaveDisciplineUseCase
 import com.fsacchi.schoolmate.domain.discipline.UpdateDisciplineUseCase
+import com.fsacchi.schoolmate.domain.file.DeleteFileUseCase
+import com.fsacchi.schoolmate.domain.file.GetFileUseCase
+import com.fsacchi.schoolmate.domain.file.SaveFileUseCase
+import com.fsacchi.schoolmate.domain.file.UpdateFileUseCase
 import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
 import com.fsacchi.schoolmate.domain.job.DeleteJobUseCase
@@ -37,8 +41,16 @@ private val jobUseCases = module {
     factory { UpdateJobUseCase(get()) }
 }
 
+private val fileUseCases = module {
+    factory { SaveFileUseCase(get()) }
+    factory { GetFileUseCase(get(), get()) }
+    factory { DeleteFileUseCase(get()) }
+    factory { UpdateFileUseCase(get()) }
+}
+
 internal val useCaseModules = listOf(
     loginUseCases,
     disciplineUseCases,
-    jobUseCases
+    jobUseCases,
+    fileUseCases
 )

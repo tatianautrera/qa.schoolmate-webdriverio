@@ -12,7 +12,18 @@ data class FileUserModel(
     val id: String = "",
     var urlFirebase: String = "",
     var disciplineId: String = "",
+    var extension: String = "",
     var titleFile: String = "",
     var observation: String = "",
     var nameDiscipline: String = ""
-): Parcelable
+): Parcelable {
+    fun getIconExtension(): Int {
+        return when(extension.lowercase()) {
+            "jpg", "jpeg", "png" -> R.drawable.ic_image
+            "doc", "docx" -> R.drawable.ic_doc
+            "pdf" -> R.drawable.ic_pdf
+            "xls", "xlsx" -> R.drawable.ic_xls
+            else -> R.drawable.ic_doc
+        }
+    }
+}

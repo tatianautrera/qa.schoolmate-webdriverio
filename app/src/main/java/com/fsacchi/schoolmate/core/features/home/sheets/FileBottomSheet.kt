@@ -19,6 +19,7 @@ import com.fsacchi.schoolmate.core.extensions.hideSoftKeyboard
 import com.fsacchi.schoolmate.core.extensions.isEmoji
 import com.fsacchi.schoolmate.core.extensions.now
 import com.fsacchi.schoolmate.core.extensions.setupFullScreen
+import com.fsacchi.schoolmate.core.extensions.startActionView
 import com.fsacchi.schoolmate.core.extensions.string
 import com.fsacchi.schoolmate.core.extensions.toDate
 import com.fsacchi.schoolmate.core.extensions.toEmoji
@@ -32,6 +33,7 @@ import com.fsacchi.schoolmate.databinding.BottomSheetDisciplineBinding
 import com.fsacchi.schoolmate.databinding.BottomSheetFileBinding
 import com.fsacchi.schoolmate.databinding.BottomSheetJobBinding
 import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
+import com.fsacchi.schoolmate.presentation.features.FileViewModel
 import com.fsacchi.schoolmate.presentation.features.JobViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.fsacchi.schoolmate.validator.Validator
@@ -45,6 +47,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
 
     private lateinit var validator: Validator
     private val dialog by lazy { createProgressDialog() }
+    private val fileViewModel: FileViewModel by inject()
 
     private val fileUser by getParcelable<FileUserModel>(MODEL)
     private val disciplineModel by getParcelable<DisciplineModel>(DISCIPLINE_MODEL)
@@ -52,7 +55,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
 
     private val userUid by string(USER_ID)
 
-    private var saveAction: ((JobModel) -> Unit)? = null
+    private var saveAction: ((FileUserModel) -> Unit)? = null
     private var errorAction: ((String) -> Unit)? = null
 
     override val layoutRes: Int
@@ -70,7 +73,38 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
             }
         }
 
+        file.let {
+            fileUser.extension = it.extension
+            fileUser.urlFirebase = it.urlFirebase
+        }
+
         insertListeners()
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+            lifecycleScope.launch {
+                fileViewModel.uiState.saveFile.collect { saveUiState ->
+                    saveUiState?.let {
+                        when(it.screenType) {
+                            is DefaultUiState.ScreenType.Error -> {
+                                dialog.dismiss()
+                                errorAction?.invoke(it.screenType.errorMessage.orEmpty())
+                            }
+                            DefaultUiState.ScreenType.Loading -> {
+                                dialog.show()
+                            }
+                            DefaultUiState.ScreenType.Success -> {
+                                dialog.dismiss()
+                                dismiss()
+                                saveAction?.invoke(fileUser)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun created() {
@@ -96,15 +130,19 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
     private fun insertListeners() {
         binding.ivClose.clickListener(action = ::dismiss)
         binding.clFile.clickListener {
-            //TODO: Open file
+            activity?.startActionView(file.urlFirebase, file.extension)
         }
 
         binding.btnSaveFile.clickListener {
-            //TODO: Save file in collection file
+            if (fileUser.id.isNotEmpty()) {
+                fileViewModel.updateFileModel(fileUser, userUid)
+            } else {
+                fileViewModel.saveFileModel(fileUser, userUid)
+            }
         }
     }
 
-    private fun setSuccessCallback(callback: ((JobModel) -> Unit)?) {
+    private fun setSuccessCallback(callback: ((FileUserModel) -> Unit)?) {
         saveAction = callback
     }
 
@@ -130,7 +168,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
             fileUserModel: FileUserModel,
             fileModel: FileModel,
             userUid: String,
-            successListener: ((JobModel) -> Unit)?,
+            successListener: ((FileUserModel) -> Unit)?,
             errorListener: ((String) -> Unit)?
         ) = FileBottomSheet().apply {
             arguments = Bundle().apply {

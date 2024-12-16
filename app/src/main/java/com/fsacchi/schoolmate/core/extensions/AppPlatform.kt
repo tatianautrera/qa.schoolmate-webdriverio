@@ -1,6 +1,7 @@
 package com.fsacchi.schoolmate.core.extensions
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -8,12 +9,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Base64
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.components.AlertMessageDialog
 import com.fsacchi.schoolmate.core.platform.BaseActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -85,5 +89,31 @@ fun Fragment.navTo(directions: NavDirections) {
 
 fun Fragment.navTo(@IdRes id: Int) {
     findNavController().navigate(id)
+}
+
+fun FragmentActivity.startActionView(url: String, extension: String) {
+    try {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(url.toUri(), getMimeType(extension))
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+    } catch (ex: ActivityNotFoundException) {
+        toast(getString(R.string.url_invalid_not_found_app), Toast.LENGTH_LONG)
+    }
+}
+
+fun getMimeType(extension: String): String? {
+    return when (extension.lowercase()) {
+        "jpg", "jpeg" -> "image/jpeg"
+        "png" -> "image/png"
+        "pdf" -> "application/pdf"
+        "doc" -> "application/msword"
+        "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "xls" -> "application/vnd.ms-excel"
+        "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        "txt" -> "text/plain"
+        else -> null
+    }
 }
 
