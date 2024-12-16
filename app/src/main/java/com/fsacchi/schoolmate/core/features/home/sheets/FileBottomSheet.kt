@@ -12,8 +12,10 @@ import com.fsacchi.schoolmate.core.extensions.TextDrawable
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
+import com.fsacchi.schoolmate.core.extensions.drawable
 import com.fsacchi.schoolmate.core.extensions.enable
 import com.fsacchi.schoolmate.core.extensions.format
+import com.fsacchi.schoolmate.core.extensions.getNullOrParcelable
 import com.fsacchi.schoolmate.core.extensions.getParcelable
 import com.fsacchi.schoolmate.core.extensions.hideSoftKeyboard
 import com.fsacchi.schoolmate.core.extensions.isEmoji
@@ -24,6 +26,7 @@ import com.fsacchi.schoolmate.core.extensions.string
 import com.fsacchi.schoolmate.core.extensions.toDate
 import com.fsacchi.schoolmate.core.extensions.toEmoji
 import com.fsacchi.schoolmate.core.extensions.toast
+import com.fsacchi.schoolmate.core.features.home.jobMenuItems
 import com.fsacchi.schoolmate.core.platform.BaseDialog
 import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
 import com.fsacchi.schoolmate.data.model.file.FileModel
@@ -36,6 +39,7 @@ import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
 import com.fsacchi.schoolmate.presentation.features.FileViewModel
 import com.fsacchi.schoolmate.presentation.features.JobViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
+import com.fsacchi.schoolmate.presentation.states.DisciplineUiState
 import com.fsacchi.schoolmate.validator.Validator
 import com.fsacchi.schoolmate.validator.extension.text
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -48,10 +52,13 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
     private lateinit var validator: Validator
     private val dialog by lazy { createProgressDialog() }
     private val fileViewModel: FileViewModel by inject()
+    private val disciplineViewModel: DisciplineViewModel by inject()
+
 
     private val fileUser by getParcelable<FileUserModel>(MODEL)
-    private val disciplineModel by getParcelable<DisciplineModel>(DISCIPLINE_MODEL)
+    private val disciplineModel by getNullOrParcelable<DisciplineModel>(DISCIPLINE_MODEL)
     private val file by getParcelable<FileModel>(FILE_MODEL)
+    private lateinit var listDisciplines: List<DisciplineModel>
 
     private val userUid by string(USER_ID)
 
@@ -64,16 +71,24 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
     override fun init() {
         binding.item = fileUser
         binding.file = file
+        disciplineViewModel.getDisciplines(userUid)
 
         if (fileUser.id.isNotEmpty()) {
            binding.tvTitle.text = getString(R.string.edit_file)
         }
 
-        disciplineModel.let {
-            if (it.name.isNotEmpty()) {
-                fileUser.disciplineId = it.id
-                fileUser.nameDiscipline = it.name.capitalizeFirstLetter()
-                binding.tilDiscipline.isEnabled = false
+        if (disciplineModel != null) {
+            disciplineModel?.let {
+                if (it.name.isNotEmpty()) {
+                    fileUser.disciplineId = it.id
+                    fileUser.nameDiscipline = it.name.capitalizeFirstLetter()
+                    binding.tilDiscipline.isEnabled = false
+                }
+            }
+        } else {
+            binding.tilDiscipline.isEnabled = true
+            binding.tilDiscipline.editText?.clickListener {
+                showChooseDiscipline()
             }
         }
 
@@ -84,9 +99,38 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
 
         insertListeners()
         observe()
+        changeCardFile()
+    }
+
+    private fun changeCardFile() {
+        if (fileUser.id.isNotEmpty()) {
+            binding.clFile.setBackgroundResource(R.drawable.rounded_card_edit)
+        } else {
+            binding.clFile.setBackgroundResource(R.drawable.rounded_card_success)
+        }
     }
 
     private fun observe() {
+        lifecycleScope.launch {
+            disciplineViewModel.uiState.disciplines.collect { disciplineUiState ->
+                disciplineUiState.let {
+                    when(it.screenType) {
+                        DisciplineUiState.ScreenType.Await -> {
+                            dialog.show()
+                        }
+                        is DisciplineUiState.ScreenType.Error -> {
+                            dialog.dismiss()
+                            errorAction?.invoke(it.screenType.errorMessage.orEmpty())
+                        }
+                        is DisciplineUiState.ScreenType.Loaded -> {
+                            dialog.dismiss()
+                            listDisciplines = it.screenType.listDisciplines
+                        }
+                    }
+                }
+            }
+        }
+
         lifecycleScope.launch {
             lifecycleScope.launch {
                 fileViewModel.uiState.saveFile.collect { saveUiState ->
@@ -152,6 +196,19 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
 
     private fun setErrorCallback(callback: ((String) -> Unit)?) {
         errorAction = callback
+    }
+
+    private fun showChooseDiscipline() {
+        ChooseDisciplineBottomSheet
+            .newInstance(listDisciplines)
+            .setListener(::handleDisciplineSelected)
+            .show(childFragmentManager)
+    }
+
+    private fun handleDisciplineSelected(disciplineModel: DisciplineModel) {
+        fileUser.disciplineId = disciplineModel.id
+        fileUser.nameDiscipline = disciplineModel.name.capitalizeFirstLetter()
+        binding.item = fileUser
     }
 
     override fun onResume() {

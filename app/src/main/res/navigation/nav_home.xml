@@ -53,6 +53,18 @@
         android:label="fragment_discipline_detail"
         tools:layout="@layout/fragment_discipline_detail">
 
+        <action
+            android:id="@+id/go_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/disciplineFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/go_to_file"
+            app:destination="@id/filesFragment"
+            app:popUpTo="@id/disciplineFragment"
+            app:popUpToInclusive="true"/>
+
         <argument
             android:name="disciplineModel"
             app:argType="com.fsacchi.schoolmate.data.model.discipline.DisciplineModel" />

@@ -2,7 +2,9 @@ package com.fsacchi.schoolmate.core.features.home
 
 import androidx.navigation.fragment.navArgs
 import com.fsacchi.schoolmate.R
+import com.fsacchi.schoolmate.core.components.BottomBar
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
+import com.fsacchi.schoolmate.core.extensions.navTo
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.core.platform.PagerAdapter
 import com.fsacchi.schoolmate.databinding.FragmentDisciplineDetailBinding
@@ -12,7 +14,6 @@ import org.koin.android.ext.android.inject
 class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>() {
 
     private lateinit var homeActivity: HomeActivity
-    private val disciplineViewModel: DisciplineViewModel by inject()
     private val args by navArgs<DisciplineDetailFragmentArgs>()
 
     override val layoutRes: Int
@@ -47,6 +48,20 @@ class DisciplineDetailFragment : BaseFragment<FragmentDisciplineDetailBinding>()
     private fun insertListeners() {
         homeActivity.listenerBack = {
             popBackStack()
+        }
+
+        homeActivity.menuSelected {
+            when(it) {
+                BottomBar.MenuBottom.DISCIPLINE -> {
+                    homeActivity.setCustomTitle(args.disciplineModel.name.capitalizeFirstLetter())
+                }
+                BottomBar.MenuBottom.AGENDA -> {
+                    navTo(DisciplineDetailFragmentDirections.goToHome())
+                }
+                BottomBar.MenuBottom.FILE -> {
+                    navTo(DisciplineDetailFragmentDirections.goToFile())
+                }
+            }
         }
     }
 }

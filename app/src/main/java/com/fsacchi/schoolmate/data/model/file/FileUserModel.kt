@@ -26,4 +26,12 @@ data class FileUserModel(
             else -> R.drawable.ic_doc
         }
     }
+
+    fun getIconDownload(): Int {
+        return if (id.isNotEmpty()) {
+            R.drawable.ic_download
+        } else {
+            R.drawable.ic_see
+        }
+    }
 }

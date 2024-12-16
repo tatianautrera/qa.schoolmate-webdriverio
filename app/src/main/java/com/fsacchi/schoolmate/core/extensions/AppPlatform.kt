@@ -56,6 +56,10 @@ inline fun <reified T : Parcelable> BottomSheetDialogFragment.getParcelable(extr
     arguments?.getParcelable<T>(extra)!!
 }
 
+inline fun <reified T : Parcelable?> BottomSheetDialogFragment.getNullOrParcelable(extra: String) = lazy {
+    arguments?.getParcelable<T>(extra)
+}
+
 fun BottomSheetDialogFragment.getScreenHeight() = Resources.getSystem().displayMetrics.heightPixels
 
 fun BottomSheetDialogFragment.string(key: String) = lazy {
