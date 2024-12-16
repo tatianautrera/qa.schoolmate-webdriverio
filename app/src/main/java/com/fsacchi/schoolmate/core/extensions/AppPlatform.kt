@@ -1,16 +1,23 @@
 package com.fsacchi.schoolmate.core.extensions
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.ActivityNotFoundException
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Parcelable
 import android.util.Base64
 import android.widget.Toast
 import androidx.annotation.IdRes
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -94,12 +101,16 @@ fun Fragment.navTo(@IdRes id: Int) {
 fun FragmentActivity.startActionView(url: String, extension: String) {
     try {
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(url.toUri(), getMimeType(extension))
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val mimeType = getMimeType(extension)
+            if (mimeType.isNullOrEmpty()) {
+                toast(getString(R.string.url_invalid_try_download), Toast.LENGTH_LONG)
+            }
+            setDataAndType(url.toUri(), mimeType)
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
     } catch (ex: ActivityNotFoundException) {
-        toast(getString(R.string.url_invalid_not_found_app), Toast.LENGTH_LONG)
+        toast(getString(R.string.url_invalid_try_download), Toast.LENGTH_LONG)
     }
 }
 
@@ -108,10 +119,6 @@ fun getMimeType(extension: String): String? {
         "jpg", "jpeg" -> "image/jpeg"
         "png" -> "image/png"
         "pdf" -> "application/pdf"
-        "doc" -> "application/msword"
-        "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        "xls" -> "application/vnd.ms-excel"
-        "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         "txt" -> "text/plain"
         else -> null
     }

@@ -89,5 +89,5 @@
     <string name="filled_a_title_for_file">Informe um título ao arquivo</string>
     <string name="describe_more_details_about_file">Descreva mais detalhes sobre o arquivo</string>
     <string name="save_file">Salvar arquivo</string>
-    <string name="url_invalid_not_found_app">Não é uma url válida ou você não possui app para abrir esse arquivo</string>
+    <string name="url_invalid_try_download">Fazendo download do arquivo, pois não foi possível abri-lo diretamente.</string>
 </resources>

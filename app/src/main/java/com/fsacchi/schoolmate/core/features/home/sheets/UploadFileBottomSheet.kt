@@ -144,7 +144,7 @@ class UploadFileBottomSheet : BottomSheetDialogFragment() {
     private fun uploadToFirebase(uri: Uri) {
         val storageReference = FirebaseStorage.getInstance().reference
         val fileName = "${System.currentTimeMillis()}_${uri.lastPathSegment}"
-        val fileRef = storageReference.child("uploads/$fileName")
+        val fileRef = storageReference.child("uploads/$fileName.${fileExtension}")
 
         fileRef.putFile(uri)
             .addOnSuccessListener {
