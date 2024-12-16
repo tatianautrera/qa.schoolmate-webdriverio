@@ -65,6 +65,10 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
         binding.item = fileUser
         binding.file = file
 
+        if (fileUser.id.isNotEmpty()) {
+           binding.tvTitle.text = getString(R.string.edit_file)
+        }
+
         disciplineModel.let {
             if (it.name.isNotEmpty()) {
                 fileUser.disciplineId = it.id

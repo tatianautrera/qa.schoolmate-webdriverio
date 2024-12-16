@@ -6,14 +6,18 @@ import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
+import com.fsacchi.schoolmate.core.extensions.showMessage
+import com.fsacchi.schoolmate.core.extensions.startActionView
 import com.fsacchi.schoolmate.core.features.home.adapter.FileListAdapter
 import com.fsacchi.schoolmate.core.features.home.adapter.JobListAdapter
 import com.fsacchi.schoolmate.core.features.home.sheets.FileBottomSheet
 import com.fsacchi.schoolmate.core.features.home.sheets.JobBottomSheet
+import com.fsacchi.schoolmate.core.features.home.sheets.OptionsBottomSheet
 import com.fsacchi.schoolmate.core.features.home.sheets.UploadFileBottomSheet
 import com.fsacchi.schoolmate.core.platform.BaseFragment
 import com.fsacchi.schoolmate.core.platform.PagerAdapter
 import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
+import com.fsacchi.schoolmate.data.model.file.FileModel
 import com.fsacchi.schoolmate.data.model.file.FileUserModel
 import com.fsacchi.schoolmate.data.model.job.JobModel
 import com.fsacchi.schoolmate.databinding.FragmentDisciplineDetailBinding
@@ -31,6 +35,8 @@ class DisciplineFilesFragment : BaseFragment<FragmentDisciplineFilesBinding>() {
 
     private lateinit var disciplineSelected: DisciplineModel
     private lateinit var homeActivity: HomeActivity
+    private lateinit var fileSelected: FileUserModel
+
     private val fileViewModel: FileViewModel by inject()
     private val dialog by lazy { createProgressDialog() }
     private val adapter by lazy { FileListAdapter() }
@@ -100,10 +106,43 @@ class DisciplineFilesFragment : BaseFragment<FragmentDisciplineFilesBinding>() {
         binding.rvFile.adapter = adapter.apply {
             submitList(listFiles)
             rootListener = {
-
+                fileSelected = it
+                activity?.startActionView(it.urlFirebase, it.extension)
             }
             listenerOptions = {
+                fileSelected = it
+                showOptionsMenu()
+            }
+        }
+    }
 
+    private fun showOptionsMenu() {
+        OptionsBottomSheet
+            .newInstance(jobMenuItems)
+            .setListener(::handleOptionsMenu)
+            .show(childFragmentManager)
+    }
+
+    private fun handleOptionsMenu(optionItem: OptionItem) {
+        when(optionItem.desc) {
+            R.string.edit -> {
+                val fileModel = FileModel(
+                    extension = fileSelected.extension,
+                    nameFile = fileSelected.titleFile,
+                    urlFirebase = fileSelected.urlFirebase
+                )
+                showFileBottomSheet(fileSelected, fileModel)
+
+            }
+            R.string.delete -> {
+                showMessage {
+                    title(R.string.warning)
+                    message(getString(R.string.confirm_delete_file, fileSelected.titleFile))
+                    positiveListener {
+                        fileViewModel.deleteFileModel(fileSelected, homeActivity.user.uid)
+                    }
+                    negativeListener {}
+                }
             }
         }
     }
@@ -116,28 +155,32 @@ class DisciplineFilesFragment : BaseFragment<FragmentDisciplineFilesBinding>() {
     private fun insertListeners() {
         binding.btnCreateFile.clickListener{
             UploadFileBottomSheet.newInstance().setListener {
-                FileBottomSheet.newInstance(
-                    disciplineSelected,
-                    fileUserModel = FileUserModel(),
-                    fileModel = it,
-                    homeActivity.user.uid,
-                    successListener = {
-                        fileViewModel.getFiles(homeActivity.user.uid, disciplineSelected)
-                    },
-                    errorListener = { errorMessage ->
-                        homeActivity.showAlertMessage(
-                            isError = true,
-                            title = "Erro ao salvar arquivo",
-                            message = errorMessage
-
-                        )
-                    }
-                ).show(childFragmentManager)
+                showFileBottomSheet(FileUserModel(), it)
             }.show(childFragmentManager)
         }
     }
 
     fun setDisciplineSelected(disciplineModel: DisciplineModel) {
         disciplineSelected = disciplineModel
+    }
+
+    private fun showFileBottomSheet(fileUserModel: FileUserModel, fileModel: FileModel) {
+        FileBottomSheet.newInstance(
+            disciplineSelected,
+            fileUserModel = fileUserModel,
+            fileModel = fileModel,
+            homeActivity.user.uid,
+            successListener = {
+                fileViewModel.getFiles(homeActivity.user.uid, disciplineSelected)
+            },
+            errorListener = { errorMessage ->
+                homeActivity.showAlertMessage(
+                    isError = true,
+                    title = "Erro ao salvar arquivo",
+                    message = errorMessage
+
+                )
+            }
+        ).show(childFragmentManager)
     }
 }

@@ -43,7 +43,6 @@
             app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toEndOf="@id/iv_icon_file"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.titleFile}"
             tools:text="Arquivo de Fisica" />
 
         <TextView
@@ -54,7 +53,6 @@
             android:layout_marginTop="4dp"
             android:maxLines="1"
             android:layout_marginStart="16dp"
-            android:text="@{item.nameDiscipline}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toEndOf="@id/iv_icon_file"

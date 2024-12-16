@@ -23,6 +23,8 @@ class FileListAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun ItemFileBinding.bind(item: FileUserModel) {
+        tvNameFile.text = item.titleFile.capitalizeFirstLetter()
+        tvDiscipline.text = item.nameDiscipline.capitalizeFirstLetter()
         ivArrow.clickListener { listenerOptions.invoke(item) }
     }
 }

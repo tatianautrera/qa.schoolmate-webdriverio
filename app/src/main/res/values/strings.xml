@@ -50,6 +50,7 @@
     <string name="edit_job">Editar atividade</string>
     <string name="edit_job_complete">Atividade realizada</string>
     <string name="add_file">Adicionar arquivo</string>
+    <string name="edit_file">Editar arquivo</string>
     <string name="message_no_discipline">Você ainda não cadastrou suas disciplinas</string>
     <string name="discipline_name">Nome da disciplina</string>
     <string name="teacher_name">Nome do professor</string>
@@ -62,6 +63,7 @@
     <string name="warning">Atenção</string>
     <string name="confirm_delete_discipline">Realmente deseja excluir a disciplina %s?</string>
     <string name="confirm_delete_job">Realmente deseja excluir a atividade %s?</string>
+    <string name="confirm_delete_file">Realmente deseja excluir o arquivo %s?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="jobs">Atividades</string>
