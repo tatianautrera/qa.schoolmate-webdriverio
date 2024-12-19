@@ -90,4 +90,10 @@
     <string name="describe_more_details_about_file">Descreva mais detalhes sobre o arquivo</string>
     <string name="save_file">Salvar arquivo</string>
     <string name="url_invalid_try_download">Fazendo download do arquivo, pois não foi possível abri-lo diretamente.</string>
+    <string name="config">Configurações</string>
+    <string name="should_receive_notifications_app">Deseja receber notificações de atividades</string>
+    <string name="wanna_receive_notification_homework">Quero receber uma notificação de uma tarefa em aberto</string>
+    <string name="wanna_receive_notification_job">Quero receber uma notificação de um trabalho em aberto</string>
+    <string name="wanna_receive_notification_test">Quero receber uma notificação de uma avaliação em aberto</string>
+    <string name="days_before_your_delivery">dias antes de sua entrega.</string>
 </resources>

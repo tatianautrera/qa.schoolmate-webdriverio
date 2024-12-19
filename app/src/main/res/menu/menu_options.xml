@@ -9,6 +9,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_config"
+        android:icon="@drawable/ic_config"
+        android:title="@string/config"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_logoff"
         android:icon="@drawable/ic_logout"
         android:title="@string/logoff"

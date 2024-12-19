@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.fsacchi.schoolmate.data.model.login.ConfigModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.fsacchi.schoolmate.core.components.CustomToolbar
+                android:id="@+id/custom_toolbar"
+                android:theme="@style/CustomToolbarTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title_toolbar="@string/config"
+                tools:layout_height="60dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/sw_allow_notification"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/should_receive_notifications_app"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            android:checked="@{item.allowNotification}"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_home_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/sw_allow_notification"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/title_homework"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_work"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_homework"/>
+
+            <View
+                android:id="@+id/divider_homework"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/text_homework"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/title_homework"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_homework"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_homework"
+                android:text="@string/wanna_receive_notification_homework" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_days_home"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                app:placeholderText="@string/empty"
+                android:hint="@string/empty"
+                app:layout_constraintTop_toBottomOf="@id/tv_homework"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_days_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/hintColor"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:enabled="@{item.allowNotification}"
+                    android:paddingEnd="8dp"
+                    android:maxLength="2"
+                    android:paddingStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/til_date_delivery"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    android:text="@={item.daysUntilHomeWork}"
+                    tools:text="3"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/title_end_homework"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days_before_your_delivery"
+                app:layout_constraintTop_toTopOf="@id/til_days_home"
+                app:layout_constraintStart_toEndOf="@id/til_days_home"
+                app:layout_constraintBottom_toBottomOf="@id/til_days_home"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_home_work"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/title_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/job"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_job"/>
+
+            <View
+                android:id="@+id/divider_job"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/text_job"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/title_job"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_job"
+                android:text="@string/wanna_receive_notification_job" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_days_job"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                app:placeholderText="@string/empty"
+                android:enabled="@{item.allowNotification}"
+                android:hint="@string/empty"
+                app:layout_constraintTop_toBottomOf="@id/tv_job"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_days_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/hintColor"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:paddingEnd="8dp"
+                    android:maxLength="2"
+                    android:paddingStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/til_date_delivery"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    android:text="@={item.daysUntilJob}"
+                    tools:text="3"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/title_end_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days_before_your_delivery"
+                app:layout_constraintTop_toTopOf="@id/til_days_job"
+                app:layout_constraintStart_toEndOf="@id/til_days_job"
+                app:layout_constraintBottom_toBottomOf="@id/til_days_job"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_job"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/title_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_test"/>
+
+            <View
+                android:id="@+id/divider_test"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/text_test"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/title_test"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_test"
+                android:text="@string/wanna_receive_notification_test" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_days_test"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                app:placeholderText="@string/empty"
+                android:hint="@string/empty"
+                android:enabled="@{item.allowNotification}"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_test"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_days_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/hintColor"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:paddingEnd="8dp"
+                    android:maxLength="2"
+                    android:paddingStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/til_date_delivery"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    android:text="@={item.daysUntilTest}"
+                    tools:text="3"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/title_end_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days_before_your_delivery"
+                app:layout_constraintTop_toTopOf="@id/til_days_test"
+                app:layout_constraintStart_toEndOf="@id/til_days_test"
+                app:layout_constraintBottom_toBottomOf="@id/til_days_test"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
