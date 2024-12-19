@@ -27,6 +27,7 @@ import com.fsacchi.schoolmate.core.extensions.toDate
 import com.fsacchi.schoolmate.core.extensions.toEmoji
 import com.fsacchi.schoolmate.core.extensions.toast
 import com.fsacchi.schoolmate.core.features.home.jobMenuItems
+import com.fsacchi.schoolmate.core.features.home.sheets.ChooseDisciplineBottomSheet.Companion.NEW_DISCIPLINE
 import com.fsacchi.schoolmate.core.platform.BaseDialog
 import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
 import com.fsacchi.schoolmate.data.model.file.FileModel
@@ -64,6 +65,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
 
     private var saveAction: ((FileUserModel) -> Unit)? = null
     private var errorAction: ((String) -> Unit)? = null
+    private var newDisciplineAction: (() -> Unit)? = null
 
     override val layoutRes: Int
         get() = R.layout.bottom_sheet_file
@@ -198,6 +200,10 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
         errorAction = callback
     }
 
+    private fun setNewDisciplineCallBack(callback: (() -> Unit)?) {
+        newDisciplineAction = callback
+    }
+
     private fun showChooseDiscipline() {
         ChooseDisciplineBottomSheet
             .newInstance(listDisciplines)
@@ -206,9 +212,14 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
     }
 
     private fun handleDisciplineSelected(disciplineModel: DisciplineModel) {
-        fileUser.disciplineId = disciplineModel.id
-        fileUser.nameDiscipline = disciplineModel.name.capitalizeFirstLetter()
-        binding.item = fileUser
+        if (disciplineModel.id == NEW_DISCIPLINE) {
+            dismiss()
+            newDisciplineAction?.invoke()
+        } else {
+            fileUser.disciplineId = disciplineModel.id
+            fileUser.nameDiscipline = disciplineModel.name.capitalizeFirstLetter()
+            binding.item = fileUser
+        }
     }
 
     override fun onResume() {
@@ -230,7 +241,8 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
             fileModel: FileModel,
             userUid: String,
             successListener: ((FileUserModel) -> Unit)?,
-            errorListener: ((String) -> Unit)?
+            errorListener: ((String) -> Unit)?,
+            newDisciplineListener: (() -> Unit)?
         ) = FileBottomSheet().apply {
             arguments = Bundle().apply {
                 putParcelable(MODEL, fileUserModel)
@@ -240,6 +252,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
             }
             setSuccessCallback(successListener)
             setErrorCallback(errorListener)
+            setNewDisciplineCallBack(newDisciplineListener)
         }
     }
 }

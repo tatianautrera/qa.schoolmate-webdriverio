@@ -50,7 +50,7 @@ class BottomBar @JvmOverloads constructor(
         }
     }
 
-    private fun setMenuSelected(menu: MenuBottom) {
+    fun setMenuSelected(menu: MenuBottom) {
         when(menu) {
             MenuBottom.DISCIPLINE -> {
                 binding.cvAgenda.setBackgroundResource(R.drawable.rounded)

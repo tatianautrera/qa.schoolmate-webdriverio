@@ -189,6 +189,9 @@ class FilesFragment : BaseFragment<FragmentFileBinding>() {
                     message = errorMessage
 
                 )
+            },
+            newDisciplineListener = {
+                homeActivity.selectMenuBottom(BottomBar.MenuBottom.DISCIPLINE)
             }
         ).show(childFragmentManager)
     }

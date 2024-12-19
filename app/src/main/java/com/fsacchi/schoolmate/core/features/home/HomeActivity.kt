@@ -112,6 +112,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         }
     }
 
-
+    fun selectMenuBottom(menu: BottomBar.MenuBottom) {
+        binding.bottomBar.setMenuSelected(menu)
+        updateTitleMenu(menu)
+        menuSelected?.invoke(menu)
+    }
 
 }

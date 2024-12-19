@@ -180,7 +180,8 @@ class DisciplineFilesFragment : BaseFragment<FragmentDisciplineFilesBinding>() {
                     message = errorMessage
 
                 )
-            }
+            },
+            newDisciplineListener = {}
         ).show(childFragmentManager)
     }
 }

@@ -12,6 +12,7 @@ import com.fsacchi.schoolmate.core.extensions.addVerticalDivider
 import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.core.extensions.toArrayList
 import com.fsacchi.schoolmate.core.extensions.toEmoji
+import com.fsacchi.schoolmate.core.extensions.visible
 import com.fsacchi.schoolmate.core.features.home.OptionItem
 import com.fsacchi.schoolmate.core.platform.adapter.BaseAdapter
 import com.fsacchi.schoolmate.core.platform.adapter.BaseDiffCallback
@@ -40,7 +41,14 @@ class ChooseDisciplineBottomSheet : BottomSheetDialogFragment() {
         binding.rvOptions.adapter = adapter
         binding.rvOptions.addVerticalDivider()
 
-        adapter.submitList(arguments?.getParcelableArrayList(DISCIPLINE_LIST))
+        val listDisciplines = arrayListOf(
+            DisciplineModel(id = NEW_DISCIPLINE)
+        )
+
+        val parcelableList: ArrayList<DisciplineModel>? = arguments?.getParcelableArrayList(DISCIPLINE_LIST)
+        parcelableList?.let{ listDisciplines.addAll(it) }
+
+        adapter.submitList(listDisciplines)
         adapter.rootListener = {
             dismiss()
             listener(it)
@@ -61,17 +69,26 @@ class ChooseDisciplineBottomSheet : BottomSheetDialogFragment() {
         BaseAdapter<DisciplineModel, ItemChooseDisciplineBinding>(BaseDiffCallback()) {
 
         override fun ItemChooseDisciplineBinding.bind(item: DisciplineModel) {
-            tvDisciplineName.text = item.name.capitalizeFirstLetter()
+            if (item.id == NEW_DISCIPLINE) {
+                clNewDiscipline.visible(true)
+                clRoot.visible(false)
+            } else {
+                clNewDiscipline.visible(false)
+                clRoot.visible(true)
 
-            val emojiString = item.emoji.toInt().toEmoji()
-            val emojiDrawable = TextDrawable(emojiString, root.context)
-            ivEmoji.setImageDrawable(emojiDrawable)
-            tvTeacher.text = "Prof. ${item.teacher.capitalizeFirstLetter()}"
+                tvDisciplineName.text = item.name.capitalizeFirstLetter()
+
+                val emojiString = item.emoji.toInt().toEmoji()
+                val emojiDrawable = TextDrawable(emojiString, root.context)
+                ivEmoji.setImageDrawable(emojiDrawable)
+                tvTeacher.text = "Prof. ${item.teacher.capitalizeFirstLetter()}"
             }
         }
+    }
 
     companion object {
         private const val DISCIPLINE_LIST = "discipline_list"
+        const val NEW_DISCIPLINE = "new_discipline"
 
         fun newInstance(list: List<DisciplineModel>) = ChooseDisciplineBottomSheet().apply {
             arguments = Bundle().apply {
