@@ -4,9 +4,277 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="showEmptyState"
+            type="Boolean" />
+
+        <variable
+            name="item"
+            type="com.fsacchi.schoolmate.data.model.home.JobHomeModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_date"
+            android:layout_width="0dp"
+            android:padding="16dp"
+            android:elevation="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_calendar_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_expanded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expanded_more"
+                app:layout_constraintStart_toEndOf="@id/iv_calendar_logo"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_day_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_expanded"
+                android:text="@{item.getDateExtensive()}"
+                tools:text="Hoje, 8 de Dezembro de 2024"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_date"
+            app:layout_constraintBottom_toTopOf="@id/btn_create_job"
+            android:layout_marginBottom="16dp"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_empty_list"
+                    android:layout_width="match_parent"
+                    app:visible="@{showEmptyState}"
+                    tools:visibility="gone"
+                    android:layout_marginBottom="100dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_school"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="-30dp"
+                        android:src="@drawable/ic_emoji_no_job"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/iv_school"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/anyone_job"
+                        android:layout_marginTop="16dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textGray"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_recycler"
+                    android:layout_width="0dp"
+                    app:visible="@{!showEmptyState}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_today"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_full_today"
+                            android:layout_width="wrap_content"
+                            app:layout_constraintTop_toTopOf="@id/tv_today"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_today"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_circle_full"/>
+
+                        <TextView
+                            android:id="@+id/tv_today"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@id/iv_full_today"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@string/today"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_jobs_day_selected"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="4dp"
+                        android:layout_marginTop="4dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_today"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_job" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_no_job_today"
+                        android:layout_width="match_parent"
+                        android:padding="16dp"
+                        android:visibility="gone"
+                        android:background="@color/background_no_jobs"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_today"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_party"
+                            android:layout_width="26dp"
+                            app:layout_constraintTop_toTopOf="@id/tv_nothing_today"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_enjoy"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_party"/>
+
+                        <TextView
+                            android:id="@+id/tv_nothing_today"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/textGray"
+                            app:layout_constraintStart_toEndOf="@id/iv_party"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@string/nothing_for_today"/>
+
+                        <TextView
+                            android:id="@+id/tv_enjoy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@id/iv_party"
+                            app:layout_constraintTop_toBottomOf="@id/tv_nothing_today"
+                            android:text="@string/enjoy_your_life"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_recycler_next_jobs"
+                android:layout_width="0dp"
+                app:visible="@{!showEmptyState}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_recycler"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_next_jobs"
+                    android:layout_width="match_parent"
+                    android:padding="8dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_empty_day"
+                        android:layout_width="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/tv_next_days"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_next_days"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_circle_empty"/>
+
+                    <TextView
+                        android:id="@+id/tv_next_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/iv_empty_day"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@string/next_jobs"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_jobs_next_days"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
+                    android:layout_marginTop="4dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_next_jobs"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_job" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_job"
+            style="@style/Theme.SchoolMate.Button"
+            android:text="@string/add_job"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

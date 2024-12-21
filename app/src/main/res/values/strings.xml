@@ -96,4 +96,9 @@
     <string name="wanna_receive_notification_job">Quero receber uma notificação de um trabalho em aberto</string>
     <string name="wanna_receive_notification_test">Quero receber uma notificação de uma avaliação em aberto</string>
     <string name="days_before_your_delivery">dias antes de sua entrega.</string>
+    <string name="anyone_job">Nenhuma atividade na agenda</string>
+    <string name="today">Hoje</string>
+    <string name="nothing_for_today">Nenhuma entrega pra hoje!</string>
+    <string name="enjoy_your_life">Aproveite para fazer outras tarefas ;)</string>
+    <string name="next_jobs">Próximas atividades</string>
 </resources>

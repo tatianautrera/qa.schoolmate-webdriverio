@@ -1,5 +1,7 @@
 package com.fsacchi.schoolmate.core.extensions
 
+import com.fsacchi.schoolmate.core.extensions.DateMasks.extensiveFormat
+import com.fsacchi.schoolmate.core.extensions.DateMasks.todayFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,6 +20,17 @@ fun String.toDate(pattern: String = DateMasks.appFormat): Date {
 fun Date.format(pattern: String): String {
     return SimpleDateFormat(pattern, locale)
         .format(this)
+}
+
+fun Date.formatDateExtensive(): String {
+    val isToday = SimpleDateFormat("yyyyMMdd", locale).format(this) ==
+            SimpleDateFormat("yyyyMMdd", locale).format(Date())
+
+    val pattern = if (isToday) todayFormat else extensiveFormat
+
+    return SimpleDateFormat(pattern, locale)
+        .format(this)
+        .replace("-feira", "")
 }
 
 fun String.formatDateMask(

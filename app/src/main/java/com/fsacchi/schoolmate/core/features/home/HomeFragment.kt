@@ -13,6 +13,7 @@ import com.fsacchi.schoolmate.core.extensions.startActivity
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.features.splash.SplashActivity
 import com.fsacchi.schoolmate.core.platform.BaseFragment
+import com.fsacchi.schoolmate.data.model.home.JobHomeModel
 import com.fsacchi.schoolmate.databinding.FragmentHomeBinding
 import com.fsacchi.schoolmate.databinding.FragmentLoginBinding
 import com.fsacchi.schoolmate.presentation.features.HomeViewModel
@@ -30,6 +31,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun start() {
         homeActivity = (activity as HomeActivity)
+        binding.showEmptyState = true
+        binding.item = JobHomeModel()
         homeViewModel.getUser()
         observe()
         insertListeners()

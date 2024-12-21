@@ -21,6 +21,8 @@ object DateMasks {
     const val listFormat = "d MMMM yyyy"
     const val extensiveFormat = "EEEE, dd MMMM yyyy"
     const val serverFormat = "yyyy-MM-dd"
+    const val extensiveFormatDayWeek = "EEEE, d 'de' MMMM 'de' yyyy"
+    const val todayFormat = "'Hoje, 'd 'de' MMMM 'de' yyyy"
 }
 
 internal val locale = Locale("pt", "BR")

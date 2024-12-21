@@ -14,6 +14,7 @@
     <color name="red">#e70000</color>
     <color name="warning">#E55858</color>
     <color name="background_error">#FFE3E3</color>
+    <color name="background_no_jobs">#EEEEEE</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
