@@ -55,7 +55,6 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
     private val fileViewModel: FileViewModel by inject()
     private val disciplineViewModel: DisciplineViewModel by inject()
 
-
     private val fileUser by getParcelable<FileUserModel>(MODEL)
     private val disciplineModel by getNullOrParcelable<DisciplineModel>(DISCIPLINE_MODEL)
     private val file by getParcelable<FileModel>(FILE_MODEL)
@@ -85,6 +84,7 @@ class FileBottomSheet : BaseDialog<BottomSheetFileBinding>() {
                     fileUser.disciplineId = it.id
                     fileUser.nameDiscipline = it.name.capitalizeFirstLetter()
                     binding.tilDiscipline.isEnabled = false
+                    binding.item = fileUser
                 }
             }
         } else {

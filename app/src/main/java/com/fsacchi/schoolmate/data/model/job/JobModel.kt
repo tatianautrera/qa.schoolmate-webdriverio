@@ -3,6 +3,7 @@ package com.fsacchi.schoolmate.data.model.job
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import com.fsacchi.schoolmate.core.extensions.DateMasks.appFormat
+import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.core.extensions.format
 import kotlinx.parcelize.Parcelize
 import java.util.Date
@@ -21,12 +22,11 @@ data class JobModel(
     fun date() = dtJob?.format(appFormat)
     fun dateToDelivery() = "Para ${date()}"
     fun titleJob() = when(typeJob) {
-        TypeJob.Test -> "Avaliação de $nameDiscipline"
-        TypeJob.HomeWork -> "Tarefa de $nameDiscipline"
-        TypeJob.Job -> "Trabalho de $nameDiscipline"
+        TypeJob.Test -> "Avaliação de ${nameDiscipline.capitalizeFirstLetter()}"
+        TypeJob.HomeWork -> "Tarefa de ${nameDiscipline.capitalizeFirstLetter()}"
+        TypeJob.Job -> "Trabalho de ${nameDiscipline.capitalizeFirstLetter()}"
         null -> ""
     }
-
     fun isFinish() = status == "S"
 }
 

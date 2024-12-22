@@ -79,6 +79,7 @@
     <string name="choose_your_type_job">Escolha o tipo de atividade</string>
     <string name="apply">Aplicar</string>
     <string name="choose_dt_delivery">Defina a data de entrega</string>
+    <string name="choose_dt_agenda">Escolha o dia da agenda</string>
     <string name="select_your_file">Selecione seu arquivo</string>
     <string name="extensions_allowed">Extensões permitidas: PDF, JPG, PNG, DOC, XLS, PPT e TXT</string>
     <string name="max_size_file">Tamanho máximo 10 MB</string>

@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 private val loginModules = module {
     viewModel { LoginViewModel(get(), get(), get(), get()) }
-    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get()) }
 }
 
 private val disciplineModules = module {

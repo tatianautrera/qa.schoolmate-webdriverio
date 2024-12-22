@@ -9,9 +9,9 @@ import java.util.Date
 
 @Parcelize
 data class JobHomeModel(
-    val dateSelected: Date? = now(),
-    val jobsToday: List<JobModel> = arrayListOf(),
-    val nextJobs: List<JobModel> = arrayListOf()
+    val dateSelected: Date = now(),
+    var jobsToday: List<JobModel> = arrayListOf(),
+    var nextJobs: List<JobModel> = arrayListOf()
 ): Parcelable {
-    fun getDateExtensive() = dateSelected?.formatDateExtensive()
+    fun getDateExtensive() = dateSelected.formatDateExtensive()
 }

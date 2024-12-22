@@ -12,16 +12,20 @@ import com.fsacchi.schoolmate.data.model.login.ConfigModel
 import com.fsacchi.schoolmate.data.repository.UserRepository
 import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
+import com.fsacchi.schoolmate.domain.job.GetJobHomeUseCase
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
+import com.fsacchi.schoolmate.presentation.states.JobHomeUiState
 import com.fsacchi.schoolmate.presentation.states.UserUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class HomeViewModel(
     private val getUserUseCase: GetUserUseCase,
     private val logoffUseCase: LogoffUseCase,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val getJobHomeUseCase: GetJobHomeUseCase
 ) : ViewModel(), LifecycleObserver {
 
     private var user: UserEntity? = null
@@ -72,8 +76,18 @@ class HomeViewModel(
         }
     }
 
+    fun getJobs(userId: String, dateSelected: Date) {
+        viewModelScope.launch {
+            val params = GetJobHomeUseCase.Params(userId, dateSelected)
+            getJobHomeUseCase(params).collect {
+                uiState.homeJob.emit(it)
+            }
+        }
+    }
+
     data class UiState(
         val logoff: MutableSharedFlow<DefaultUiState?> = MutableSharedFlow(),
-        val user: MutableSharedFlow<UserUiState?> = MutableSharedFlow()
+        val user: MutableSharedFlow<UserUiState?> = MutableSharedFlow(),
+        val homeJob: MutableSharedFlow<JobHomeUiState?> = MutableSharedFlow()
     )
 }

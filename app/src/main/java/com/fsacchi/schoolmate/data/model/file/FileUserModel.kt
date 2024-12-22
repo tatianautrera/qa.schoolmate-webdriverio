@@ -3,6 +3,7 @@ package com.fsacchi.schoolmate.data.model.file
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.fsacchi.schoolmate.R
+import com.fsacchi.schoolmate.core.extensions.capitalizeFirstLetter
 import com.fsacchi.schoolmate.data.model.job.TypeJob
 import kotlinx.parcelize.Parcelize
 import java.util.Date

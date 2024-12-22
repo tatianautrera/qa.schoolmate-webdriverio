@@ -162,7 +162,8 @@ class DisciplineJobsFragment : BaseFragment<FragmentDisciplineJobsBinding>() {
                     message = errorMessage
 
                 )
-            }
+            },
+            newDisciplineListener = {}
         ).show(childFragmentManager)
     }
 }

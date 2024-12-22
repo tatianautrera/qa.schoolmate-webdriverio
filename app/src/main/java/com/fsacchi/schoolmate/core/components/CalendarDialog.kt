@@ -28,6 +28,12 @@ class CalendarDialog : BaseDialog<DialogCalendarBinding>() {
         get() = R.layout.dialog_calendar
 
     override fun init() {
+        val allowPastDates = arguments?.getBoolean(ALLOW_PAST_DATES)?.or(false)
+        if (allowPastDates?.or(false) == true) {
+            binding.tvTitle.text = getString(R.string.choose_dt_agenda)
+        } else {
+            binding.tvTitle.text = getString(R.string.choose_dt_delivery)
+        }
         selectedDate()?.let {
             if (it > 0) {
                 val calendar = Calendar.getInstance().apply {
@@ -42,14 +48,17 @@ class CalendarDialog : BaseDialog<DialogCalendarBinding>() {
             }
         }
 
-        minDate()?.let {
-            val calendarDay = Calendar.getInstance().apply {
-                timeInMillis = it
+        if (allowPastDates?.not() == true) {
+            minDate()?.let {
+                val calendarDay = Calendar.getInstance().apply {
+                    timeInMillis = it
+                }
+                binding.calendarView.state().edit()
+                    .setMinimumDate(CalendarDay.from(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay()))
+                    .commit()
             }
-            binding.calendarView.state().edit()
-                .setMinimumDate(CalendarDay.from(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay()))
-                .commit()
         }
+
     }
 
     override fun onResume() {
@@ -92,12 +101,14 @@ class CalendarDialog : BaseDialog<DialogCalendarBinding>() {
     companion object {
         private const val MIN_DATE = "min_date"
         private const val SELECTED_DATE = "selected_date"
+        private const val ALLOW_PAST_DATES = "allow_past_dates"
 
-        fun newInstance(minDate: Date? = now(), selectedDate: Date? = null) =
+        fun newInstance(minDate: Date? = now(), selectedDate: Date? = null, allowPastDates: Boolean = false) =
             CalendarDialog().apply {
                 arguments = Bundle().apply {
                     putLong(MIN_DATE, minDate?.time ?: -1)
                     putLong(SELECTED_DATE, selectedDate?.time ?: 0)
+                    putBoolean(ALLOW_PAST_DATES, allowPastDates)
                 }
             }
     }

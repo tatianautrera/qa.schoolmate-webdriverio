@@ -11,7 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.components.BottomBar
+import com.fsacchi.schoolmate.core.components.CalendarDialog
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
+import com.fsacchi.schoolmate.core.extensions.now
 import com.fsacchi.schoolmate.core.extensions.startActivity
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.features.utils.ConfigActivity
@@ -22,6 +24,7 @@ import com.fsacchi.schoolmate.presentation.features.HomeViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.util.Date
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
@@ -32,6 +35,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val homeViewModel: HomeViewModel by inject()
     private val dialog by lazy { createProgressDialog() }
     private var menuSelected: ((BottomBar.MenuBottom) -> Unit)? = null
+    private var dateListener: ((Date) -> Unit)? = null
+
+    var dateSelected: Date? = null
+
     var listenerBack: () -> Unit = {}
 
     override val layoutRes: Int get() = R.layout.activity_home
@@ -47,6 +54,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     fun menuSelected(listener: (BottomBar.MenuBottom) -> Unit) {
         menuSelected = listener
+    }
+
+    fun dateListener(listener: (Date) -> Unit) {
+        dateListener = listener
     }
 
     private fun updateTitleMenu(menuBottom: BottomBar.MenuBottom) {
@@ -103,6 +114,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_calendar -> {
+                CalendarDialog
+                    .newInstance(selectedDate = now(), allowPastDates = true)
+                    .listener(::selectDateMenu)
+                    .show(supportFragmentManager)
                 true
             }
             R.id.action_logoff -> {
@@ -131,6 +146,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.bottomBar.setMenuSelected(menu)
         updateTitleMenu(menu)
         menuSelected?.invoke(menu)
+    }
+
+    private fun selectDateMenu(dtSelected: Date) {
+        showBackIcon(false)
+        dateSelected = dtSelected
+        selectMenuBottom(BottomBar.MenuBottom.AGENDA)
+        dateListener?.invoke(dtSelected)
     }
 
     override fun onRequestPermissionsResult(

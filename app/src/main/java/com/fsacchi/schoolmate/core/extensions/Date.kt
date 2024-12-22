@@ -23,15 +23,15 @@ fun Date.format(pattern: String): String {
 }
 
 fun Date.formatDateExtensive(): String {
-    val isToday = SimpleDateFormat("yyyyMMdd", locale).format(this) ==
-            SimpleDateFormat("yyyyMMdd", locale).format(Date())
-
-    val pattern = if (isToday) todayFormat else extensiveFormat
+    val pattern = if (isToday()) todayFormat else extensiveFormat
 
     return SimpleDateFormat(pattern, locale)
         .format(this)
-        .replace("-feira", "")
+        .replace("-feira", "").capitalizeFirstLetter()
 }
+
+fun Date.isToday() = SimpleDateFormat("yyyyMMdd", locale).format(this) ==
+        SimpleDateFormat("yyyyMMdd", locale).format(now())
 
 fun String.formatDateMask(
     fromPattern: String = DateMasks.appFormat,
@@ -106,6 +106,13 @@ fun Date.resetTime() = apply {
     }.resetTime().timeInMillis
 }
 
+fun Date.endTime() = apply {
+    val date = this
+    time = Calendar.getInstance().apply {
+        time = date
+    }.endTime().timeInMillis
+}
+
 fun Date.verifyMaiority(): Boolean {
     val date = this
     val calendarDate = Calendar.getInstance().apply {
@@ -124,6 +131,13 @@ fun Calendar.resetTime() = apply {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
+    set(Calendar.MILLISECOND, 0)
+}
+
+fun Calendar.endTime() = apply {
+    set(Calendar.HOUR_OF_DAY, 23)
+    set(Calendar.MINUTE, 59)
+    set(Calendar.SECOND, 59)
     set(Calendar.MILLISECOND, 0)
 }
 

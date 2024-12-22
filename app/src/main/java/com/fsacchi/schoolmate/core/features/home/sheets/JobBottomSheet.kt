@@ -14,6 +14,7 @@ import com.fsacchi.schoolmate.core.extensions.clickListener
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
 import com.fsacchi.schoolmate.core.extensions.enable
 import com.fsacchi.schoolmate.core.extensions.format
+import com.fsacchi.schoolmate.core.extensions.getNullOrParcelable
 import com.fsacchi.schoolmate.core.extensions.getParcelable
 import com.fsacchi.schoolmate.core.extensions.hideSoftKeyboard
 import com.fsacchi.schoolmate.core.extensions.isEmoji
@@ -31,6 +32,7 @@ import com.fsacchi.schoolmate.databinding.BottomSheetJobBinding
 import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
 import com.fsacchi.schoolmate.presentation.features.JobViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
+import com.fsacchi.schoolmate.presentation.states.DisciplineUiState
 import com.fsacchi.schoolmate.validator.Validator
 import com.fsacchi.schoolmate.validator.extension.text
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -45,7 +47,10 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
     private val jobViewModel: JobViewModel by inject()
     private val job by getParcelable<JobModel>(MODEL)
-    private val disciplineModel by getParcelable<DisciplineModel>(DISCIPLINE_MODEL)
+    private val disciplineModel by getNullOrParcelable<DisciplineModel>(DISCIPLINE_MODEL)
+    private val disciplineViewModel: DisciplineViewModel by inject()
+    private lateinit var listDisciplines: List<DisciplineModel>
+    private var newDisciplineAction: (() -> Unit)? = null
 
     private val userUid by string(USER_ID)
 
@@ -57,6 +62,8 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
     override fun init() {
         binding.item = job
+        disciplineViewModel.getDisciplines(userUid)
+
         if (job.id.isNotEmpty()) {
             if (job.status == "S") {
                 binding.tvTitle.text = getString(R.string.edit_job_complete)
@@ -64,14 +71,24 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
                 binding.tvTitle.text = getString(R.string.edit_job)
             }
         }
-        disciplineModel.let {
-            if (it.name.isNotEmpty()) {
-                job.disciplineId = it.id
-                job.nameDiscipline = it.name.capitalizeFirstLetter()
-                binding.tilDiscipline.isEnabled = false
+
+        if (disciplineModel != null || job.isFinish()) {
+            disciplineModel?.let {
+                if (it.name.isNotEmpty()) {
+                    job.disciplineId = it.id
+                    job.nameDiscipline = it.name.capitalizeFirstLetter()
+                    binding.tilDiscipline.isEnabled = false
+                }
+            }
+        } else {
+            binding.tilDiscipline.isEnabled = true
+            binding.tilDiscipline.editText?.clickListener {
+                showChooseDiscipline()
             }
         }
+
         insertListeners()
+        observe()
     }
 
     override fun created() {
@@ -81,26 +98,62 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
 
     private fun observe() {
         lifecycleScope.launch {
-            lifecycleScope.launch {
-                jobViewModel.uiState.saveJob.collect { saveUiState ->
-                    saveUiState?.let {
-                        when(it.screenType) {
-                            is DefaultUiState.ScreenType.Error -> {
-                                dialog.dismiss()
-                                errorAction?.invoke(it.screenType.errorMessage.orEmpty())
-                            }
-                            DefaultUiState.ScreenType.Loading -> {
-                                dialog.show()
-                            }
-                            DefaultUiState.ScreenType.Success -> {
-                                dialog.dismiss()
-                                dismiss()
-                                saveAction?.invoke(job)
-                            }
+            jobViewModel.uiState.saveJob.collect { saveUiState ->
+                saveUiState?.let {
+                    when(it.screenType) {
+                        is DefaultUiState.ScreenType.Error -> {
+                            dialog.dismiss()
+                            errorAction?.invoke(it.screenType.errorMessage.orEmpty())
+                        }
+                        DefaultUiState.ScreenType.Loading -> {
+                            dialog.show()
+                        }
+                        DefaultUiState.ScreenType.Success -> {
+                            dialog.dismiss()
+                            dismiss()
+                            saveAction?.invoke(job)
                         }
                     }
                 }
             }
+        }
+
+        lifecycleScope.launch {
+            disciplineViewModel.uiState.disciplines.collect { disciplineUiState ->
+                disciplineUiState.let {
+                    when(it.screenType) {
+                        DisciplineUiState.ScreenType.Await -> {
+                            dialog.show()
+                        }
+                        is DisciplineUiState.ScreenType.Error -> {
+                            dialog.dismiss()
+                            errorAction?.invoke(it.screenType.errorMessage.orEmpty())
+                        }
+                        is DisciplineUiState.ScreenType.Loaded -> {
+                            dialog.dismiss()
+                            listDisciplines = it.screenType.listDisciplines
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showChooseDiscipline() {
+        ChooseDisciplineBottomSheet
+            .newInstance(listDisciplines)
+            .setListener(::handleDisciplineSelected)
+            .show(childFragmentManager)
+    }
+
+    private fun handleDisciplineSelected(disciplineModel: DisciplineModel) {
+        if (disciplineModel.id == ChooseDisciplineBottomSheet.NEW_DISCIPLINE) {
+            dismiss()
+            newDisciplineAction?.invoke()
+        } else {
+            job.disciplineId = disciplineModel.id
+            job.nameDiscipline = disciplineModel.name.capitalizeFirstLetter()
+            binding.item = job
         }
     }
 
@@ -140,7 +193,7 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
                     now()
                 }
                 CalendarDialog
-                    .newInstance(selectedDate = selectedDate)
+                    .newInstance(selectedDate = selectedDate, allowPastDates = false)
                     .listener(::setDtDelivery)
                     .show(childFragmentManager)
             }
@@ -164,6 +217,10 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
         saveAction = callback
     }
 
+    private fun setNewDisciplineCallBack(callback: (() -> Unit)?) {
+        newDisciplineAction = callback
+    }
+
     private fun setErrorCallback(callback: ((String) -> Unit)?) {
         errorAction = callback
     }
@@ -185,7 +242,8 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
             jobModel: JobModel,
             userUid: String,
             successListener: ((JobModel) -> Unit)?,
-            errorListener: ((String) -> Unit)?
+            errorListener: ((String) -> Unit)?,
+            newDisciplineListener: (() -> Unit)?
         ) = JobBottomSheet().apply {
             arguments = Bundle().apply {
                 putParcelable(MODEL, jobModel)
@@ -194,6 +252,7 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
             }
             setSuccessCallback(successListener)
             setErrorCallback(errorListener)
+            setNewDisciplineCallBack(newDisciplineListener)
         }
     }
 }
