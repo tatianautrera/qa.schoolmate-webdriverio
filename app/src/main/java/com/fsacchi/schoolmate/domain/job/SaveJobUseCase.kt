@@ -1,6 +1,7 @@
 package com.fsacchi.schoolmate.domain.job
 
 import com.fsacchi.schoolmate.core.extensions.handleFirebaseErrors
+import com.fsacchi.schoolmate.core.extensions.resetTime
 import com.fsacchi.schoolmate.core.extensions.unaccent
 import com.fsacchi.schoolmate.core.extensions.unmask
 import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
@@ -29,7 +30,7 @@ class SaveJobUseCase(
         return suspendCancellableCoroutine { continuation ->
             val job = mapOf(
                 "disciplineId" to jobModel.disciplineId,
-                "dtDelivery" to jobModel.dtJob,
+                "dtDelivery" to jobModel.dtJob?.resetTime(),
                 "jobType" to jobModel.typeJob?.name,
                 "observation" to jobModel.observation,
                 "status" to ""

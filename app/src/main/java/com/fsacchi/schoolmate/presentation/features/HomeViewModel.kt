@@ -8,12 +8,15 @@ import com.fsacchi.schoolmate.core.extensions.toBase64
 import com.fsacchi.schoolmate.data.local.entity.UserEntity
 import com.fsacchi.schoolmate.data.local.extensions.PreferencesKeys
 import com.fsacchi.schoolmate.data.local.extensions.put
+import com.fsacchi.schoolmate.data.model.home.JobCalendarModel
 import com.fsacchi.schoolmate.data.model.login.ConfigModel
 import com.fsacchi.schoolmate.data.repository.UserRepository
 import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
 import com.fsacchi.schoolmate.domain.job.GetJobHomeUseCase
+import com.fsacchi.schoolmate.domain.job.GetJobsCalendarUseCase
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
+import com.fsacchi.schoolmate.presentation.states.JobCalendarUiState
 import com.fsacchi.schoolmate.presentation.states.JobHomeUiState
 import com.fsacchi.schoolmate.presentation.states.UserUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,10 +28,10 @@ class HomeViewModel(
     private val getUserUseCase: GetUserUseCase,
     private val logoffUseCase: LogoffUseCase,
     private val sharedPreferences: SharedPreferences,
-    private val getJobHomeUseCase: GetJobHomeUseCase
+    private val getJobHomeUseCase: GetJobHomeUseCase,
+    private val getJobsCalendarUseCase: GetJobsCalendarUseCase
 ) : ViewModel(), LifecycleObserver {
 
-    private var user: UserEntity? = null
     val uiState = UiState()
 
     fun logoff() {
@@ -85,9 +88,19 @@ class HomeViewModel(
         }
     }
 
+    fun getCalendarJobs(userId: String) {
+        viewModelScope.launch {
+            val params = GetJobsCalendarUseCase.Params(userId)
+            getJobsCalendarUseCase(params).collect {
+                uiState.jobCalendar.emit(it)
+            }
+        }
+    }
+
     data class UiState(
         val logoff: MutableSharedFlow<DefaultUiState?> = MutableSharedFlow(),
         val user: MutableSharedFlow<UserUiState?> = MutableSharedFlow(),
-        val homeJob: MutableSharedFlow<JobHomeUiState?> = MutableSharedFlow()
+        val homeJob: MutableSharedFlow<JobHomeUiState?> = MutableSharedFlow(),
+        val jobCalendar: MutableSharedFlow<JobCalendarUiState?> = MutableSharedFlow()
     )
 }

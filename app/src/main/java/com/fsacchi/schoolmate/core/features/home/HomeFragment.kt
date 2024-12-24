@@ -194,7 +194,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.clDate.clickListener {
             CalendarDialog
-                .newInstance(selectedDate = jobHomeModel.dateSelected, allowPastDates = true)
+                .newInstance(
+                    selectedDate = jobHomeModel.dateSelected,
+                    userId = homeActivity.user.uid,
+                    allowPastDates = true)
                 .listener(::setDtDelivery)
                 .show(childFragmentManager)
         }

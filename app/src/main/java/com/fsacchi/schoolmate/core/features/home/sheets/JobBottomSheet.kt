@@ -193,7 +193,10 @@ class JobBottomSheet : BaseDialog<BottomSheetJobBinding>() {
                     now()
                 }
                 CalendarDialog
-                    .newInstance(selectedDate = selectedDate, allowPastDates = false)
+                    .newInstance(
+                        selectedDate = selectedDate,
+                        userId = userUid,
+                        allowPastDates = false)
                     .listener(::setDtDelivery)
                     .show(childFragmentManager)
             }

@@ -115,7 +115,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         return when (item.itemId) {
             R.id.action_calendar -> {
                 CalendarDialog
-                    .newInstance(selectedDate = now(), allowPastDates = true)
+                    .newInstance(
+                        selectedDate = now(),
+                        userId = user.uid,
+                        allowPastDates = true)
                     .listener(::selectDateMenu)
                     .show(supportFragmentManager)
                 true
