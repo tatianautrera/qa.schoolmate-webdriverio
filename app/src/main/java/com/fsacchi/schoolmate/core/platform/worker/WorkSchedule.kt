@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 fun scheduleDailyJob(context: Context) {
     val currentTime = Calendar.getInstance()
     val targetTime = Calendar.getInstance().apply {
-        set(Calendar.HOUR_OF_DAY, 2)
-        set(Calendar.MINUTE, 40)
+        set(Calendar.HOUR_OF_DAY, 13)
+        set(Calendar.MINUTE, 9)
         set(Calendar.SECOND, 0)
     }
 

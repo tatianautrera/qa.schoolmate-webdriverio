@@ -38,9 +38,9 @@ data class JobModel(
         }
 
         return when(typeJob) {
-            TypeJob.Test -> "Avaliação de ${nameDiscipline.capitalizeFirstLetter()} $timeMessage Já estudou?"
-            TypeJob.HomeWork -> "Tarefa de ${nameDiscipline.capitalizeFirstLetter()} Não deixe pra última hora."
-            TypeJob.Job -> "Trabalho de ${nameDiscipline.capitalizeFirstLetter()} Faça um belo trabalho!"
+            TypeJob.Test -> "Avaliação de ${nameDiscipline.capitalizeFirstLetter().trim()} $timeMessage Já estudou?"
+            TypeJob.HomeWork -> "Tarefa de ${nameDiscipline.capitalizeFirstLetter().trim()} $timeMessage Não deixe pra última hora."
+            TypeJob.Job -> "Trabalho de ${nameDiscipline.capitalizeFirstLetter().trim()} $timeMessage Faça um belo trabalho!"
             null -> ""
         }
     }

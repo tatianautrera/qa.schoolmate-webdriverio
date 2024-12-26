@@ -67,7 +67,7 @@ fun Calendar.getDay(): Int {
 }
 
 fun Date.daysBetweenNow(): Int {
-    val diffInMillis = now().time - this.time
+    val diffInMillis = this.resetTime().time - now().resetTime().time
     return TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
 }
 

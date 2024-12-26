@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.fsacchi.schoolmate.R
@@ -72,9 +73,10 @@ class JobNotificationWorker(
         notificationManager.createNotificationChannel(channel)
 
         val notification = android.app.Notification.Builder(applicationContext, channel.id)
-            .setContentTitle("School Mate")
+            .setContentTitle(jobModel.dateToDelivery())
             .setContentText(jobModel.messageNotificationJob())
-            .setSmallIcon(R.drawable.ic_logo_notification)
+            .setSmallIcon(R.drawable.ic_check)
+            .setColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
             .setAutoCancel(true)
             .build()
 
