@@ -60,6 +60,10 @@ inline fun <reified T : Parcelable?> BottomSheetDialogFragment.getNullOrParcelab
     arguments?.getParcelable<T>(extra)
 }
 
+inline fun <reified T : Parcelable?> Activity.getNullOrParcelable(extra: String) = lazy {
+    intent?.getParcelableExtra<T>(extra)
+}
+
 fun BottomSheetDialogFragment.getScreenHeight() = Resources.getSystem().displayMetrics.heightPixels
 
 fun BottomSheetDialogFragment.string(key: String) = lazy {

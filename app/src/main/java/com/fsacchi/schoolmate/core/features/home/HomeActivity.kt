@@ -13,12 +13,16 @@ import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.components.BottomBar
 import com.fsacchi.schoolmate.core.components.CalendarDialog
 import com.fsacchi.schoolmate.core.extensions.createProgressDialog
+import com.fsacchi.schoolmate.core.extensions.getNullOrParcelable
 import com.fsacchi.schoolmate.core.extensions.now
 import com.fsacchi.schoolmate.core.extensions.startActivity
+import com.fsacchi.schoolmate.core.features.home.sheets.FileBottomSheet
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.features.utils.ConfigActivity
 import com.fsacchi.schoolmate.core.platform.BaseActivity
 import com.fsacchi.schoolmate.data.local.entity.UserEntity
+import com.fsacchi.schoolmate.data.model.discipline.DisciplineModel
+import com.fsacchi.schoolmate.data.model.job.JobModel
 import com.fsacchi.schoolmate.databinding.ActivityHomeBinding
 import com.fsacchi.schoolmate.presentation.features.HomeViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
@@ -30,6 +34,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     companion object {
         const val REQUEST_CODE_POST_NOTIFICATIONS = 1001
+        const val JOB_MODEL = "jobModel"
     }
 
     private val homeViewModel: HomeViewModel by inject()
@@ -37,12 +42,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private var menuSelected: ((BottomBar.MenuBottom) -> Unit)? = null
     private var dateListener: ((Date) -> Unit)? = null
 
+
     var dateSelected: Date? = null
 
     var listenerBack: () -> Unit = {}
 
     override val layoutRes: Int get() = R.layout.activity_home
     lateinit var user: UserEntity
+    var jobModelNotification: JobModel? = null
 
 
     override fun init() {
@@ -50,6 +57,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         observe()
         insertListeners()
         requestPermissionPush()
+        jobModelNotification = intent?.getParcelableExtra(JOB_MODEL)
     }
 
     fun menuSelected(listener: (BottomBar.MenuBottom) -> Unit) {
@@ -149,6 +157,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.bottomBar.setMenuSelected(menu)
         updateTitleMenu(menu)
         menuSelected?.invoke(menu)
+    }
+
+    fun clearJobNotification() {
+        jobModelNotification = null
     }
 
     private fun selectDateMenu(dtSelected: Date) {

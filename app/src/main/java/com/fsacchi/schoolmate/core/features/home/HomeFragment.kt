@@ -66,8 +66,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         homeActivity.dateListener {
             homeViewModel.getJobs(homeActivity.user.uid, it)
         }
+
+        openJobByNotification()
     }
 
+    private fun openJobByNotification() {
+        homeActivity.jobModelNotification?.let {
+            showJobBottomSheet(it)
+            homeActivity.clearJobNotification()
+        }
+    }
 
     private fun observe() {
         lifecycleScope.launch {
@@ -78,6 +86,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         is UserUiState.ScreenType.Loaded -> {
                             homeActivity.setLoggedUser(it.screenType.userEntity)
                             refreshJobs()
+                            openJobByNotification()
                         }
                     }
                 }
