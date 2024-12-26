@@ -10,6 +10,7 @@ import java.util.Calendar.MONTH
 import java.util.Calendar.YEAR
 import java.util.Date
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 
 @Throws(ParseException::class)
 fun String.toDate(pattern: String = DateMasks.appFormat): Date {
@@ -63,6 +64,11 @@ fun Calendar.getMonth(): Int {
 
 fun Calendar.getDay(): Int {
     return this.get(DAY_OF_MONTH)
+}
+
+fun Date.daysBetweenNow(): Int {
+    val diffInMillis = now().time - this.time
+    return TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
 }
 
 fun Calendar.getLastDayOfMonth(month: Int, year: Int): Date {

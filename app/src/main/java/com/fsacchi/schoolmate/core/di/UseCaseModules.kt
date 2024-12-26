@@ -12,6 +12,7 @@ import com.fsacchi.schoolmate.domain.home.GetUserUseCase
 import com.fsacchi.schoolmate.domain.home.LogoffUseCase
 import com.fsacchi.schoolmate.domain.job.DeleteJobUseCase
 import com.fsacchi.schoolmate.domain.job.GetJobHomeUseCase
+import com.fsacchi.schoolmate.domain.job.GetJobNotificationUseCase
 import com.fsacchi.schoolmate.domain.job.GetJobUseCase
 import com.fsacchi.schoolmate.domain.job.GetJobsCalendarUseCase
 import com.fsacchi.schoolmate.domain.job.SaveJobUseCase
@@ -40,6 +41,7 @@ private val jobUseCases = module {
     factory { SaveJobUseCase(get()) }
     factory { GetJobUseCase(get(), get()) }
     factory { GetJobHomeUseCase(get(), get()) }
+    factory { GetJobNotificationUseCase(get(), get()) }
     factory { GetJobsCalendarUseCase(get()) }
     factory { DeleteJobUseCase(get()) }
     factory { UpdateJobUseCase(get()) }

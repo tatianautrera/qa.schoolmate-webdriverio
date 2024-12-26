@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
+    implementation(libs.work.runtime)
     kapt(libs.room.compiler)
 
     testImplementation(libs.junit)
