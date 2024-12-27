@@ -24,8 +24,8 @@ fun scheduleDailyJob(context: Context) {
 
     val targetTime = Calendar.getInstance().apply {
         time = now()
-        set(Calendar.HOUR_OF_DAY, 20)
-        set(Calendar.MINUTE, 29)
+        set(Calendar.HOUR_OF_DAY, 9)
+        set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
     }
 
@@ -40,6 +40,9 @@ fun scheduleDailyJob(context: Context) {
         .setConstraints(
             Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresCharging(false)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresDeviceIdle(false)
                 .build()
         )
         .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.HOURS)
