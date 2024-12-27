@@ -45,8 +45,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+        <receiver android:name=".core.platform.worker.BootReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -54,12 +53,10 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".core.platform.worker.BootReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+        <service
+            android:name=".core.platform.worker.JobNotificationService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true" />
     </application>
 
 </manifest>

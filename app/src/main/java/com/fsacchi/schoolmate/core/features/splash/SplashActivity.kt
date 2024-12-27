@@ -9,6 +9,7 @@ import com.fsacchi.schoolmate.core.extensions.startActivity
 import com.fsacchi.schoolmate.core.features.home.HomeActivity
 import com.fsacchi.schoolmate.core.features.login.LoginActivity
 import com.fsacchi.schoolmate.core.platform.BaseActivity
+import com.fsacchi.schoolmate.core.platform.worker.checkAndScheduleJob
 import com.fsacchi.schoolmate.data.local.entity.UserEntity
 import com.fsacchi.schoolmate.databinding.ActivitySplashBinding
 import com.fsacchi.schoolmate.presentation.features.HomeViewModel
@@ -47,6 +48,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                     when(it.screenType) {
                         UserUiState.ScreenType.Await -> {}
                         is UserUiState.ScreenType.Loaded -> {
+                            checkAndScheduleJob(applicationContext)
                             userLoaded = true
                             user = it.screenType.userEntity
                             nextRoute()

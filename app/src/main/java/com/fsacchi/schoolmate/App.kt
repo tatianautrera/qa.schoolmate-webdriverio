@@ -1,6 +1,8 @@
 package com.fsacchi.schoolmate
 
 import android.app.Application
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import com.fsacchi.schoolmate.core.di.presentationModules
 import com.fsacchi.schoolmate.core.platform.worker.scheduleDailyJob
 import com.google.firebase.FirebaseApp
