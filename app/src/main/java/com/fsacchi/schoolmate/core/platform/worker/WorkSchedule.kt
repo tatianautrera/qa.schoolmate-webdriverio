@@ -1,9 +1,13 @@
 package com.fsacchi.schoolmate.core.platform.worker
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.net.NetworkRequest
 import android.util.Log
 import androidx.core.content.ContextCompat.getSystemService
@@ -22,47 +26,33 @@ import com.fsacchi.schoolmate.core.extensions.now
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
-fun scheduleDailyJob(context: Context) {
-    val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-    jobScheduler.cancel(123)
+@SuppressLint("ScheduleExactAlarm")
+fun scheduleDailyAlarm(context: Context) {
+    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val intent = Intent(context, AlarmReceiver::class.java)
+    val pendingIntent = PendingIntent.getBroadcast(
+        context,
+        123,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
 
-    val delay = getInitialDelayForNextExecution()
-    Log.d("JobNotificationService", "Delay calculado: $delay ms")
-
-    val jobInfo = JobInfo.Builder(123, ComponentName(context, JobNotificationService::class.java))
-        .setMinimumLatency(delay)
-        .setOverrideDeadline(delay + TimeUnit.MINUTES.toMillis(15))
-        .setPersisted(true)
-        .setRequiresBatteryNotLow(true)
-        .setRequiresCharging(false)
-        .setRequiresDeviceIdle(false)
-        .build()
-
-    jobScheduler.schedule(jobInfo)
-    Log.d("JobNotificationService", "Serviço agendado para execucao")
-}
-
-fun getInitialDelayForNextExecution(): Long {
-    val now = Calendar.getInstance()
-    val nextCall = Calendar.getInstance().apply {
-        set(Calendar.HOUR_OF_DAY, 18)
-        set(Calendar.MINUTE, 30)
+    val calendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 9)
+        set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
         set(Calendar.MILLISECOND, 0)
 
-        if (timeInMillis <= now.timeInMillis) {
+        if (timeInMillis <= System.currentTimeMillis()) {
             add(Calendar.DAY_OF_MONTH, 1)
         }
     }
 
-    return nextCall.timeInMillis - now.timeInMillis
-}
+    alarmManager.setExactAndAllowWhileIdle(
+        AlarmManager.RTC_WAKEUP,
+        calendar.timeInMillis,
+        pendingIntent
+    )
 
-fun checkAndScheduleJob(context: Context) {
-    val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-    val existingJob = jobScheduler.getPendingJob(123)
-
-    if (existingJob == null) {
-        scheduleDailyJob(context)
-    }
+    Log.d("AlarmManager", "Alarme agendado para: ${calendar.time}")
 }

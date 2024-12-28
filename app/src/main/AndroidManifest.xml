@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:name=".App"
@@ -44,6 +46,13 @@
             android:label="@string/empty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <receiver android:name=".core.platform.worker.AlarmReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.APP.ALARM_ACTION" />
+            </intent-filter>
+        </receiver>
 
         <receiver android:name=".core.platform.worker.BootReceiver"
             android:exported="false">

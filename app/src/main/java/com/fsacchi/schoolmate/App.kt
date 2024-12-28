@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.fsacchi.schoolmate.core.di.presentationModules
-import com.fsacchi.schoolmate.core.platform.worker.scheduleDailyJob
+import com.fsacchi.schoolmate.core.platform.worker.scheduleDailyAlarm
 import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -15,7 +15,7 @@ open class App : Application() {
         super.onCreate()
         initiateKoin()
         FirebaseApp.initializeApp(this)
-        scheduleDailyJob(this)
+        scheduleDailyAlarm(this)
     }
 
     private fun initiateKoin() {

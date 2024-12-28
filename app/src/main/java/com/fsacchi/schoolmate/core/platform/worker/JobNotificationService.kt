@@ -95,7 +95,6 @@ class JobNotificationService : JobService(), KoinComponent {
                 Log.e(TAG, "Erro ao executar Job ${e.message}")
             } finally {
                 jobFinished(params, false)
-                scheduleDailyJob(this@JobNotificationService)
             }
         }
 
