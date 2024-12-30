@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.android.material)
+    implementation(libs.androidx.emoji)
+
     implementation(libs.navigation)
     implementation(libs.calendar) {
         exclude(group = "com.android.support", module = "support-compat")

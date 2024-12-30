@@ -24,6 +24,7 @@ import com.fsacchi.schoolmate.presentation.features.DisciplineViewModel
 import com.fsacchi.schoolmate.presentation.states.DefaultUiState
 import com.fsacchi.schoolmate.validator.Validator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.vanniktech.emoji.EmojiPopup
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -38,6 +39,7 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
 
     private var saveAction: ((DisciplineModel) -> Unit)? = null
     private var errorAction: ((String) -> Unit)? = null
+    private lateinit var emojiPopup: EmojiPopup
 
     override val layoutRes: Int
         get() = R.layout.bottom_sheet_discipline
@@ -46,6 +48,13 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
         binding.item = discipline
         setEmojiInDisciplineUpdated()
         insertListeners()
+    }
+
+    private fun initEmojiPicker() {
+        emojiPopup = EmojiPopup.Builder
+            .fromRootView(requireView())
+            .build(binding.etEmoji)
+
     }
 
     private fun setEmojiInDisciplineUpdated() {
@@ -63,6 +72,7 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
     override fun created() {
         setupValidation()
         observe()
+        initEmojiPicker()
     }
 
     private fun observe() {
@@ -116,9 +126,7 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
         }
 
         binding.ivEmoji.clickListener {
-            binding.etEmoji.requestFocus()
-            val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.etEmoji, InputMethodManager.SHOW_IMPLICIT)
+            emojiPopup.toggle()
         }
 
         binding.etEmoji.doOnTextChanged { text, _, _, _ ->
@@ -142,6 +150,11 @@ class DisciplineBottomSheet : BaseDialog<BottomSheetDisciplineBinding>() {
 
     private fun setSuccessCallback(callback: ((DisciplineModel) -> Unit)?) {
         saveAction = callback
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        emojiPopup.dismiss()
     }
 
     private fun setErrorCallback(callback: ((String) -> Unit)?) {
