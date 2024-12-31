@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.navigationArgs)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.firebase)
+    alias(libs.plugins.firebase.crash)
 }
 
 android {
@@ -81,6 +82,7 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.storage)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)

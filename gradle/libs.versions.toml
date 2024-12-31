@@ -18,6 +18,7 @@ picassoVersion = "2.71828"
 firebase = "4.4.2"
 firebaseBom = "33.6.0"
 firebaseAuth = "21.0.7"
+firebaseCrash = "19.3.0"
 koinVersion = "3.1.2"
 security = "1.1.0-alpha03"
 roomVersion = "2.6.1"
@@ -26,6 +27,7 @@ firebaseStorage = "20.2.1"
 calendarView = "2.0.0"
 work = "2.8.1"
 emoji = "0.8.0"
+pluginCrash = "3.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +61,8 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVers
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion"}
 firebase-firestore = { group = "com.google.firebase", name="firebase-firestore-ktx", version.ref="firebaseVersion"}
 firebase-storage = { group = "com.google.firebase", name="firebase-storage-ktx", version.ref="firebaseStorage"}
+firebase-crashlytics = { group = "com.google.firebase", name="firebase-crashlytics", version.ref="firebaseCrash"}
+
 calendar = { group = "com.github.prolificinteractive", name="material-calendarview", version.ref="calendarView"}
 work-runtime = { group = "androidx.work", name="work-runtime-ktx", version.ref="work"}
 androidx-emoji = { group = "com.vanniktech", name="emoji-google", version.ref="emoji"}
@@ -70,4 +74,6 @@ kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 navigationArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlin"  }
 firebase = { id = "com.google.gms.google-services",  version.ref = "firebase"  }
+firebase-crash = { id = "com.google.firebase.crashlytics",  version.ref = "pluginCrash"  }
+
 

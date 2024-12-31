@@ -6,5 +6,5 @@ plugins {
     alias(libs.plugins.navigationArgs) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.firebase) apply false
-
+    alias(libs.plugins.firebase.crash) apply false
 }
