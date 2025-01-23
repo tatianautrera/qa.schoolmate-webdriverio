@@ -1,8 +1,12 @@
 package com.fsacchi.schoolmate.core.features.home
 
 import android.Manifest
+import android.app.AlarmManager
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -179,6 +183,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
             if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
                 homeViewModel.savePermissionAllowNotification(true)
+                requestPermissionAlarmManager()
             } else {
                 homeViewModel.savePermissionAllowNotification(false)
                 Toast.makeText(this, "Você não irá receber notificações de atividades", Toast.LENGTH_SHORT).show()
@@ -191,6 +196,19 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             val permission = Manifest.permission.POST_NOTIFICATIONS
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(permission), REQUEST_CODE_POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun requestPermissionAlarmManager() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+            if (!alarmManager.canScheduleExactAlarms()) {
+                Toast.makeText(this, "Permita que o Schoolmate envie notificações sobre atividades", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                startActivity(intent)
             }
         }
     }

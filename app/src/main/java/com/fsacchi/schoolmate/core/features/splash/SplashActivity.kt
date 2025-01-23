@@ -3,6 +3,11 @@ package com.fsacchi.schoolmate.core.features.splash
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.content.Context
+import android.os.Build
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.fsacchi.schoolmate.R
 import com.fsacchi.schoolmate.core.extensions.startActivity
@@ -26,6 +31,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override val layoutRes: Int get() = R.layout.activity_splash
 
     override fun init() {
+        checkPermissionAlarm()
         homeViewModel.getUser()
         observe()
 
@@ -38,6 +44,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             })
         }
         fadeAnimation.start()
+    }
+
+    @SuppressLint("ServiceCast")
+    private fun checkPermissionAlarm() {
+        try {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !alarmManager.canScheduleExactAlarms()) {
+                Log.e("App", "Permissão para alarmes exatos não concedida.")
+            }
+        } catch (e: SecurityException) {
+            Log.e("App", "Erro ao verificar permissões para alarmes exatos", e)
+        }
     }
 
     private fun observe() {
