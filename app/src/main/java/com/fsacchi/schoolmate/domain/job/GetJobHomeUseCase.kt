@@ -76,7 +76,7 @@ class GetJobHomeUseCase(
             jobHomeModel.jobsToday = jobs
 
             if (dateSelected.isToday()) {
-                val querySnapshotNextWeek = getJobNextWeek(userUid, dateSelected)
+                val querySnapshotNextWeek = getJobNextMonth(userUid, dateSelected)
                     .orderBy("dtDelivery", Query.Direction.ASCENDING)
                     .get().await()
                 val jobsNextWeek = querySnapshotNextWeek.documents.mapNotNull { doc ->
@@ -127,13 +127,13 @@ class GetJobHomeUseCase(
         return query
     }
 
-    private fun getJobNextWeek(userUid: String, dateSelected: Date): Query {
+    private fun getJobNextMonth(userUid: String, dateSelected: Date): Query {
         var query: Query = db.collection("users")
             .document(userUid)
             .collection("jobs")
 
         val dtInitial = dateSelected.addDays(1)
-        val dtFinal = dateSelected.addDays(8)
+        val dtFinal = dateSelected.addDays(30)
 
         query = query.whereGreaterThanOrEqualTo("dtDelivery", Timestamp(dtInitial.resetTime().time))
         query = query.whereLessThanOrEqualTo("dtDelivery", Timestamp(dtFinal.endTime().time))
