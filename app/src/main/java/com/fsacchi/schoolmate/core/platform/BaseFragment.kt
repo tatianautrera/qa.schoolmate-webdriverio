@@ -38,7 +38,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     abstract fun start()
 
     protected fun popBackStack() {
-        requireView().hideSoftKeyboard()
+        view?.hideSoftKeyboard()
         if (!findNavController().popBackStack()) {
             finish()
         }
