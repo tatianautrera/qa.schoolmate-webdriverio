@@ -31,6 +31,15 @@ async login(user){
             await this.checkSaveLogin.click()
     await this.btnSubmit.click()
 }
+
+async assertSaveLogin(login){
+    await this.assertFieldText(await this.inputEmail.getText(),login.email)
+    await this.assertFieldText(await this.inputPassword.getText(),login.password)
+}
+
+async openForgotPasswordScreen(){
+    await this.linkForgotPassword.click()
+}
 }
 
 export default new LoginScreen();

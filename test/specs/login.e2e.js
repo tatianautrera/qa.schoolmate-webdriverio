@@ -1,4 +1,3 @@
-import { expect } from '@wdio/globals'
 import CreateUserScreen from '../pageobjects/createUser.screen.js'
 import LoginScreen from '../pageobjects/login.screen.js'
 import HomeScreen from '../pageobjects/home.screen.js';
@@ -38,16 +37,16 @@ describe('Login test', () => {
         await LoginScreen.assertText((LoginScreen.toastTitleSuccess), "Erro no login")
         await LoginScreen.assertText((LoginScreen.toastMessage), "Credenciais inválidas")
     })
-    it.only('When fill valid login and check de option save login, Should login and save the credencials', async () => {
+    it('When fill valid login and check de option save login, Should login and save the credencials', async () => {
         await LoginScreen.login(login.ValidLoginWithSaveLogin[0])
         await LoginScreen.acceptAlert()
         await LoginScreen.assertDisplayed(HomeScreen.txtAgenda)
         await HomeScreen.finishSession()
-        await LoginScreen.validValueField(LoginScreen.inputEmail,login.ValidLoginWithSaveLogin[0].email)
+        await LoginScreen.assertSaveLogin(login.ValidLoginWithSaveLogin[0])
     })
 
     it.only('When click the option "Esqueci minha senha", Should open de screen forgot password', async () => {
-        await LoginScreen.linkForgotPassword()
-        
+        await LoginScreen.openForgotPasswordScreen()
+        await LoginScreen.assertText(LoginScreen.titleScreen, "Recuperar senha") 
     })
 })

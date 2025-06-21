@@ -17,8 +17,16 @@ export default class Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/message")')
     }
 
+    get titleScreen(){
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_title")')
+    }
+
     async assertText (selector, text) {
         await expect(selector).toHaveText(text)
+    }
+
+     async assertFieldText (fieldValue, text) {
+        await expect(fieldValue).toEqual(text)
     }
 
     async assertDisplayed (selector) {
@@ -29,7 +37,7 @@ export default class Page {
         await driver.acceptAlert();
     }
 
-     async validValueField(selector, text){
-        await expect(await selector.getValue()).toHaveText(text)
+    async assertDisableButton(element){
+        await expect(element).toBeDisabled()
     }
 }

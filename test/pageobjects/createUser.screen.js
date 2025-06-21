@@ -63,9 +63,6 @@ class CreateUserScreen extends Page {
         await driver.pressKeyCode(66);
         await this.inputConfirmPassword.setValue(user.confirmPassword);
     }
-    async assertDisableButton(element){
-        await expect(element).toBeDisabled()
-    }
 
     /**
      * overwrite specific options to adapt it to page object
