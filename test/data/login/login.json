@@ -1,0 +1,30 @@
+{
+    "ValidLogin": [
+        {
+            "email": "tatianautrera@gmail.com",
+            "password": "123456",
+            "saveLogin": false
+        }
+    ],
+    "InvalidPassword": [
+        {
+            "email": "tatianautrera@gmail.com",
+            "password": "123457",
+            "saveLogin": false
+        }
+    ],
+    "InvalidLogin": [
+        {
+            "email": "tatianeutrera@gmail.com",
+            "password": "123456",
+            "saveLogin": false
+        }
+    ],
+    "ValidLoginWithSaveLogin": [
+        {
+            "email": "tatianautrera@gmail.com",
+            "password": "123456",
+            "saveLogin": true
+        }
+    ]
+}

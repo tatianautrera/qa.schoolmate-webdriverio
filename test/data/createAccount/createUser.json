@@ -1,0 +1,61 @@
+{
+    "InputWithOutFields": [
+        {
+            "name": "",
+            "email": "teste@teste.com",
+            "password": "123456",
+            "confirmPassword": "123456"
+        },
+        {
+            "name": "teste tati",
+            "email": "",
+            "password": "123456",
+            "confirmPassword": "123456"
+        },
+        {
+            "name": "teste tati",
+            "email": "teste@teste.com",
+            "password": "",
+            "confirmPassword": "123456"
+        },
+        {
+            "name": "teste tati",
+            "email": "teste@teste.com",
+            "password": "123456",
+            "confirmPassword": ""
+        }
+    ],
+    "InputWithInvalidFields": [
+        {
+            "name": "teste",
+            "email": "teste@teste.com",
+            "password": "123456",
+            "confirmPassword": "123456",
+            "message":"Inserir nome completo",
+            "field":"name"
+        },
+        {
+            "name": "teste teste",
+            "email": "testeteste.com",
+            "password": "123456",
+            "confirmPassword": "123456",
+            "message":"E-mail inválido",
+            "field":"email"
+        },
+        {
+            "name": "teste teste",
+            "email": "teste@teste.com",
+            "password": "1234",
+            "confirmPassword": "1234",
+            "message":"O campo deve conter 6 digitos",
+            "field":"create_password"
+        }
+    ],
+    "InputWithInvalidConfirmPassword": {
+            "name": "teste teste",
+            "email": "teste@teste.com",
+            "password": "123456",
+            "confirmPassword": "123457",
+            "message":"As senhas não coincidem"
+    }
+}
