@@ -1,6 +1,7 @@
 import AppointmentsScreen from '../pageobjects/appointments.screen';
 import LoginScreen from '../pageobjects/login.screen.js';
-import login from '../data/login/login.json'
+import login from '../data/login/login.json';
+import appointments from '../data/appointments/appointments.json';
 
 describe('Create Activity test', () => {
     beforeEach(async () => {
@@ -9,25 +10,18 @@ describe('Create Activity test', () => {
         await AppointmentsScreen.acceptAlert()
     })
     it('When fill valid datas, Should create a activity', async () => {
-        let activity = {
-            discipline: 'Cypress automação web',
-            type: 'Avaliação',
-            date: await AppointmentsScreen.getDataCurrent(),
-            observations: 'teste'
-        }
-        await AppointmentsScreen.registerActivity(activity)
-        await AppointmentsScreen.assertActivityCreated(activity)
+        appointments.ValidActivity[0].date=  await AppointmentsScreen.getDataCurrent()
+        await AppointmentsScreen.registerActivity(appointments.ValidActivity[0])
+        await AppointmentsScreen.assertActivityCreated(appointments.ValidActivity[0])
         await AppointmentsScreen.deleteActivity()
     })
-
     it.only('When not fill required fields, Should not create a activity', async () => {
-        let activity = {
-            type: 'Avaliação',
-            date: await AppointmentsScreen.getDataCurrent(),
-            observations: 'teste'
-        }
-        await AppointmentsScreen.registerActivity(activity)
-        //await expect(AppointmentsScreen.btnSaveActivity).toBeVisible()
-        await AppointmentsScreen.assertNotEnabled(AppointmentsScreen.btnSaveActivity)
+        for (const activity of appointments.InputWithOutFields) {
+        if (activity.date === "")
+            activity.date = await AppointmentsScreen.getDataCurrent();
+        await AppointmentsScreen.registerActivity(activity);
+        await AppointmentsScreen.assertNotEnabled(AppointmentsScreen.btnSaveActivity);
+        await AppointmentsScreen.closeModal();
+    }
     })
 })

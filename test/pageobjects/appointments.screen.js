@@ -52,6 +52,10 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().className("android.view.ViewGroup").instance(4)')
     }
 
+    get btnCloseModal(){
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
+    }
+
     async finishSession() {
         await this.btnMoreOptions.click()
         await this.btnFinishSession.click()
@@ -86,6 +90,10 @@ class AppointmentsScreen extends Page {
         await this.btnOptionsActivity.click()
         await this.btnDeleteActivity.click()
         await this.btnYes.click()
+    }
+
+    async closeModal(){
+        await this.btnCloseModal.click()
     }
 }
 export default new AppointmentsScreen();
