@@ -1,0 +1,34 @@
+{
+    "ValidActivity": [
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste"
+        }
+    ],
+    "InputWithOutFields": [
+         {
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "date": "",
+            "observations": "teste"
+        },
+            {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "observations": "teste"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": ""
+        }
+        
+    ]
+}
