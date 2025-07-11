@@ -54,7 +54,7 @@ export const config = {
         platformName: 'Android',
         "appium:appPackage":"com.fsacchi.schoolmate",
         "appium:appActivity":"com.fsacchi.schoolmate.core.features.splash.SplashActivity",
-        'appium:platformVersion': '14.0',
+        'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
          'appium:deviceName':"RXCTC010DPW"
     }],

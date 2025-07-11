@@ -9,35 +9,54 @@ export default class Page {
     * Opens a sub page of the page
     * @param path path of the sub page (e.g. /path/to/page.html)
     */
-      get toastTitleSuccess () {
+    get toastTitleSuccess() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/title")');
     }
 
-    get toastMessage (){
+    get toastMessage() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/message")')
     }
 
-    get titleScreen(){
+    get titleScreen() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_title")')
     }
 
-    async assertText (selector, text) {
+    get btnYes(){
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_positive")')
+    }
+
+    accessElementByText(text) {
+        return $(`android=new UiSelector().text("${text}")`)
+    }
+
+    async assertText(selector, text) {
         await expect(selector).toHaveText(text)
     }
 
-     async assertFieldText (fieldValue, text) {
+    async assertFieldText(fieldValue, text) {
         await expect(fieldValue).toEqual(text)
     }
 
-    async assertDisplayed (selector) {
-        await expect(selector).toBeDisplayed()
-    }
-
-    async acceptAlert(){
+    async acceptAlert() {
         await driver.acceptAlert();
     }
 
-    async assertDisableButton(element){
-        await expect(element).toBeDisabled()
+    async getDataCurrent() {
+        let date = new Date()
+        return date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+    }
+    async getDayCurrent(date) {
+        return date.toString().substring(0, 2);
+    }
+
+    async assertEnabled(selector) {
+        await expect(selector).toHaveAttribute("enabled", 'true') 
+    }
+    async assertNotEnabled(selector) {
+        await expect(selector).toHaveAttribute("enabled", 'false') 
     }
 }

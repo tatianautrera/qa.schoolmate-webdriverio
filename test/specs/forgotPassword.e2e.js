@@ -12,9 +12,9 @@ describe('Forgot password test', () => {
         await ForgotPasswordScreen.assertText((ForgotPasswordScreen.toastTitleSuccess), "Email enviado")
         await ForgotPasswordScreen.assertText((ForgotPasswordScreen.toastMessage), "Altere sua senha através do email, para acessar o Schoolmate")
     })
-    it.only('When fill invalid email, Should return a message error not recovere password', async () => {
+    it('When fill invalid email, Should return a message error not recovere password', async () => {
         await ForgotPasswordScreen.recoverPassword("fsdfsdfsdfsd.com")
         await ForgotPasswordScreen.assertText(CreateUserScreen.messageError("email"), "E-mail inválido")
-        await ForgotPasswordScreen.assertDisableButton(ForgotPasswordScreen.btnSendLink)
+        await ForgotPasswordScreen.assertNotEnabled(ForgotPasswordScreen.btnSendLink)
     })
 })

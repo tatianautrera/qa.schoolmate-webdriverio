@@ -1,4 +1,3 @@
-import { expect } from '@wdio/globals'
 import CreateUserScreen from '../pageobjects/createUser.screen.js'
 import LoginScreen from '../pageobjects/login.screen.js'
 import { faker } from '@faker-js/faker';
@@ -25,14 +24,14 @@ describe('Create account test', () => {
     it('When not field required fields, Should not hability button created Account', async () => {
         for (let i = 0; i < user.InputWithOutFields.length; i++) {
             await CreateUserScreen.fillFieldsCreateUser(user.InputWithOutFields[i])
-            await CreateUserScreen.assertDisableButton(CreateUserScreen.btnSubmit)
+            await CreateUserScreen.assertNotEnabled(CreateUserScreen.btnSubmit)
         }
     })
     it('When field invalid field, Should not hability button created Account', async () => {
         for (let i = 0; i < user.InputWithInvalidFields.length; i++) {
             await CreateUserScreen.fillFieldsCreateUser(user.InputWithInvalidFields[i])
             await CreateUserScreen.assertText(CreateUserScreen.messageError(user.InputWithInvalidFields[i].field), user.InputWithInvalidFields[i].message)
-            await CreateUserScreen.assertDisableButton(CreateUserScreen.btnSubmit)
+            await CreateUserScreen.assertNotEnabled(CreateUserScreen.btnSubmit)
         }
     })
     it('When field incorret confirm password, Should not created Account', async () => {
