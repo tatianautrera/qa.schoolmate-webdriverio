@@ -10,7 +10,8 @@ describe('Login test', () => {
     })
     it('When fill valid login, Should open the app', async () => {
         await LoginScreen.login(login.ValidLogin[0])
-        await LoginScreen.acceptAlert()
+        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
+            await LoginScreen.acceptAlert()
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
         await AppointmentsScreen.finishSession()
     })
