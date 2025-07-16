@@ -57,7 +57,6 @@ export const config = {
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
          'appium:deviceName':"RXCTC010DPW"*/
-
         'appium:deviceName': 'Samsung Galaxy S22 Ultra',
         'appium:platformVersion': '12.0',
         'appium:automationName': 'UiAutomator2',
