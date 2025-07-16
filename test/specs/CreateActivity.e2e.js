@@ -15,7 +15,7 @@ describe('Create Activity test', () => {
         await AppointmentsScreen.assertActivityCreated(appointments.ValidActivity[0])
         await AppointmentsScreen.deleteActivity()
     })
-    it.only('When not fill required fields, Should not create a activity', async () => {
+    it('When not fill required fields, Should not create a activity', async () => {
         for (const activity of appointments.InputWithOutFields) {
         if (activity.date === "")
             activity.date = await AppointmentsScreen.getDataCurrent();
