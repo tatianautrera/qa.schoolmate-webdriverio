@@ -40,7 +40,8 @@ describe('Login test', () => {
     })
     it('When fill valid login and check de option save login, Should login and save the credencials', async () => {
         await LoginScreen.login(login.ValidLoginWithSaveLogin[0])
-        await LoginScreen.acceptAlert()
+        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
+            await LoginScreen.acceptAlert()
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
         await AppointmentsScreen.finishSession()
         await LoginScreen.assertSaveLogin(login.ValidLoginWithSaveLogin[0])

@@ -56,6 +56,10 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
     }
 
+    get btnPermission(){
+        return $('android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
+    }
+
     async finishSession() {
         await this.btnMoreOptions.click()
         await this.btnFinishSession.click()
