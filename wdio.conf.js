@@ -62,9 +62,7 @@ export const config = {
         'appium:deviceName': 'Samsung Galaxy S22 Ultra',
         'appium:platformVersion': '12.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': "bs://892d1fbe9ea23bfc318a27c9bb3b05b56a3d55d8",
-        'appium:language': 'pt',
-        'appium:locale': 'pt_BR'
+        'appium:app': "bs://892d1fbe9ea23bfc318a27c9bb3b05b56a3d55d8"
     }],
 
     //
