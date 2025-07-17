@@ -9,7 +9,7 @@ class AppointmentsScreen extends Page {
     }
 
     get btnMoreOptions() {
-        return $('//android.widget.Button[@content-desc="Mais opções" or @content-desc="More options"]')
+        return $('//android.widget.ImageView[@content-desc="Mais opções"]')
     }
 
     get btnFinishSession() {
