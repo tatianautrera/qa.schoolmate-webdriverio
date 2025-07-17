@@ -10,7 +10,7 @@ describe('Login test', () => {
     })
     it.only('When fill valid login, Should open the app', async () => {
         await LoginScreen.login(login.ValidLogin[0])
-        if(await AppointmentsScreen.btnPermission.isEnabled()){
+        if(await AppointmentsScreen.btnPermission.isDisplayed()){
              await LoginScreen.acceptAlert()
         } 
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
@@ -42,7 +42,7 @@ describe('Login test', () => {
     })
     it('When fill valid login and check de option save login, Should login and save the credencials', async () => {
         await LoginScreen.login(login.ValidLoginWithSaveLogin[0])
-        if(await AppointmentsScreen.btnPermission.isEnabled()) 
+        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
             await LoginScreen.acceptAlert()
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
         await AppointmentsScreen.finishSession()
