@@ -9,7 +9,7 @@ class AppointmentsScreen extends Page {
     }
 
     get btnMoreOptions() {
-        return $('android=new UiSelector().description("Mais opções")')
+        return $('android=new UiSelector().description("More Options")')
     }
 
     get btnFinishSession() {
