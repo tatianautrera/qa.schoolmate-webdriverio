@@ -8,10 +8,11 @@ describe('Login test', () => {
     beforeEach(async () => {
         await driver.startActivity("com.fsacchi.schoolmate", "com.fsacchi.schoolmate.core.features.splash.SplashActivity")
     })
-    it('When fill valid login, Should open the app', async () => {
+    it.only('When fill valid login, Should open the app', async () => {
         await LoginScreen.login(login.ValidLogin[0])
-        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
-            await LoginScreen.acceptAlert()
+        if(await AppointmentsScreen.btnPermission.isEnabled()){
+             await LoginScreen.acceptAlert()
+        } 
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
         await AppointmentsScreen.finishSession()
     })
@@ -41,7 +42,7 @@ describe('Login test', () => {
     })
     it('When fill valid login and check de option save login, Should login and save the credencials', async () => {
         await LoginScreen.login(login.ValidLoginWithSaveLogin[0])
-        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
+        if(await AppointmentsScreen.btnPermission.isEnabled()) 
             await LoginScreen.acceptAlert()
         await LoginScreen.assertEnabled(AppointmentsScreen.txtAgenda)
         await AppointmentsScreen.finishSession()

@@ -7,7 +7,7 @@ describe('Create Activity test', () => {
     beforeEach(async () => {
         await driver.startActivity("com.fsacchi.schoolmate", "com.fsacchi.schoolmate.core.features.splash.SplashActivity")
         await LoginScreen.login(login.ValidLogin[0])
-        if(await AppointmentsScreen.btnPermission.isDisplayed()) 
+        if(await AppointmentsScreen.btnPermission.isEnabled()) 
             await AppointmentsScreen.acceptAlert()
     })
     it('When fill valid datas, Should create a activity', async () => {
