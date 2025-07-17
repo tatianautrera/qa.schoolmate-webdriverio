@@ -8,7 +8,7 @@ describe('Login test', () => {
     beforeEach(async () => {
         await driver.startActivity("com.fsacchi.schoolmate", "com.fsacchi.schoolmate.core.features.splash.SplashActivity")
     })
-    it.only('When fill valid login, Should open the app', async () => {
+    it('When fill valid login, Should open the app', async () => {
         await LoginScreen.login(login.ValidLogin[0])
         if(await AppointmentsScreen.btnPermission.isDisplayed()){
              await LoginScreen.acceptAlert()

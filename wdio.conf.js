@@ -54,15 +54,17 @@ export const config = {
     capabilities: [{
         // capabilities for local Appium web tests on an Android Emulator
         platformName: 'Android',
-       /* "appium:appPackage":"com.fsacchi.schoolmate",
+        /*"appium:appPackage":"com.fsacchi.schoolmate",
         "appium:appActivity":"com.fsacchi.schoolmate.core.features.splash.SplashActivity",
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
-         'appium:deviceName':"RXCTC010DPW"*/
+         'appium:deviceName':"RXCTC010DPW",*/
         'appium:deviceName': 'Samsung Galaxy S22 Ultra',
         'appium:platformVersion': '12.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': "bs://892d1fbe9ea23bfc318a27c9bb3b05b56a3d55d8",
+        'language': 'pt',
+        'locale': 'pt_BR'
     }],
 
     //
