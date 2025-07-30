@@ -1,0 +1,15 @@
+[90m2025-07-22T22:30:01.911Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m BrowserStack service started with id: 38c1f23f-5d65-4999-885a-4a49c49a506d
+[90m2025-07-22T22:30:01.921Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m username/accesskey not passed
+[90m2025-07-22T22:30:01.922Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m app is not defined in browserstack-service config, skipping ...
+[90m2025-07-22T22:30:01.923Z[39m [33mWARN[39m [97m@wdio/browserstack-service[39m Accessibility Automation will run only on Chrome browsers.
+[90m2025-07-22T22:30:01.925Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Sending launch start event
+[90m2025-07-22T22:30:02.840Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Start_Build] Success response: {"success":false,"options":null,"code":null,"errors":[{"message":"Access to BrowserStack denied due to incorrect credentials.","key":"ERROR_INVALID_CREDENTIALS"}],"error_trace_id":"f1ffc680-9621-4ad9-95d3-955bb9f3b4d3"}
+[90m2025-07-22T22:30:02.841Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m OBSERVABILITY Build creation failed null
+[90m2025-07-22T22:30:02.843Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m browserstackLocal is not enabled - skipping...
+[90m2025-07-22T22:30:08.213Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m teardown started
+[90m2025-07-22T22:30:08.213Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m teardown ended
+[90m2025-07-22T22:30:08.708Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Inside OnComplete hook..
+[90m2025-07-22T22:30:08.708Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Sending stop launch event
+[90m2025-07-22T22:30:08.709Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [STOP_BUILD] Missing Authentication Token/ Build ID
+[90m2025-07-22T22:30:08.713Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m BrowserStack service run ended for id: 38c1f23f-5d65-4999-885a-4a49c49a506d testhub id: undefined
+2025-07-22T22:30:10.833Z DEBUG @wdio/browserstack-service Successfully uploaded performance events Bravo

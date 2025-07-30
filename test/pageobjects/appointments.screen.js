@@ -52,12 +52,24 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().className("android.view.ViewGroup").instance(4)')
     }
 
-    get btnCloseModal(){
+    get btnCloseModal() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
     }
 
-    get btnPermission(){
+    get btnPermission() {
         return $('android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
+    }
+
+    get checkBoxActivity() {
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/cb_finish_job")')
+    }
+
+    get btnEditActivity() {
+        return $('android=new UiSelector().className("android.view.ViewGroup").instance(3)')
+    }
+
+    selectDateEditActivity(text) {
+        return $(`android=new UiSelector().text("${text}")`)
     }
 
     async finishSession() {
@@ -77,7 +89,7 @@ class AppointmentsScreen extends Page {
         }
         if (activity.date !== undefined) {
             await this.selectDate.click()
-            await this.accessElementByText(await this.getDayCurrent(activity.date)).click()
+            await this.selectData(await this.getDayCurrent(activity.date)).click()
             await this.btnApply.click()
         }
         await this.accessElementByText('Observações').setValue(activity.observations)
@@ -86,7 +98,7 @@ class AppointmentsScreen extends Page {
 
     async assertActivityCreated(activity) {
         await this.assertText(this.titleScreen, `${activity.type} de ${activity.discipline}`)
-        await this.assertText(this.txtDateAppointment, `Para ${await this.getDataCurrent()}`)
+        await this.assertText(this.txtDateAppointment, `Para ${activity.date}`)
         await this.assertText(this.txtTypeActivity, activity.type)
     }
 
@@ -96,8 +108,44 @@ class AppointmentsScreen extends Page {
         await this.btnYes.click()
     }
 
-    async closeModal(){
+    async editActivity(activityCurrent, activityNew) {
+        await this.btnOptionsActivity.click()
+        await this.btnEditActivity.click()
+        if (activityNew.field === 'discipline') {
+            await this.accessElementByText(activityCurrent.discipline).click()
+            await this.accessElementByText(activityNew.discipline).click()
+        } else if (activityNew.field === 'type') {
+            await this.accessElementByText(activityCurrent.type).click()
+            await this.accessElementByText(activityNew.type).click()
+        } else if (activityNew.field === 'observations') {
+            await this.inputObservartions.setValue(activityNew.observations)
+        } else if (activityNew.field === 'date') {
+            await this.selectDate.click()
+            await this.selectDateEditActivity(await this.getDayCurrent(activityNew.date)).click()
+            await this.btnApply.click()
+        }else if (activityNew.field === 'all') {
+            await this.accessElementByText(activityCurrent.discipline).click()
+            await this.accessElementByText(activityNew.discipline).click()
+            await this.accessElementByText(activityCurrent.type).click()
+            await this.accessElementByText(activityNew.type).click()
+            await this.inputObservartions.setValue(activityNew.observations)
+            await this.selectDate.click()
+            await this.selectDateEditActivity(await this.getDayCurrent(activityNew.date)).click()
+            await this.btnApply.click()
+        }
+        await this.btnSaveActivity.click()
+    }
+
+    async closeModal() {
         await this.btnCloseModal.click()
+    }
+
+    async openModalActivity() {
+        await this.btnNewActivity.click()
+    }
+
+    async checkActivity() {
+        await this.checkBoxActivity.click()
     }
 }
 export default new AppointmentsScreen();

@@ -17,7 +17,7 @@ describe('Create Activity test', () => {
     })
 
     it('When fill valid datas, Should create a activity', async () => {
-        appointments.ValidActivity[0].date = await AppointmentsScreen.getDataCurrent()
+        appointments.ValidActivity[0].date = await AppointmentsScreen.getNextData(1)
         await AppointmentsScreen.registerActivity(appointments.ValidActivity[0])
         await AppointmentsScreen.assertActivityCreated(appointments.ValidActivity[0])
         await AppointmentsScreen.deleteActivity()
@@ -25,7 +25,7 @@ describe('Create Activity test', () => {
     it('When not fill required fields, Should not create a activity', async () => {
         for (const activity of appointments.InputWithOutFields) {
             if (activity.date === "")
-                activity.date = await AppointmentsScreen.getDataCurrent();
+                activity.date = await AppointmentsScreen.getNextData(1);
             await AppointmentsScreen.registerActivity(activity);
             await AppointmentsScreen.assertNotEnabled(AppointmentsScreen.btnSaveActivity);
             await AppointmentsScreen.closeModal();

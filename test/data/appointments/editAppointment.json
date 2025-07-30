@@ -1,0 +1,39 @@
+{
+    "EditActivities": [
+        {
+            "discipline": "Robot framework basico",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste",
+            "field": "discipline"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "type": "Tarefa",
+            "date": "",
+            "observations": "teste",
+            "field": "type"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste 2",
+            "field": "observations"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste",
+            "field": "date"
+        },
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "teste",
+            "field": "all"
+        }
+    ] 
+}

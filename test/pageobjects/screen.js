@@ -29,6 +29,10 @@ export default class Page {
         return $(`android=new UiSelector().text("${text}")`)
     }
 
+    selectData(text) {
+        return $(`android=new UiSelector().text("${text}").instance(1)`)
+    }
+
     async assertText(selector, text) {
         await expect(selector).toHaveText(text)
     }
@@ -41,8 +45,9 @@ export default class Page {
         await driver.acceptAlert();
     }
 
-    async getDataCurrent() {
+    async getNextData(days) {
         let date = new Date()
+        date.setDate(date.getDate() + days);
         return date.toLocaleDateString('pt-BR', {
             day: '2-digit',
             month: '2-digit',
