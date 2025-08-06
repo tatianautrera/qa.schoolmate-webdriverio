@@ -68,10 +68,6 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().className("android.view.ViewGroup").instance(3)')
     }
 
-    selectDateEditActivity(text) {
-        return $(`android=new UiSelector().text("${text}")`)
-    }
-
     async finishSession() {
         await this.btnMoreOptions.click()
         await this.btnFinishSession.click()
@@ -80,19 +76,15 @@ class AppointmentsScreen extends Page {
     async registerActivity(activity) {
         await this.btnNewActivity.click()
         if (activity.discipline !== undefined) {
-            await this.accessElementByText('Disciplina').click()
-            await this.accessElementByText(activity.discipline).click()
+            await this.fieldDiscipline('Disciplina', activity.discipline)
         }
         if (activity.type !== undefined) {
-            await this.accessElementByText('Tipo de atividade').click()
-            await this.accessElementByText(activity.type).click()
+            await this.fieldType('Tipo de atividade', activity.type)
         }
         if (activity.date !== undefined) {
-            await this.selectDate.click()
-            await this.selectData(await this.getDayCurrent(activity.date)).click()
-            await this.btnApply.click()
+            await this.fieldDay(activity.date)
         }
-        await this.accessElementByText('Observações').setValue(activity.observations)
+        await this.fieldObservations(activity.observations)
         await this.btnSaveActivity.click()
     }
 
@@ -108,30 +100,42 @@ class AppointmentsScreen extends Page {
         await this.btnYes.click()
     }
 
+    async fieldDiscipline(discipline, disciplineNew) {
+        await this.accessElementByText(discipline).click()
+        await this.accessElementByText(disciplineNew).click()
+    }
+
+    async fieldType(type, typeNew) {
+        await this.accessElementByText(type).click()
+        await this.accessElementByText(typeNew).click()
+    }
+
+    async fieldObservations(observations) {
+        await this.inputObservartions.setValue(observations)
+    }
+
+    async fieldDay(day) {
+        await this.selectDate.click()
+        await this.selectDataInstance(await this.getDayCurrent(day)).click()
+        await this.btnApply.click()
+    }
+
     async editActivity(activityCurrent, activityNew) {
         await this.btnOptionsActivity.click()
         await this.btnEditActivity.click()
         if (activityNew.field === 'discipline') {
-            await this.accessElementByText(activityCurrent.discipline).click()
-            await this.accessElementByText(activityNew.discipline).click()
+            await this.fieldDiscipline(activityCurrent.discipline, activityNew.discipline)
         } else if (activityNew.field === 'type') {
-            await this.accessElementByText(activityCurrent.type).click()
-            await this.accessElementByText(activityNew.type).click()
+            await this.fieldType(activityCurrent.type,activityNew.type)
         } else if (activityNew.field === 'observations') {
-            await this.inputObservartions.setValue(activityNew.observations)
+            await this.fieldObservations(activityNew.observations)
         } else if (activityNew.field === 'date') {
-            await this.selectDate.click()
-            await this.selectDateEditActivity(await this.getDayCurrent(activityNew.date)).click()
-            await this.btnApply.click()
+            await this.fieldDay(activityNew.date)
         }else if (activityNew.field === 'all') {
-            await this.accessElementByText(activityCurrent.discipline).click()
-            await this.accessElementByText(activityNew.discipline).click()
-            await this.accessElementByText(activityCurrent.type).click()
-            await this.accessElementByText(activityNew.type).click()
-            await this.inputObservartions.setValue(activityNew.observations)
-            await this.selectDate.click()
-            await this.selectDateEditActivity(await this.getDayCurrent(activityNew.date)).click()
-            await this.btnApply.click()
+            await this.fieldDiscipline(activityCurrent.discipline, activityNew.discipline)
+            await this.fieldType(activityCurrent.type, activityNew.type)
+            await this.fieldObservations(activityNew.observations)
+            await this.fieldDay(activityNew.date)
         }
         await this.btnSaveActivity.click()
     }

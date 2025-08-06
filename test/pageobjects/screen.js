@@ -29,8 +29,8 @@ export default class Page {
         return $(`android=new UiSelector().text("${text}")`)
     }
 
-    selectData(text) {
-        return $(`android=new UiSelector().text("${text}").instance(1)`)
+    selectDataInstance(text) {
+        return $(`android=new UiSelector().text("${text}").instance(0)`)
     }
 
     async assertText(selector, text) {
@@ -55,7 +55,8 @@ export default class Page {
         });
     }
     async getDayCurrent(date) {
-        return date.toString().substring(0, 2);
+        let day= await date.toString().substring(0, 2);
+        return await day.toString().replace(/^0+/, '');;
     }
 
     async assertEnabled(selector) {

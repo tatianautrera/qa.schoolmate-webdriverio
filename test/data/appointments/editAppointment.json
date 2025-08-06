@@ -35,5 +35,13 @@
             "observations": "teste",
             "field": "all"
         }
-    ] 
+    ],
+    "EditActivitiesWithOutObservations":
+        {
+            "discipline": "Cypress automação web",
+            "type": "Avaliação",
+            "date": "",
+            "observations": "",
+            "field": "observations"
+        }
 }

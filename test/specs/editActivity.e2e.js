@@ -14,9 +14,9 @@ describe('Edit Activity test', () => {
         appointments.ValidActivity[0].date = await AppointmentsScreen.getNextData(1)
     })
 
-    /*after(async () => {
+    after(async () => {
         await AppointmentsScreen.finishSession();
-    })*/
+    })
     it('When edit a activity, Should edited the activity', async () => {
         for (const activity of editAppointment.EditActivities) {
             await expect(AppointmentsScreen.btnNewActivity).toBeDisplayed()
@@ -28,5 +28,14 @@ describe('Edit Activity test', () => {
             await AppointmentsScreen.assertActivityCreated(activity)
             await AppointmentsScreen.deleteActivity()
         }
+    })
+
+    it('When edit a activity with field empty, Should not edit the activity', async () => {
+        await expect(AppointmentsScreen.btnNewActivity).toBeDisplayed()
+        await AppointmentsScreen.registerActivity(appointments.ValidActivity[0])
+        await AppointmentsScreen.editActivity(appointments.ValidActivity[0], editAppointment.EditActivitiesWithOutObservations)
+         await AppointmentsScreen.assertNotEnabled(AppointmentsScreen.btnSaveActivity);
+        await AppointmentsScreen.closeModal();
+        await AppointmentsScreen.deleteActivity()
     })
 })
