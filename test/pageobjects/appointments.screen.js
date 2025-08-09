@@ -56,16 +56,16 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
     }
 
-    get btnPermission() {
-        return $('android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
-    }
-
     get checkBoxActivity() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/cb_finish_job")')
     }
 
     get btnEditActivity() {
         return $('android=new UiSelector().className("android.view.ViewGroup").instance(3)')
+    }
+
+    get txtWithoutActivity(){
+        return $('android=new UiSelector().text("Nenhuma atividade na agenda")')
     }
 
     async finishSession() {
@@ -98,6 +98,11 @@ class AppointmentsScreen extends Page {
         await this.btnOptionsActivity.click()
         await this.btnDeleteActivity.click()
         await this.btnYes.click()
+    }
+
+    async openDeleteActivityModal() {
+        await this.btnOptionsActivity.click()
+        await this.btnDeleteActivity.click()
     }
 
     async fieldDiscipline(discipline, disciplineNew) {
@@ -150,6 +155,9 @@ class AppointmentsScreen extends Page {
 
     async checkActivity() {
         await this.checkBoxActivity.click()
+    }
+    async assertWithoutActivity(){
+        await expect(this.txtWithoutActivity).toBeDisplayed()
     }
 }
 export default new AppointmentsScreen();

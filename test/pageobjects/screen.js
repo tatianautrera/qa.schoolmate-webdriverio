@@ -21,8 +21,20 @@ export default class Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_title")')
     }
 
+    get messageScreen() {
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_message")')
+    }
+
+    get btnCloseModal(){
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
+    }
+
     get btnYes(){
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_positive")')
+    }
+    
+    get btnPermission() {
+        return $('android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
     }
 
     accessElementByText(text) {
@@ -64,5 +76,9 @@ export default class Page {
     }
     async assertNotEnabled(selector) {
         await expect(selector).toHaveAttribute("enabled", 'false') 
+    }
+
+    async closeModal(){
+        await this.btnCloseModal.click()
     }
 }
