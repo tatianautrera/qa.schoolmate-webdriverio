@@ -81,4 +81,8 @@ export default class Page {
     async closeModal(){
         await this.btnCloseModal.click()
     }
+
+    async elementNotDisplayed(selector) {
+        await expect(selector).not.toBeDisplayed()
+    }
 }

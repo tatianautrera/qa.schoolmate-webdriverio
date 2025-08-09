@@ -66,11 +66,15 @@ class DisciplineScreen extends Page {
         await this.btnSaveDiscipline.click()
     }
     
-
     async deleteDiscipline(name) {
         await this.btnOptionsDisicipline(name).click()
         await this.btnDeleteDiscipline.click()
         await this.btnYes.click()
+    }
+
+    async acessModaldeleteDiscipline(name) {
+        await this.btnOptionsDisicipline(name).click()
+        await this.btnDeleteDiscipline.click()
     }
 }
 
