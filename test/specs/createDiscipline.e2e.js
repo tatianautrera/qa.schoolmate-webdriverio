@@ -1,4 +1,5 @@
 import DisciplineScreen from '../pageobjects/discipline.screen';
+import AppointmentsScreen from '../pageobjects/appointments.screen';
 import LoginScreen from '../pageobjects/login.screen.js';
 import login from '../data/login/login.json';
 import discipline from '../data/discipline/discipline.json';
@@ -14,7 +15,7 @@ describe('Create Discipline test', () => {
     })
 
     after(async () => {
-        await DisciplineScreen.finishSession();
+        await AppointmentsScreen.finishSession();
     })
 
     it('When click button create discipline, Should open create discipline modal', async () => {
