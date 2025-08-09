@@ -13,9 +13,9 @@ describe('Create Discipline test', () => {
         await DisciplineScreen.accessDisciplineScreen()
     })
 
-    /*after(async () => {
+    after(async () => {
         await DisciplineScreen.finishSession();
-    })*/
+    })
 
     it('When click button create discipline, Should open create discipline modal', async () => {
         await DisciplineScreen.accessCreateDisciplineScreen()
@@ -23,15 +23,18 @@ describe('Create Discipline test', () => {
         await DisciplineScreen.closeModal()
     })
 
-     it('When field valid data, Should create discipline', async () => {
+    it('When field valid data, Should create discipline', async () => {
         await DisciplineScreen.createDiscipline(discipline.createDisciplineSuccess)
         await DisciplineScreen.assertEnabled(await DisciplineScreen.accessElementByText(discipline.createDisciplineSuccess.name))
         await DisciplineScreen.deleteDiscipline(discipline.createDisciplineSuccess.name)
     })
 
-     it('When not fill required fields, Should not create discipline', async () => {
-        await DisciplineScreen.createDiscipline(discipline.createDisciplineSuccess)
-        await DisciplineScreen.assertEnabled(await DisciplineScreen.accessElementByText(discipline.createDisciplineSuccess.name))
-        await DisciplineScreen.deleteDiscipline(discipline.createDisciplineSuccess.name)
+    it('When not fill required fields, Should not create discipline', async () => {
+        for (const data of discipline.InputWithInvalidFields) {
+            await DisciplineScreen.fillFields(data)
+            await DisciplineScreen.assertNotEnabled(await DisciplineScreen.btnSaveDiscipline)
+            await DisciplineScreen.closeModal()
+
+        }
     })
 })

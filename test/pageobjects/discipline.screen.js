@@ -12,11 +12,11 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_create_discipline")')
     }
 
-    get inputDiscipline(){
+    get inputDiscipline() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/et_discipline")')
     }
 
-    get inputTeacher(){
+    get inputTeacher() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/et_teacher")')
     }
 
@@ -24,7 +24,7 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_save_discipline")')
     }
 
-    btnOptionsDisicipline(text){
+    btnOptionsDisicipline(text) {
         return $(`//android.widget.TextView[@resource-id="com.fsacchi.schoolmate:id/tv_discipline_name" and @text="${text}"]/../android.widget.ImageView[@resource-id="com.fsacchi.schoolmate:id/iv_arrow"]`)
     }
 
@@ -39,11 +39,15 @@ class DisciplineScreen extends Page {
     async accessCreateDisciplineScreen() {
         await this.btnAccessCreateDisciplineModal.click()
     }
-    async createDiscipline(discipline) {
-        await this.btnDiscipline.click()
-        await this.btnAccessCreateDisciplineModal.click()
+
+    async fillFields(discipline) {
+        await this.accessCreateDisciplineScreen()
         await this.inputDiscipline.setValue(discipline.name)
         await this.inputTeacher.setValue(discipline.teacher)
+    }
+
+    async createDiscipline(discipline) {
+        await this.fillFields(discipline)
         await this.btnSaveDiscipline.click()
     }
 
