@@ -1,17 +1,30 @@
 {
-    "createDisciplineSuccess": 
-        {
-            "name": "Matematica",
-            "teacher": "Maria"
-        },
+    "createDisciplineSuccess": {
+        "name": "Matematica",
+        "teacher": "Maria"
+    },
     "InputWithInvalidFields": [
-       {
+        {
             "name": "",
             "teacher": "Maria"
         },
         {
             "name": "Matematica",
             "teacher": ""
+        }
+    ],
+    "editDisciplineSuccess": [
+        {
+            "name": "Portugues",
+            "teacher": "Maria"
+        },
+        {
+            "name": "Matematica",
+            "teacher": "Mario"
+        },
+        {
+            "name": "Ingles",
+            "teacher": "Britney"
         }
     ]
 }

@@ -32,6 +32,10 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().text("Excluir")')
     }
 
+    get btnEditDiscipline() {
+        return $('android=new UiSelector().text("Editar")')
+    }
+
     async accessDisciplineScreen() {
         await this.btnDiscipline.click()
     }
@@ -40,16 +44,28 @@ class DisciplineScreen extends Page {
         await this.btnAccessCreateDisciplineModal.click()
     }
 
+    async accessEditDisciplineScreen(discipline) {
+       await this.btnOptionsDisicipline(discipline).click()
+       await this.btnEditDiscipline.click()
+    }
+
     async fillFields(discipline) {
-        await this.accessCreateDisciplineScreen()
         await this.inputDiscipline.setValue(discipline.name)
         await this.inputTeacher.setValue(discipline.teacher)
     }
 
     async createDiscipline(discipline) {
+        await this.accessCreateDisciplineScreen()
         await this.fillFields(discipline)
         await this.btnSaveDiscipline.click()
     }
+
+    async editDiscipline(discipline, oldDisciplineName) {
+        await this.accessEditDisciplineScreen(oldDisciplineName)
+        await this.fillFields(discipline)
+        await this.btnSaveDiscipline.click()
+    }
+    
 
     async deleteDiscipline(name) {
         await this.btnOptionsDisicipline(name).click()
