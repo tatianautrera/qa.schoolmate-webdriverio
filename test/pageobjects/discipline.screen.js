@@ -8,6 +8,10 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_discipline")')
     }
 
+    get btnAppointments() {
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_agenda")')
+    }
+
     get btnAccessCreateDisciplineModal() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_create_discipline")')
     }
@@ -38,6 +42,10 @@ class DisciplineScreen extends Page {
 
     async accessDisciplineScreen() {
         await this.btnDiscipline.click()
+    }
+
+    async accessAppointmentsScreen() {
+        await this.btnAppointments.click()
     }
 
     async accessCreateDisciplineScreen() {
@@ -76,6 +84,13 @@ class DisciplineScreen extends Page {
         await this.btnOptionsDisicipline(name).click()
         await this.btnDeleteDiscipline.click()
     }
-}
+
+    async ListActivitiesDiscipline(discipline) {
+        await this.accessElementByText(discipline).click()
+    }
+
+    async assertMessage(message) {
+        await expect(this.accessElementByText(message)).toBeDisplayed()
+    }}
 
 export default new DisciplineScreen();
