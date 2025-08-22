@@ -8,14 +8,6 @@ class AppointmentsScreen extends Page {
         return $('android=new UiSelector().text("Agenda").instance(0)')
     }
 
-    get btnMoreOptions() {
-        return $('android=new UiSelector().description("More options")')
-    }
-
-    get btnFinishSession() {
-        return $('android=new UiSelector().text("Finalizar sessão")')
-    }
-
     get btnNewActivity() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_create_job")')
     }
@@ -66,11 +58,6 @@ class AppointmentsScreen extends Page {
 
     get txtWithoutActivity(){
         return $('android=new UiSelector().text("Nenhuma atividade na agenda")')
-    }
-
-    async finishSession() {
-        await this.btnMoreOptions.click()
-        await this.btnFinishSession.click()
     }
 
     async registerActivity(activity) {

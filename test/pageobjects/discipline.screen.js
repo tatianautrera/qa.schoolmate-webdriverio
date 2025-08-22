@@ -12,6 +12,10 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_agenda")')
     }
 
+    get btnAppointments() {
+        return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_agenda")')
+    }
+
     get btnAccessCreateDisciplineModal() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_create_discipline")')
     }

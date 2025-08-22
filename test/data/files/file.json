@@ -1,0 +1,19 @@
+{
+    "uploadFile": {
+        "title": "Upload de arquivo com sucesso",
+        "Discipline": "Cypress automação web",
+        "observation": "Teste de upload de arquivo"
+    },
+    "InputWithInvalidFields": [
+        {
+            "title": "",
+            "Discipline": "Cypress automação web",
+            "observation": "Teste de upload de arquivo"
+        },
+        {
+            "title": "Upload de arquivo com sucesso",
+            "Discipline": "",
+            "observation": "Teste de upload de arquivo"
+        }
+    ]
+}

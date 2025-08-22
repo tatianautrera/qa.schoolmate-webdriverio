@@ -26,8 +26,7 @@ describe('List activities per discipline test', () => {
         await AppointmentsScreen.deleteActivity() 
         await AppointmentsScreen.finishSession();
     })
-
-//escrevendo o cenario de teste
+    
     it('Given have an activity for discipline, When access activity, Should return all axtivities for discipline', async () => {
         await DisciplineScreen.ListActivitiesDiscipline(appointments.ValidActivity[0].discipline)
         await AppointmentsScreen.assertActivityCreated(appointments.ValidActivity[0])

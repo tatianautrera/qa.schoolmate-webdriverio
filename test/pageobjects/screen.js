@@ -24,17 +24,29 @@ export default class Page {
     get messageScreen() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_message")')
     }
-
-    get btnCloseModal(){
+    get btnCloseModal() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/iv_close")')
     }
 
-    get btnYes(){
+    get btnYes() {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/btn_positive")')
     }
-    
+
     get btnPermission() {
         return $('android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
+    }
+
+    get btnMoreOptions() {
+        return $('android=new UiSelector().description("More options")')
+    }
+
+    get btnFinishSession() {
+        return $('android=new UiSelector().text("Finalizar sessão")')
+    }
+
+    async finishSession() {
+        await this.btnMoreOptions.click()
+        await this.btnFinishSession.click()
     }
 
     accessElementByText(text) {
@@ -67,22 +79,25 @@ export default class Page {
         });
     }
     async getDayCurrent(date) {
-        let day= await date.toString().substring(0, 2);
+        let day = await date.toString().substring(0, 2);
         return await day.toString().replace(/^0+/, '');;
     }
 
     async assertEnabled(selector) {
-        await expect(selector).toHaveAttribute("enabled", 'true') 
+        await expect(selector).toHaveAttribute("enabled", 'true')
     }
     async assertNotEnabled(selector) {
-        await expect(selector).toHaveAttribute("enabled", 'false') 
+        await expect(selector).toHaveAttribute("enabled", 'false')
     }
 
-    async closeModal(){
+    async closeModal() {
         await this.btnCloseModal.click()
     }
 
     async elementNotDisplayed(selector) {
         await expect(selector).not.toBeDisplayed()
+    }
+    async elementDisplayed(selector) {
+        await expect(selector).toBeDisplayed()
     }
 }
