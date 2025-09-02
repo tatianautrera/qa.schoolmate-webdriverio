@@ -49,7 +49,7 @@ class FileScreen extends Page {
         return $('android=new UiSelector().resourceId("com.fsacchi.schoolmate:id/tv_description_job")')
     }
 
-     btnOptionsFile(text) {
+    btnOptionsFile(text) {
         return $(`//android.widget.TextView[@resource-id="com.fsacchi.schoolmate:id/tv_name_file" and @text="${text}"]/../android.widget.ImageView[@resource-id="com.fsacchi.schoolmate:id/iv_arrow"]`)
     }
 
@@ -82,14 +82,26 @@ class FileScreen extends Page {
         await this.inputSelectImage.click();
     }
 
-    async deleteFile(title){
+    async deleteFile(title) {
         await this.openModalDeleteFile(title)
         await this.btnYes.click()
     }
 
-    async openModalDeleteFile(title){
+    async openModalDeleteFile(title) {
         await this.btnOptionsFile(title).click()
         await this.accessElementByText("Excluir").click()
+    }
+
+    async EditFile(file, newFile) {
+        await this.btnOptionsFile(file.title).click()
+        await this.accessElementByText("Editar").click()
+        await this.inputTitle.setValue(newFile.title)
+        if (file.Discipline != "") {
+            await this.inputDiscipline.click()
+            await this.accessElementByText(newFile.Discipline).click()
+        }
+        await this.inputObservation.setValue(newFile.observation)
+        await this.btnSaveUpload.click()
     }
 
     async assertMessage(message) {

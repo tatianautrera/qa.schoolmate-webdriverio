@@ -15,5 +15,16 @@
             "Discipline": "",
             "observation": "Teste de upload de arquivo"
         }
-    ]
+    ],
+    "EditFile": {
+        "title": "Edição de arquivo com sucesso",
+        "Discipline": "Robot framework basico",
+        "observation": "Teste de edição de arquivo Edição"
+    },
+    "EditInputWithInvalidFields":
+        {
+            "title": "",
+            "Discipline": "Cypress automação web",
+            "observation": "Teste de upload de arquivo"
+        }
 }
