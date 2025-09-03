@@ -97,6 +97,7 @@ export default class Page {
     async elementNotDisplayed(selector) {
         await expect(selector).not.toBeDisplayed()
     }
+
     async elementDisplayed(selector) {
         await expect(selector).toBeDisplayed()
     }

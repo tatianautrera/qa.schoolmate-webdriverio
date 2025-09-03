@@ -44,6 +44,10 @@ class DisciplineScreen extends Page {
         return $('android=new UiSelector().text("Editar")')
     }
 
+    get ModalFiles() {
+        return $('android=new UiSelector().description("Arquivos")')
+    }
+
     async accessDisciplineScreen() {
         await this.btnDiscipline.click()
     }
@@ -59,6 +63,10 @@ class DisciplineScreen extends Page {
     async accessEditDisciplineScreen(discipline) {
        await this.btnOptionsDisicipline(discipline).click()
        await this.btnEditDiscipline.click()
+    }
+
+    async accessModalFiles(){
+        await this.ModalFiles.click()
     }
 
     async fillFields(discipline) {
